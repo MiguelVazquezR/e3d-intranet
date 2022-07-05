@@ -7,14 +7,12 @@ use App\Models\Product;
 use App\Models\StockActionType;
 use App\Models\StockMovement;
 use App\Models\StockProduct;
+use App\ServiceClasses\ImageHandler;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Str;
-
 class EditStock extends Component
 {
     use WithFileUploads;
@@ -98,11 +96,10 @@ class EditStock extends Component
 
         if ($this->image) {
             Storage::delete([$this->stock_product->image]);
-            //storage optimized image
-            $image_name = time() . Str::random(10) . '.' . $this->image->extension();
-            $image_path = storage_path() . "/app/public/stock_products/$image_name";
-            Image::make($this->image)
-            ->save($image_path, 40);
+
+            // edit image and save it on server
+            $image_name = ImageHandler::optimize($this->image, "stock_products");
+
             $this->stock_product->image = "public/stock_products/$image_name";
         }
 

@@ -319,10 +319,6 @@
                 @endif
                 <div class="lg:grid lg:grid-cols-2 lg:gap-2 mb-1 text-sm text-gray-500 p-1">
                     @forelse($soon_customers_birthdays as $birthday)
-                        @php
-                            $birthday["contact"] = App\Models\Contact::find($birthday['contact']['id']);
-                            $birthday["customer"] = App\Models\Customer::find($birthday['customer']['id']);
-                        @endphp
                         <x-avatar-with-title-subtitle>
                             <x-slot name="title">
                                 {{ $birthday['contact']->name }} <br>

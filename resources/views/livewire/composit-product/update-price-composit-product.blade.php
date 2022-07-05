@@ -14,18 +14,12 @@
                 <div>
                     <x-jet-label value="Precio nuevo" class="mt-3" />
                     <x-jet-input wire:model.defer="new_price" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="new_price" class="mt-3" />
+                    <x-jet-input-error for="new_price" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Moneda" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="new_price_currency">
-                        @forelse($currencies as $currency)
-                        <option value="{{ $currency->name }}">{{ $currency->name }}</option>
-                        @empty
-                        <option value="">No hay ninguna moneda registrada</option>
-                        @endforelse
-                    </x-select>
-                    <x-jet-input-error for="new_price_currency" class="mt-3" />
+                    <x-select class="mt-2 w-full" wire:model.defer="new_price_currency" :options="$currencies" id="name" />
+                    <x-jet-input-error for="new_price_currency" class="text-xs" />
                 </div>
             </div>
         </x-slot>
