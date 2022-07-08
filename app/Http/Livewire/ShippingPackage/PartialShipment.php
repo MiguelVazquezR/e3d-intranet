@@ -15,7 +15,8 @@ class PartialShipment extends Component
         $open = false,
         $sell_order,
         $selected_packages = [],
-        $packages_list = [];
+        $packages_list = [],
+        $notify_contact;
 
     protected $listeners = [
         'openModal',
@@ -31,9 +32,10 @@ class PartialShipment extends Component
         }
     }
 
-    public function openModal(SellOrder $sell_order)
+    public function openModal(SellOrder $sell_order, $notify_contact)
     {
         $this->open = true;
+        $this->notify_contact = $notify_contact;
         $this->sell_order = $sell_order;
         $this->loadPackages();
     }
@@ -68,10 +70,14 @@ class PartialShipment extends Component
         $this->sell_order->save();
 
         // send email notification
-         Mail::to($this->sell_order->contact->email)
-             ->cc('maribel@emblemas3d.com')
-        //     ->bcc('miguelvz26.mv@gmail.com')
-         ->queue(new SellOrderShippedMailable( $this->sell_order, ShippingPackage::whereIn('id', $this->selected_packages)->get() ));
+        if ($this->notify_contact) {
+            Mail::to($this->sell_order->contact->email)
+                ->bcc('maribel@emblemas3d.com')
+                ->queue(new SellOrderShippedMailable($this->sell_order, ShippingPackage::whereIn('id', $this->selected_packages)->get()));
+        } else {
+            Mail::to('maribel@emblemas3d.com')
+                ->queue(new SellOrderShippedMailable($this->sell_order, ShippingPackage::whereIn('id', $this->selected_packages)->get()));
+        }
 
         $this->reset();
         $this->emitTo('sell-order.sell-orders', 'render');

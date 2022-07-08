@@ -15,7 +15,8 @@ class ShippingPackages extends Component
         $loading = false,
         $sell_order,
         $products_for_package = [],
-        $packaged_products = [];
+        $packaged_products = [],
+        $notify_contact = 1;
 
     protected $listeners = [
         'openModal',
@@ -58,12 +59,12 @@ class ShippingPackages extends Component
 
     public function partialShipment()
     {
-        $this->emitTo('shipping-package.partial-shipment', 'openModal', $this->sell_order);
+        $this->emitTo('shipping-package.partial-shipment', 'openModal', $this->sell_order, $this->notify_contact);
     }
 
     public function alert()
     {
-        $this->emit('confirm', ['shipping-package.shipping-packages', 'shipment', '', "Se enviará un correo a {$this->sell_order->contact->email} con los paquetes que se envían."]);
+        $this->emit('confirm', ['shipping-package.shipping-packages', 'shipment', '', "Se notificará a gerencia de este movimiento"]);
         $this->loading = true;
     }
 
@@ -80,14 +81,18 @@ class ShippingPackages extends Component
         $this->sell_order->save();
 
         // send email notification
-         Mail::to($this->sell_order->contact->email)
-             ->cc('maribel@emblemas3d.com')
-        //     ->bcc('miguelvz26.mv@gmail.com')
-             ->queue(new SellOrderShippedMailable($this->sell_order));
+        if ($this->notify_contact) {
+            Mail::to($this->sell_order->contact->email)
+                ->bcc('maribel@emblemas3d.com')
+                ->queue(new SellOrderShippedMailable($this->sell_order));
+        } else {
+            Mail::to('maribel@emblemas3d.com')
+                ->queue(new SellOrderShippedMailable($this->sell_order));
+        }
 
         $this->resetExcept('sell_order');
         $this->emitTo('sell-order.sell-orders', 'render');
-        $this->emit('success', 'Paquetes enviados, se ha notificado al contacto de esta orden por correo');
+        $this->emit('success', 'Paquetes enviados');
     }
 
     public function loadPackages()
