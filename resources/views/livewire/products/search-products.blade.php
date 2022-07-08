@@ -1,13 +1,6 @@
 <div>
     <x-jet-label value="Producto" class="mt-3" />
-    <x-select class="mt-2 w-full" wire:model.defer="family">
-        <option value="" selected>Todas las familias</option>
-        @forelse($families as $family)
-        <option value="{{ $family->id }}">{{ $family->name }}</option>
-        @empty
-        <option value="">No hay ninguna familia registrada</option>
-        @endforelse
-    </x-select>
+    <x-select class="mt-2 w-full" wire:model.defer="family" :options="$families" default="Todas las familias" />
     <x-jet-input 
     wire:model="query"
     wire:keydown.tab="clear"

@@ -22,22 +22,18 @@
       <div class="w-3/4 mx-auto flex justify-between pt-8">
          <div>
             <span class="mr-2 text-sm">Ver</span>
-            <x-select class="mt-2 w-3/4" wire:model="filter_family">
-               <option value="" selected>Todas las familias</option>
-               @foreach($families as $family)
-               <option value="{{ $family->id }}">{{ $family->name }}</option>
-               @endforeach
-            </x-select>
-         </div>
-         <div>
+            <x-select class="mt-2 w-3/4" wire:model="filter_family" :options="$families"
+                default="Todas las familias" />
+        </div>
+        <div>
             <span class="mr-2 text-sm">Mostrar</span>
-            <x-select class="mt-2" wire:model="elements">
-               <option value="10" selected>10</option>
-               <option value="25">25</option>
-               <option value="50">50</option>
-               <option value="100">100</option>
-            </x-select>
-         </div>
+            <select class="mt-2 input" wire:model="elements">
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
       </div>
 
       <!-- banner -->

@@ -18,39 +18,25 @@
             <div>
                 <x-jet-label value="Nombre" class="mt-1" />
                 <x-jet-input wire:model.defer="alias" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="alias" class="mt-3" />
+                <x-jet-input-error for="alias" class="text-xs" />
             </div>
                             
             <div class="mb-4">
                 <x-jet-label value="Estado" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model.defer="product_status_id">
-                    <option value="" selected>--- Seleccione ---</option>
-                    @forelse($statuses as $status)
-                    <option value="{{ $status->id }}">{{ $status->name }}</option>
-                    @empty
-                    <option value="">No hay ningun estado registrado</option>
-                    @endforelse
-                </x-select>
+                <x-select class="mt-2 w-3/4" wire:model.defer="product_status_id" :options="$statuses" />
                 <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('product-status.create-product-status', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
-                <x-jet-input-error for="product_status_id" class="mt-3" />
+                <x-jet-input-error for="product_status_id" class="text-xs" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value="Familia" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model="product_family_id">
-                    <option value="" selected>--- Seleccione ---</option>
-                    @forelse($families as $family)
-                    <option value="{{ $family->id }}">{{ $family->name }}</option>
-                    @empty
-                    <option value="">No hay ninguna familia registrada</option>
-                    @endforelse
-                </x-select>
+                <x-select class="mt-2 w-3/4" wire:model="product_family_id" :options="$families" />
                 <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('product-family.create-product-family', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
-                <x-jet-input-error for="product_family_id" class="mt-1" />
+                <x-jet-input-error for="product_family_id" class="text-xs" />
             </div>
 
             <x-image-uploader :image="$image" :imageExtensions="$image_extensions" :imageId="$image_id" />
@@ -90,12 +76,12 @@
                             <x-jet-input wire:model.defer="quantity" type="number" min="1" class="w-1/2 mt-2" />
                             <span class="w-1/2 ml-2 text-gray-600 text-sm">{{ $selected_product->unit->name }}</span>
                         </div>
-                        <x-jet-input-error for="quantity" class="mt-3" />
+                        <x-jet-input-error for="quantity" class="text-xs" />
                     </div>
                     <div>
                         <x-jet-label value="Características adicionales o personalización" class="mt-3" />
                         <textarea wire:model.defer="notes" rows="2" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                        <x-jet-input-error for="notes" class="mt-3" />
+                        <x-jet-input-error for="notes" class="text-xs" />
                     </div>
                 </div>
 
@@ -115,7 +101,7 @@
                 </x-product-quick-view>
             </x-item-list>
             @endforeach
-            <x-jet-input-error for="products_list" class="mt-3" />
+            <x-jet-input-error for="products_list" class="text-xs" />
         </x-slot>
 
         <x-slot name="footer" class="mt-8">

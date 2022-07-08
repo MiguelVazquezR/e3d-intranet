@@ -13,14 +13,7 @@
 
             <div class="mb-4">
                 <x-jet-label value="Estado" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model.defer="composit_product.product_status_id">
-                    <option value="" selected>--- Seleccione ---</option>
-                    @forelse($statuses as $status)
-                    <option value="{{ $status->id }}">{{ $status->name }}</option>
-                    @empty
-                    <option value="">No hay ningun estado registrado</option>
-                    @endforelse
-                </x-select>
+                <x-select class="mt-2 w-3/4" wire:model.defer="composit_product.product_status_id" :options="$statuses" />
                 <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('product-status.create-product-status', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
@@ -29,14 +22,7 @@
 
             <div class="mb-4">
                 <x-jet-label value="Familia" class="mt-3" />
-                <x-select class="mt-2 w-full" wire:model.defer="composit_product.product_family_id">
-                    <option value="" selected>--- Seleccione ---</option>
-                    @forelse($families as $family)
-                    <option value="{{ $family->id }}">{{ $family->name }}</option>
-                    @empty
-                    <option value="">No hay ninguna familia registrada</option>
-                    @endforelse
-                </x-select>
+                <x-select class="mt-2 w-full" wire:model.defer="composit_product.product_family_id" :options="$families" />
                 <x-jet-input-error for="composit_product.product_family_id" class="text-xs" />
             </div>
 

@@ -5,11 +5,10 @@ namespace App\Http\Livewire\Stock;
 use App\Models\MovementHistory;
 use App\Models\Product;
 use App\Models\StockProduct;
+use App\ServiceClasses\ImageHandler;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Str;
 
 class CreateStock extends Component
 {
@@ -72,11 +71,8 @@ class CreateStock extends Component
     {
         $this->validate();
 
-        //storage optimized image
-        $image_name = time() . Str::random(10) . '.' . $this->image->extension();
-        $image_path = storage_path() . "/app/public/stock_products/$image_name";
-        Image::make($this->image)
-            ->save($image_path, 40);
+        // edit image and save it on server
+        $image_name = ImageHandler::optimize($this->image, "stock_products");
 
         $stock_product = StockProduct::create([
             'product_id'  =>  $this->selected_product->id,
