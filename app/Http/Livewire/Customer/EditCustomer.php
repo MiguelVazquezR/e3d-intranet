@@ -112,9 +112,9 @@ class EditCustomer extends Component
         foreach ($this->company->customers as $customer) {
             $contacts_list = [];
             foreach ($customer->contacts as $i => $contact) {
-                if ($contact->model_name == Customer::class) {
+                $contacts_list[] = $contact->toArray();
+                if ($contact->birth_date) {
                     $birth_date = $contact->birth_date->isoFormat('YYYY-MM-DD');
-                    $contacts_list[] = $contact->toArray();
                     $contacts_list[$i]["birth_date"] = $birth_date;
                 }
             }
@@ -129,7 +129,7 @@ class EditCustomer extends Component
     {
         $this->emitTo('company-has-product-for-sell.edit-company-has-product-for-sell', 'openModal', $product_for_sell);
     }
-    
+
     public function updatePriceProductForSell(CompanyHasProductForSell $product_for_sell)
     {
         $this->emitTo('company-has-product-for-sell.edit-price-product-for-sell', 'openModal', $product_for_sell);
@@ -231,7 +231,7 @@ class EditCustomer extends Component
             'name' => $this->contact_name,
             'phone' => $this->contact_phone,
             'email' => $this->email,
-            'birth_date' => '2021-'.$this->month.'-'.$this->day,
+            'birth_date' => '2021-' . $this->month . '-' . $this->day,
         ]);
 
         $this->contact_list[] = $contact->toArray();
@@ -278,20 +278,19 @@ class EditCustomer extends Component
                 'name' => $this->contact_name,
                 'phone' => $this->contact_phone,
                 'email' => $this->email,
-                'birth_date' => '2021-'.$this->month.'-'.$this->day,
+                'birth_date' => '2021-' . $this->month . '-' . $this->day,
             ]);
         } else {
             $contact = new Contact([
                 'name' => $this->contact_name,
                 'phone' => $this->contact_phone,
                 'email' => $this->email,
-                'birth_date' => '2021-'.$this->month.'-'.$this->day,
+                'birth_date' => '2021-' . $this->month . '-' . $this->day,
             ]);
         }
 
         $this->contact_list[$this->edit_contact_index] = $contact->toArray();
         $this->contact_list[$this->edit_contact_index]["birth_date"] = $contact->birth_date->isoFormat('YYYY-MM-DD');
-
         $this->resetContact();
     }
 
@@ -314,7 +313,7 @@ class EditCustomer extends Component
         $this->contact_name = $this->contact_list[$index]["name"];
         $this->contact_phone = $this->contact_list[$index]["phone"];
         $this->email = $this->contact_list[$index]["email"];
-        if($contact->birth_date->isoFormat('YYYY') == '2021' ) {
+        if ($contact->birth_date && $contact->birth_date->isoFormat('YYYY') == '2021') {
             $this->day = $contact->birth_date->isoFormat('D');
             $this->month = $contact->birth_date->isoFormat('M');
         }

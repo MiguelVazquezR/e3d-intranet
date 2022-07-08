@@ -60,7 +60,7 @@ class CreateUserHasSellOrderedProduct extends Component
                 + $validated_data
         );
 
-        $this->activities_detail_list[] = $activities_detail;
+        $this->activities_detail_list[] = $activities_detail->toArray();
 
         $this->resetItem();
     }

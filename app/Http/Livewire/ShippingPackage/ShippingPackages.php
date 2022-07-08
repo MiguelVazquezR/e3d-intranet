@@ -86,8 +86,8 @@ class ShippingPackages extends Component
                 ->bcc('maribel@emblemas3d.com')
                 ->queue(new SellOrderShippedMailable($this->sell_order));
         } else {
-            Mail::to('maribel@emblemas3d.com')
-                ->queue(new SellOrderShippedMailable($this->sell_order));
+             Mail::to('maribel@emblemas3d.com')
+                 ->queue(new SellOrderShippedMailable($this->sell_order));
         }
 
         $this->resetExcept('sell_order');

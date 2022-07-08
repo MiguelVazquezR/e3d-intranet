@@ -69,14 +69,7 @@
                 </div>
                 <div>
                     <x-jet-label value="Moneda" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="freight_currency">
-                        <option value="" selected>No colocar moneda</option>
-                        @forelse($currencies as $currency)
-                            <option value="{{ $currency->name }}">{{ $currency->name }}</option>
-                        @empty
-                            <option value="">No hay ninguna moneda registrada</option>
-                        @endforelse
-                    </x-select>
+                    <x-select class="mt-2 w-full" wire:model.defer="freight_currency" :options="$currencies" id="name" default="No colocar moneda" />
                 </div>
                 <div>
                     <x-jet-label value="Guía" class="mt-3" />
@@ -90,11 +83,11 @@
             <div class="lg:grid lg:grid-cols-3 lg:gap-3">
                 <div>
                     <x-jet-label value="Prioridad" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="sell_order.priority">
+                    <select class="input mt-2 w-full" wire:model.defer="sell_order.priority">
                         <option value="Normal" selected>Normal</option>
                         <option value="Urgente">Urgente</option>
                         <option value="Especial">Especial</option>
-                    </x-select>
+                    </select>
                 </div>
                 <div>
                     <x-jet-label value="Medio de petición" class="mt-3" />
