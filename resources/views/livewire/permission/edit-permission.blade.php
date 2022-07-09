@@ -13,7 +13,7 @@
             <div>
                 <x-jet-label value="Nombre del permiso" class="mt-3" />
                 <x-jet-input wire:model.defer="permission.name" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="permission.name" class="mt-3" />
+                <x-jet-input-error for="permission.name" class="text-xs" />
             </div>
         </x-slot>
 

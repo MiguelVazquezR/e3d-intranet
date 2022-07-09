@@ -17,12 +17,12 @@
                 <div  class="col-span-2">
                     <x-jet-label value="Cantidad {{ $product_for_buy ? '('.$product_for_buy->unit->name.')' : '' }}" class="mt-3" />
                     <x-jet-input wire:model.defer="quantity" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="quantity" class="mt-1" />
+                    <x-jet-input-error for="quantity" class="text-xs" />
                 </div>
                 <div  class="col-span-full">
                     <x-jet-label value="Código" class="mt-3" />
                     <x-jet-input wire:model.defer="code" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="code" class="mt-1" />
+                    <x-jet-input-error for="code" class="text-xs" />
                 </div>
             </div>
 
@@ -33,7 +33,7 @@
                 <x-jet-label value="Notas" />
                 <textarea wire:model.defer="notes" rows="3"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                <x-jet-input-error for="notes" class="mt-3" />
+                <x-jet-input-error for="notes" class="text-xs" />
             </div>
         </x-slot>
 

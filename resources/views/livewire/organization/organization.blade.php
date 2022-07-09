@@ -12,50 +12,50 @@
         <div>
             <x-jet-label value="Nombre" class="mt-3" />
             <x-jet-input wire:model.defer="organization.name" type="text" class="w-full" />
-            <x-jet-input-error for="organization.name" class="mt-1" />
+            <x-jet-input-error for="organization.name" class="text-xs" />
         </div>
 
         <div>
             <x-jet-label value="Razón social" class="mt-3" />
             <x-jet-input wire:model.defer="organization.bussiness_name" type="text" class="w-full" />
-            <x-jet-input-error for="organization.bussiness_name" class="mt-1" />
+            <x-jet-input-error for="organization.bussiness_name" class="text-xs" />
         </div>
 
         <div>
             <x-jet-label value="RFC" class="mt-3" />
             <x-jet-input wire:model.defer="organization.rfc" type="text" class="w-full" />
-            <x-jet-input-error for="organization.rfc" class="mt-1" />
+            <x-jet-input-error for="organization.rfc" class="text-xs" />
         </div>
 
         <div class="grid grid-cols-2 gap-x-2">
             <div>
                 <x-jet-label value="Teléfono 1" class="mt-3" />
                 <x-jet-input wire:model.defer="organization.phone1" type="text" class="w-full" />
-                <x-jet-input-error for="organization.phone1" class="mt-1" />
+                <x-jet-input-error for="organization.phone1" class="text-xs" />
             </div>
             <div>
                 <x-jet-label value="Teléfono 2" class="mt-3" />
                 <x-jet-input wire:model.defer="organization.phone2" type="text" class="w-full" />
-                <x-jet-input-error for="organization.phone2" class="mt-1" />
+                <x-jet-input-error for="organization.phone2" class="text-xs" />
             </div>
         </div>
 
         <div>
             <x-jet-label value="Sitio web" class="mt-3" />
             <x-jet-input wire:model.defer="organization.web_site" type="text" class="w-full" />
-            <x-jet-input-error for="organization.web_site" class="mt-1" />
+            <x-jet-input-error for="organization.web_site" class="text-xs" />
         </div>
 
         <div class="grid grid-cols-4 gap-x-2">
             <div class="col-span-3">
                 <x-jet-label value="Dirección" class="mt-3" />
                 <x-jet-input wire:model.defer="organization.address" type="text" class="w-full" />
-                <x-jet-input-error for="organization.address" class="mt-1" />
+                <x-jet-input-error for="organization.address" class="text-xs" />
             </div>
             <div>
                 <x-jet-label value="C.P." class="mt-3" />
                 <x-jet-input wire:model.defer="organization.post_code" type="number" class="w-full" />
-                <x-jet-input-error for="organization.post_code" class="mt-1" />
+                <x-jet-input-error for="organization.post_code" class="text-xs" />
             </div>
         </div>
     </div>

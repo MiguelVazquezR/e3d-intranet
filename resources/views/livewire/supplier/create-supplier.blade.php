@@ -150,22 +150,22 @@
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
                                     <x-jet-label value="Día" class="mt-3" />
-                                    <x-select class="mt-2 w-full" wire:model.defer="day">
+                                    <select class="input mt-2 w-full" wire:model.defer="day">
                                         <option value="">-- Seleccione --</option>
                                         @for ($day = 1; $day <= 31; $day++)
                                             <option value="{{ $day }}">{{ $day }}</option>
                                         @endfor
-                                    </x-select>
+                                    </select>
                                     <x-jet-input-error for="day" class="text-xs" />
                                 </div>
                                 <div>
                                     <x-jet-label value="Mes" class="mt-3" />
-                                    <x-select class="mt-2 w-full" wire:model.defer="month">
+                                    <select class="input mt-2 w-full" wire:model.defer="month">
                                         <option value="">-- Seleccione --</option>
                                         @foreach ($months as $key => $month)
                                             <option value="{{ $key }}">{{ $month }}</option>
                                         @endforeach
-                                    </x-select>
+                                    </select>
                                     <x-jet-input-error for="month" class="text-xs" />
                                 </div>
                             </div>

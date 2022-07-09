@@ -45,23 +45,23 @@
                                     </label>
                                 @endif
                             @endforeach
-                            <x-jet-input-error for="purchase_order.contact_id" class="mt-1" />
+                            <x-jet-input-error for="purchase_order.contact_id" class="text-xs" />
                         </div>
                     </div>
                 @endif
-                <x-jet-input-error for="supplier" class="mt-1" />
+                <x-jet-input-error for="supplier" class="text-xs" />
             </div>
             <h2 class="text-center font-bold text-lg text-sky-600 mt-2">Logística</h2>
             <div class="lg:grid lg:grid-cols-2 lg:gap-2">
                 <div>
                     <x-jet-label value="Paquetería" class="mt-3" />
                     <x-jet-input wire:model.defer="purchase_order.shipping_company" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="purchase_order.shipping_company" class="mt-1" />
+                    <x-jet-input-error for="purchase_order.shipping_company" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Guía" class="mt-3" />
                     <x-jet-input wire:model.defer="purchase_order.tracking_guide" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="purchase_order.tracking_guide" class="mt-1" />
+                    <x-jet-input-error for="purchase_order.tracking_guide" class="text-xs" />
                 </div>
             </div>
 
@@ -70,7 +70,7 @@
             <div>
                 <x-jet-label value="Fecha esperada de entrega" class="mt-3" />
                 <x-jet-input wire:model.defer="expected_delivery_at" type="date" class="w-full mt-2" />
-                <x-jet-input-error for="expected_delivery_at" class="mt-1" />
+                <x-jet-input-error for="expected_delivery_at" class="text-xs" />
             </div>
 
             <!-- products -->
@@ -79,7 +79,7 @@
                 <i wire:click="addPurchaseOrderedProducts"
                     class="fas fa-plus-circle text-green-600 hover:cursor-pointer ml-3"></i>
             </h2>
-            <x-jet-input-error for="purchase_ordered_products_list" class="mt-2" />
+            <x-jet-input-error for="purchase_ordered_products_list" class="text-xs" />
             @foreach ($purchase_ordered_products_list as $i => $purchase_ordered_product)
                 @php
                     $p_o_p = new App\Models\PurchaseOrderedProduct($purchase_ordered_product);
@@ -101,7 +101,7 @@
                 <x-jet-label value="Notas" />
                 <textarea wire:model.defer="purchase_order.notes" rows="3"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                <x-jet-input-error for="purchase_order.notes" class="mt-1" />
+                <x-jet-input-error for="purchase_order.notes" class="text-xs" />
             </div>
             {{-- <label class="inline-flex items-center mt-3 text-xs">
                 <input wire:model="purchase_order.iva_included" type="checkbox" value="1" class="rounded">

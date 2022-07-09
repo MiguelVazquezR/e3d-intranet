@@ -10,18 +10,18 @@
                 <div class="lg:col-span-full">
                     <x-jet-label value="Nombre" class="mt-3" />
                     <x-jet-input wire:model.defer="supplier.name" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="supplier.name" class="mt-1" />
+                    <x-jet-input-error for="supplier.name" class="text-xs" />
                 </div>
                 <div class="lg:col-span-3">
                     <x-jet-label value="Dirección" class="mt-3" />
                     <x-jet-input wire:model.defer="supplier.address" type="text" class="w-full mt-2 placeholder:text-xs"
                         placeholder="calle, colonia, # interior y/o exterior, ciudad, estado, país" />
-                    <x-jet-input-error for="supplier.address" class="mt-1" />
+                    <x-jet-input-error for="supplier.address" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="C.P." class="mt-3" />
                     <x-jet-input wire:model.defer="supplier.post_code" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="supplier.post_code" class="mt-1" />
+                    <x-jet-input-error for="supplier.post_code" class="text-xs" />
                 </div>
             </div>
 
@@ -115,41 +115,41 @@
                     <div>
                         <x-jet-label value="Nombre" class="mt-1" />
                         <x-jet-input wire:model.defer="contact_name" type="text" class="w-full mt-2" />
-                        <x-jet-input-error for="contact_name" class="mt-3" />
+                        <x-jet-input-error for="contact_name" class="text-xs" />
                     </div>
 
                     <div class="lg:grid lg:grid-cols-2 lg:gap-x-2">
                         <div>
                             <x-jet-label value="Correo" class="mt-3" />
                             <x-jet-input wire:model.defer="email" type="text" class="w-full mt-2 placeholder:text-xs" />
-                            <x-jet-input-error for="email" class="mt-3" />
+                            <x-jet-input-error for="email" class="text-xs" />
                         </div>
                         <div>
                             <x-jet-label value="Teléfono" class="mt-3" />
                             <x-jet-input wire:model.defer="contact_phone" type="text" class="w-full mt-2" />
-                            <x-jet-input-error for="contact_phone" class="mt-3" />
+                            <x-jet-input-error for="contact_phone" class="text-xs" />
                         </div>
                         <div class="col-span-full">
                             <x-jet-label value="Fecha de nacimiento" class="mt-3" />
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
                                     <x-jet-label value="Día" class="mt-3" />
-                                    <x-select class="mt-2 w-full" wire:model.defer="day">
+                                    <select class="input mt-2 w-full" wire:model.defer="day">
                                         <option value="">-- Seleccione --</option>
                                         @for ($day = 1; $day <= 31; $day++)
                                             <option value="{{ $day }}">{{ $day }}</option>
                                         @endfor
-                                    </x-select>
+                                    </select>
                                     <x-jet-input-error for="day" class="mt-1" />
                                 </div>
                                 <div>
                                     <x-jet-label value="Mes" class="mt-3" />
-                                    <x-select class="mt-2 w-full" wire:model.defer="month">
+                                    <select class="input mt-2 w-full" wire:model.defer="month">
                                         <option value="">-- Seleccione --</option>
                                         @foreach ($months as $key => $month)
                                             <option value="{{ $key }}">{{ $month }}</option>
                                         @endforeach
-                                    </x-select>
+                                    </select>
                                     <x-jet-input-error for="month" class="mt-3" />
                                 </div>
                             </div>

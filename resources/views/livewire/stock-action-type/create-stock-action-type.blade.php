@@ -9,15 +9,15 @@
             <div>
                 <x-jet-label value="Nombre" class="mt-3" />
                 <x-jet-input wire:model.defer="name" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="name" class="mt-3" />
+                <x-jet-input-error for="name" class="text-xs" />
             </div>
 
             <x-jet-label value="Tipo" class="mt-3" />
-            <x-select class="w-1/2 mt-2" wire:model.defer="movement">
+            <select class="input w-1/2 mt-2" wire:model.defer="movement">
                 <option value="1">Entrada</option>
                 <option value="0">Salida</option>
-            </x-select>
-            <x-jet-input-error for="movement" class="mt-3" />
+            </select>
+            <x-jet-input-error for="movement" class="text-xs" />
 
         </x-slot>
 

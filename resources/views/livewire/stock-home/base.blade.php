@@ -6,10 +6,10 @@
                     <i class="fas fa-box-open mr-2"></i>
                     Inventario
                 </div>
-                @if($simple_product_stock)
-                @livewire('stock.create-stock')
+                @if ($simple_product_stock)
+                    @livewire('stock.create-stock')
                 @else
-                @livewire('stock-composit-product.create-stock-composit-product')
+                    @livewire('stock-composit-product.create-stock-composit-product')
                 @endif
             </h2>
         </div>
@@ -17,20 +17,22 @@
 
     <div class="flex items-center justify-between w-11/12 my-3 mx-auto">
         <div class="rounded-full p-2 bg-white shadow-md">
-            <span wire:click="$set('simple_product_stock', true)" class="{{ $simple_product_stock ? 'bg-blue-100 text-blue-500 border border-blue-500 rounded-full p-1 hover:cursor-pointer' : 'text-gray-700 p-1 hover:cursor-pointer' }}">
+            <span wire:click="$set('simple_product_stock', true)"
+                class="{{ $simple_product_stock ? 'bg-blue-100 text-blue-500 border border-blue-500 rounded-full p-1 hover:cursor-pointer' : 'text-gray-700 p-1 hover:cursor-pointer' }}">
                 Productos simples
             </span>
-            <span wire:click="$set('simple_product_stock', false)" class="{{ $simple_product_stock ? 'text-gray-700 p-1 hover:cursor-pointer' : 'bg-blue-100 text-blue-500 border border-blue-500 rounded-full p-1 hover:cursor-pointer' }}">
+            <span wire:click="$set('simple_product_stock', false)"
+                class="{{ $simple_product_stock ? 'text-gray-700 p-1 hover:cursor-pointer' : 'bg-blue-100 text-blue-500 border border-blue-500 rounded-full p-1 hover:cursor-pointer' }}">
                 Productos compuestos
             </span>
         </div>
     </div>
 
     <!-- module type content (simple or composite products) -->
-    @if($simple_product_stock)
-    @livewire('stock.stocks')
+    @if ($simple_product_stock)
+        @livewire('stock.stocks')
     @else
-    @livewire('stock-composit-product.stock-composit-products')
+        @livewire('stock-composit-product.stock-composit-products')
     @endif
 
 </div>

@@ -14,12 +14,12 @@
                 <div>
                     <x-jet-label value="Cantidad" class="mt-3" />
                     <x-jet-input wire:model.defer="purchase_ordered_product.quantity" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="purchase_ordered_product.quantity" class="mt-1" />
+                    <x-jet-input-error for="purchase_ordered_product.quantity" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Código" class="mt-3" />
                     <x-jet-input wire:model.defer="purchase_ordered_product.code" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="purchase_ordered_product.code" class="mt-1" />
+                    <x-jet-input-error for="purchase_ordered_product.code" class="text-xs" />
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <x-jet-label value="Notas" />
                 <textarea wire:model.defer="purchase_ordered_product.notes" rows="3"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                <x-jet-input-error for="purchase_ordered_product.notes" class="mt-1" />
+                <x-jet-input-error for="purchase_ordered_product.notes" class="text-xs" />
             </div>
         </x-slot>
 

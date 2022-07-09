@@ -14,69 +14,57 @@
                 <div>
                     <x-jet-label value="Nombre completo" class="mt-3" />
                     <x-jet-input wire:model="user.name" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="user.name" class="mt-3" />
+                    <x-jet-input-error for="user.name" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Correo" class="mt-3" />
                     <x-jet-input wire:model.defer="user.email" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="user.email" class="mt-3" />
+                    <x-jet-input-error for="user.email" class="text-xs" />
                 </div>
                 <h2 class="text-center font-bold text-lg text-sky-600 col-span-2">Datos de empleado</h2>
                 <div>
                     <x-jet-label value="Departamento" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="employee.department_id">
-                        <option value="" selected>-- Seleccione --</option>
-                        @forelse($departments as $department)
-                        <option value="{{ $department->id }}">{{ $department->name }}</option>
-                        @empty
-                        <option value="">No hay departamentos registrados)</option>
-                        @endforelse
-                    </x-select>
-                    <x-jet-input-error for="employee.department_id" class="mt-3" />
+                    <x-select class="mt-2 w-full" wire:model.defer="employee.department_id" :options="$departments" />
+                    <x-jet-input-error for="employee.department_id" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Puesto" class="mt-3" />
                     <x-jet-input wire:model.defer="employee.job_position" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="employee.job_position" class="mt-3" />
+                    <x-jet-input-error for="employee.job_position" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Salario por hora" class="mt-3" />
                     <x-jet-input wire:model.defer="employee.salary" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="employee.salary" class="mt-3" />
+                    <x-jet-input-error for="employee.salary" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Retenciones" class="mt-3" />
                     <x-jet-input wire:model.defer="employee.discounts" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="employee.discounts" class="mt-3" />
+                    <x-jet-input-error for="employee.discounts" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Vacaciones" class="mt-3" />
                     <x-jet-input wire:model.defer="employee.vacations" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="employee.vacations" class="mt-3" />
+                    <x-jet-input-error for="employee.vacations" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Horas semanales" class="mt-3" />
                     <x-jet-input wire:model.defer="employee.hours_per_week" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="employee.hours_per_week" class="mt-3" />
+                    <x-jet-input-error for="employee.hours_per_week" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Fecha de nacimiento" class="mt-3" />
                     <x-jet-input wire:model.defer="birth_date" type="date" class="w-full mt-2" />
-                    <x-jet-input-error for="birth_date" class="mt-3" />
+                    <x-jet-input-error for="birth_date" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Fecha de ingreso" class="mt-3" />
                     <x-jet-input wire:model.defer="join_date" type="date" class="w-full mt-2" />
-                    <x-jet-input-error for="join_date" class="mt-3" />
+                    <x-jet-input-error for="join_date" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Bonos" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model="bonus_selected">
-                        <option value="" selected>-- Seleccione --</option>
-                        @foreach($all_bonuses as $bonus)
-                        <option value="{{ $bonus->id }}">{{ $bonus->name }}</option>
-                        @endforeach
-                    </x-select>
+                    <x-select class="mt-2 w-full" wire:model="bonus_selected" :options="$all_bonuses" />
                 </div>
                 <div class="flex text-xs items-center flex-wrap my-2">
                     @foreach($bonuses as $i => $bonus)
@@ -88,13 +76,13 @@
                 </div>
                 <div>
                     <x-jet-label value="Días de descanso" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model="day_off_selected">
+                    <select class="input mt-2 w-full" wire:model="day_off_selected">
                         <option value="" selected>-- Seleccione --</option>
                         @foreach(App\Models\Employee::WEEK as $i => $day)
                         <option value="{{ $i }}">{{ $day }}</option>
                         @endforeach
-                    </x-select>
-                    <x-jet-input-error for="days_off" class="mt-3" />
+                    </select>
+                    <x-jet-input-error for="days_off" class="text-xs" />
                 </div>
                 <div class="flex text-xs items-center flex-wrap my-2">
                     @foreach($days_off as $i => $day_off)
@@ -122,13 +110,13 @@
                 <div>
                     <x-jet-label value="Hora de entrada" class="mt-2" />
                     <x-jet-input wire:model="check_in_time_selected" type="time" class="w-full mt-1" />
-                    <x-jet-input-error for="check_in_time_selected" class="mt-3" />
+                    <x-jet-input-error for="check_in_time_selected" class="text-xs" />
                 </div>
                 @else
                 <div>
                     <x-jet-label value="Hora de entrada - {{ App\Models\Employee::WEEK[$check_in_time_index] }}" class="mt-1" />
                     <x-jet-input wire:model="check_in_time_selected" type="time" class="w-full mt-2" />
-                    <x-jet-input-error for="check_in_time_selected" class="mt-3" />
+                    <x-jet-input-error for="check_in_time_selected" class="text-xs" />
                 </div>
                 <div class="flex items-end text-green-600 text-sm pb-3">
                     <button wire:click="addCheckInTime" class="flex items-center hover:cursor-pointer border-2 border-green-600 rounded-lg p-1">

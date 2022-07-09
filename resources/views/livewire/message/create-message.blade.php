@@ -19,7 +19,7 @@
             <x-jet-input-error for="body" class="text-xs" />
             <div>
                 <x-jet-label value="Enviar a" class="mt-3" />
-                <x-select class="mt-2 w-full" wire:model="user_id">
+                <select class=" input mt-2 w-full" wire:model="user_id">
                     <option value="" selected>-- Seleccione --</option>
                     <option value="all">Todos</option>
                     @forelse($users as $user)
@@ -27,7 +27,7 @@
                     @empty
                         <option value="">No hay usuarios registrados</option>
                     @endforelse
-                </x-select>
+                </select>
             </div>
             <div class="my-3">
                 <h3 class="text-sm">Lista de usuarios</h3>

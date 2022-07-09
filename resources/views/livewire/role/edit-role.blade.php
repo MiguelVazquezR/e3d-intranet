@@ -13,7 +13,7 @@
             <div>
                 <x-jet-label value="Nombre del rol" class="mt-3" />
                 <x-jet-input wire:model.defer="role.name" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="role.name" class="mt-3" />
+                <x-jet-input-error for="role.name" class="text-xs" />
             </div>
             <x-jet-label value="Permisos" class="mt-3" />
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-1">

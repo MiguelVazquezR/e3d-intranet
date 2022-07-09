@@ -20,45 +20,33 @@
             <div>
                 @livewire('customer.search-customer')
                 @if ($customer)
-                    <div class="grid grid-cols-2 gap-2 text-xs mt-2 font-bold">
-                        <p>Razón social: <span class="font-normal">{{ $customer->company->bussiness_name }}</span></p>
-                        <p>RFC: <span class="font-normal">{{ $customer->company->rfc }}</span></p>
-                        <p>Sucursal: <span class="font-normal">{{ $customer->name }}</span></p>
-                        <p>Método de pago: <span class="font-normal">{{ $customer->satMethod->key }} -
-                                {{ $customer->satMethod->description }}</span></p>
-                        <p>Medio de pago: <span class="font-normal">{{ $customer->satWay->key }} -
-                                {{ $customer->satWay->description }}</span></p>
-                        <p>Uso de factura: <span class="font-normal">{{ $customer->satType->key }} -
-                                {{ $customer->satType->description }}</span></p>
-                        <p class="col-span-2">Dirección: <span class="font-normal">{{ $customer->address }} -
-                                C.P.{{ $customer->post_code }}</span></p>
-                        <div class="col-span-2 flex flex-col">
-                            <x-jet-label value="Contacto" class="mt-3" />
-                            @foreach ($customer->contacts as $contact)
-                                <label class="flex items-center radio cursor-pointer">
-                                    <input wire:model="contact_id" value="{{ $contact->id }}" type="radio"
-                                        name="for" />
-                                    <div class="px-2">
-                                        <div
-                                            class="col-span-2 flex flex-col lg:flex-row items-center text-sm mb-1 py-2 mx-6 border-b-2 lg:justify-center">
-                                            <div>
-                                                <i class="fas fa-user-circle mr-1"></i><span
-                                                    class="mr-2">{{ $contact->name }}</span>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-envelope mr-1"></i><span
-                                                    class="mr-2">{{ $contact->email }}</span>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-phone-alt mr-1"></i><span
-                                                    class="mr-2">{{ $contact->phone }}</span>
-                                            </div>
+                    <x-customer-card :customer="$customer" />
+                    <div class="flex flex-col">
+                        <x-jet-label value="Contacto" class="mt-3" />
+                        @foreach ($customer->contacts as $contact)
+                            <label class="flex items-center radio cursor-pointer">
+                                <input wire:model="contact_id" value="{{ $contact->id }}" type="radio"
+                                    name="for" />
+                                <div class="px-2">
+                                    <div
+                                        class="flex flex-col lg:flex-row items-center text-sm mb-1 py-2 mx-6 border-b-2 lg:justify-center">
+                                        <div>
+                                            <i class="fas fa-user-circle mr-1"></i><span
+                                                class="mr-2">{{ $contact->name }}</span>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-envelope mr-1"></i><span
+                                                class="mr-2">{{ $contact->email }}</span>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-phone-alt mr-1"></i><span
+                                                class="mr-2">{{ $contact->phone }}</span>
                                         </div>
                                     </div>
-                                </label>
-                            @endforeach
-                            <x-jet-input-error for="contact_id" class="mt-2" />
-                        </div>
+                                </div>
+                            </label>
+                        @endforeach
+                        <x-jet-input-error for="contact_id" class="text-xs" />
                     </div>
                 @endif
                 <x-jet-input-error for="customer" class="mt-2" />
@@ -68,12 +56,12 @@
                 <div>
                     <x-jet-label value="Paquetería" class="mt-3" />
                     <x-jet-input wire:model.defer="shipping_company" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="shipping_company" class="mt-3" />
+                    <x-jet-input-error for="shipping_company" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Costo logística" class="mt-3" />
                     <x-jet-input wire:model.defer="freight_cost" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="freight_cost" class="mt-3" />
+                    <x-jet-input-error for="freight_cost" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Moneda" class="mt-3" />
@@ -89,7 +77,7 @@
                 <div>
                     <x-jet-label value="Guía" class="mt-3" />
                     <x-jet-input wire:model.defer="tracking_guide" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="tracking_guide" class="mt-3" />
+                    <x-jet-input-error for="tracking_guide" class="text-xs" />
                 </div>
             </div>
 
@@ -107,23 +95,23 @@
                 <div>
                     <x-jet-label value="Medio de petición" class="mt-3" />
                     <x-jet-input wire:model.defer="order_via" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="order_via" class="mt-3" />
+                    <x-jet-input-error for="order_via" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Factura" class="mt-3" />
                     <x-jet-input wire:model.defer="invoice" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="invoice" class="mt-3" />
+                    <x-jet-input-error for="invoice" class="text-xs" />
                 </div>
             </div>
             <div>
                 <x-jet-label value="Nombre/folio OCE" class="mt-3" />
                 <x-jet-input wire:model.defer="oce_name" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="oce_name" class="mt-3" />
+                <x-jet-input-error for="oce_name" class="text-xs" />
             </div>
             <div>
                 <x-jet-label value="Archivo OCE" class="mt-3" />
                 <input wire:model.defer="oce" type="file" class="text-sm mt-2" id="{{ $oce_id }}">
-                <x-jet-input-error for="oce" class="mt-3" />
+                <x-jet-input-error for="oce" class="text-xs" />
             </div>
 
             <!-- products -->
@@ -132,8 +120,8 @@
                 <i wire:click="addSellOrderedProducts"
                     class="fas fa-plus-circle text-green-600 hover:cursor-pointer ml-3"></i>
             </h2>
-            <x-jet-input-error for="customer" class="mt-3" />
-            <x-jet-input-error for="sell_ordered_products_list" class="mt-2" />
+            <x-jet-input-error for="customer" class="text-xs" />
+            <x-jet-input-error for="sell_ordered_products_list" class="text-xs" />
             @foreach ($sell_ordered_products_list as $i => $sell_ordered_product)
                 @php
                     $for_sell = App\Models\CompanyHasProductForSell::find($sell_ordered_product['company_has_product_for_sell_id']);
@@ -156,7 +144,7 @@
                 <x-jet-label value="Notas" />
                 <textarea wire:model.defer="notes" rows="3"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                <x-jet-input-error for="notes" class="mt-3" />
+                <x-jet-input-error for="notes" class="text-xs" />
             </div>
         </x-slot>
 

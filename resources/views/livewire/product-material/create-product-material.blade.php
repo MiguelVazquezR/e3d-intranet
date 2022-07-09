@@ -9,20 +9,13 @@
             <div>
                 <x-jet-label value="Nombre" class="mt-3" />
                 <x-jet-input wire:model.defer="name" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="name" class="mt-3" />
+                <x-jet-input-error for="name" class="text-xs" />
             </div>
 
             <div class="mb-4">
                     <x-jet-label value="Material para" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model="product_family_id">
-                        <option value="" selected>--- Seleccione ---</option>
-                        @forelse($families as $family)
-                        <option value="{{ $family->id }}">{{ $family->name }}</option>
-                        @empty
-                        <option value="">No hay ninguna familia registrada</option>
-                        @endforelse
-                    </x-select>
-                    <x-jet-input-error for="product_family_id" class="mt-2" />
+                    <x-select class="mt-2 w-full" wire:model="product_family_id" :options="$families" />
+                    <x-jet-input-error for="product_family_id" class="text-xs" />
                 </div>
         </x-slot>
 

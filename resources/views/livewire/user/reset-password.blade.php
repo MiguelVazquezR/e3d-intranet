@@ -13,7 +13,7 @@
             <div>
                 <x-jet-label value="Nueva contraseña" class="mt-3" />
                 <x-jet-input wire:model="password" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="password" class="mt-2" />
+                <x-jet-input-error for="password" class="text-xs" />
             </div>
         </x-slot>
 

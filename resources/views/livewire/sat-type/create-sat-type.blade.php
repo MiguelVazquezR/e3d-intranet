@@ -9,12 +9,12 @@
             <div>
                 <x-jet-label value="Clave" class="mt-3" />
                 <x-jet-input wire:model.defer="key" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="key" class="mt-3" />
+                <x-jet-input-error for="key" class="text-xs" />
             </div>
             <div>
                 <x-jet-label value="Descripción" class="mt-3" />
                 <x-jet-input wire:model.defer="description" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="description" class="mt-3" />
+                <x-jet-input-error for="description" class="text-xs" />
             </div>
         </x-slot>
 

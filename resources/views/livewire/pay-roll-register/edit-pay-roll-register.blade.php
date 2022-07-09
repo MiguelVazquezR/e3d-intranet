@@ -16,13 +16,8 @@
                 @can('editar_nóminas')
                     <div>
                         <x-jet-label value="Usuario" class="mt-3" />
-                        <x-select class="mt-2 w-full" wire:model="user">
-                            <option value="" selected>-- Seleccione --</option>
-                            @foreach ($users as $_user)
-                                <option value="{{ $_user->id }}"> {{ $_user->name }}</option>
-                            @endforeach
-                        </x-select>
-                        <x-jet-input-error for="user" class="mt-3" />
+                        <x-select class="mt-2 w-full" wire:model="user" :options="$users" />
+                        <x-jet-input-error for="user" class="text-xs" />
                     </div>
                 @endcan
                 @if ($user)
