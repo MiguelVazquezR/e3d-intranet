@@ -87,8 +87,6 @@
         @livewire('company-has-product-for-sell.create-company-has-product-for-sell')
         @livewire('company-has-product-for-sell.edit-company-has-product-for-sell')
         @livewire('company-has-product-for-sell.edit-price-product-for-sell')
-        
-
 
     </div>
 

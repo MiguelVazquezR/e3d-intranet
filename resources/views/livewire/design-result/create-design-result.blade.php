@@ -14,7 +14,7 @@
             <div class="mt-3">
                 <x-jet-label value="Notas" />
                 <textarea wire:model.defer="notes" rows="3" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                <x-jet-input-error for="notes" class="mt-3" />
+                <x-jet-input-error for="notes" class="text-xs" />
             </div>
         </x-slot>
 

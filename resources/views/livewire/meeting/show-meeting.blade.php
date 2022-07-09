@@ -37,7 +37,8 @@
                 @else
                     <div>
                         <x-jet-label value="URL" class="mt-3" />
-                        <a href="{{ $meeting->url }}" target="_blank" class="text-blue-400 italic">{{ $meeting->url }}</a>
+                        <a href="{{ $meeting->url }}" target="_blank"
+                            class="text-blue-400 italic">{{ $meeting->url }}</a>
                     </div>
                 @endif
                 <div class="my-3">

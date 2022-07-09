@@ -53,7 +53,7 @@
                     <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
                     <div>
                         Se notificará mediante correo electrónico a gerencia y opcionalmente puedes activar que se notifique al 
-                        contacto relacionado con la OV. Asegurate de que el correo del contacto este correcto.
+                        contacto relacionado con la OV. Asegúrate de que el correo del contacto sea correcto.
                     </div>
                 </div>
 

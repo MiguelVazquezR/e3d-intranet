@@ -4,9 +4,9 @@
     </div>
 
     @can('crear_ordenes_diseño')
-    <x-jet-button wire:click="openModal">
-        + nuevo
-    </x-jet-button>
+        <x-jet-button wire:click="openModal">
+            + nuevo
+        </x-jet-button>
     @endcan
 
     <x-jet-dialog-modal wire:model="open">
@@ -16,138 +16,77 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="flex border rounded-full overflow-hidden m-4 text-xs">
-                <div class="py-2 my-auto px-5 bg-blue-500 text-white font-semibold mr-3">
-                    Cliente
+            <x-my-radio :options="['Registrado', 'Nuevo']" label="Cliente" model="new_customer" />
+            @if (!$new_customer)
+                <div>
+                    @livewire('customer.search-customer')
+                    @if ($customer)
+                        <x-customer-card :customer="$customer" />
+                    @endif
+                    <x-jet-input-error for="customer" class="text-xs" />
                 </div>
-                <label class="flex items-center radio p-2 cursor-pointer">
-                    <input wire:model="new_customer" value="1" class="my-auto" type="radio" name="n-customer" />
-                    <div class="px-2">Nuevo</div>
-                </label>
-
-                <label class="flex items-center radio p-2 cursor-pointer">
-                    <input wire:model="new_customer" value="0" class="my-auto" type="radio" name="n-customer" />
-                    <div class="px-2">Registrado</div>
-                </label>
-            </div>
-            @if(!$new_customer)
-            <div>
-                @livewire('customer.search-customer')
-                @if($customer)
-                <div class="grid grid-cols-2 gap-2 text-xs mt-2 font-bold">
-                    <p>Razón social: <span class="font-normal">{{ $customer->company->bussiness_name }}</span></p>
-                    <p>RFC: <span class="font-normal">{{ $customer->company->rfc }}</span></p>
-                    <p>Sucursal: <span class="font-normal">{{ $customer->name }}</span></p>
-                    <p>Método de pago: <span class="font-normal">{{ $customer->satMethod->key }} - {{ $customer->satMethod->description }}</span></p>
-                    <p>Medio de pago: <span class="font-normal">{{ $customer->satWay->key }} - {{ $customer->satWay->description }}</span></p>
-                    <p>Uso de factura: <span class="font-normal">{{ $customer->satType->key }} - {{ $customer->satType->description }}</span></p>
-                    <p class="col-span-2">Dirección: <span class="font-normal">{{ $customer->address }} - C.P.{{ $customer->post_code }}</span></p>
-                    <div class="col-span-2 flex flex-col">
+            @else
+                <div class="lg:grid lg:grid-cols-2 lg:gap-3">
+                    <div>
+                        <x-jet-label value="Cliente" class="mt-3" />
+                        <x-jet-input wire:model.defer="customer_name" type="text" class="w-full mt-2" />
+                        <x-jet-input-error for="customer_name" class="text-xs" />
+                    </div>
+                    <div>
                         <x-jet-label value="Contacto" class="mt-3" />
-                        @foreach($customer->contacts as $contact)
-                        @if($contact->model_name == "App\\Models\\".Customer::class)
-                        <label class="flex items-center radio cursor-pointer">
-                            <input wire:model="contact_id" value="{{$contact->id}}" type="radio" name="for" />
-                            <div class="px-2">
-                                <div class="col-span-2 flex flex-col lg:flex-row items-center text-sm mb-1 py-2 mx-6 border-b-2 lg:justify-center">
-                                    <div>
-                                        <i class="fas fa-user-circle mr-1"></i><span class="mr-2">{{ $contact->name }}</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-envelope mr-1"></i><span class="mr-2">{{ $contact->email }}</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-phone-alt mr-1"></i><span class="mr-2">{{ $contact->phone }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                        @endif
-                        @endforeach
-                        <x-jet-input-error for="contact_id" class="mt-2" />
+                        <x-jet-input wire:model.defer="contact_name" type="text" class="w-full mt-2" />
+                        <x-jet-input-error for="contact_name" class="text-xs" />
                     </div>
                 </div>
-                @endif
-                <x-jet-input-error for="customer" class="mt-2" />
-            </div>
-            @else
-            <div class="lg:grid lg:grid-cols-2 lg:gap-3">
-                <div>
-                    <x-jet-label value="Cliente" class="mt-3" />
-                    <x-jet-input wire:model.defer="customer_name" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="customer_name" class="mt-3" />
-                </div>
-                <div>
-                    <x-jet-label value="Contacto" class="mt-3" />
-                    <x-jet-input wire:model.defer="contact_name" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="contact_name" class="mt-3" />
-                </div>
-            </div>
             @endif
             <div>
                 <x-jet-label value="Diseñador(a)" class="mt-3" />
-                <x-select class="mt-2 w-full" wire:model.defer="designer_id">
-                    <option value="" selected>-- Seleccione --</option>
-                    @forelse($designers as $designer)
-                    <option value="{{ $designer->id }}">{{ $designer->name }}</option>
-                    @empty
-                    <option value="">No hay ningun(a) diseñador(a) registrado(a)</option>
-                    @endforelse
-                </x-select>
-                <x-jet-input-error for="designer_id" class="mt-3" />
+                <x-select class="mt-2 w-full" wire:model.defer="designer_id" :options="$designers" />
+                <x-jet-input-error for="designer_id" class="text-xs" />
             </div>
             <div class="lg:grid lg:grid-cols-2 lg:gap-3">
                 <div>
                     <x-jet-label value="Nombre del diseño" class="mt-3" />
                     <x-jet-input wire:model.defer="design_name" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="design_name" class="mt-3" />
+                    <x-jet-input-error for="design_name" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Clasificación" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="design_type_id">
-                        <option value="" selected>-- Seleccione --</option>
-                        @forelse($design_types as $design_type)
-                        <option value="{{ $design_type->id }}">{{ $design_type->name }}</option>
-                        @empty
-                        <option value="">No hay ninguna clasificación registrada</option>
-                        @endforelse
-                    </x-select>
-                    <x-jet-input-error for="design_type_id" class="mt-3" />
+                    <x-select class="mt-2 w-full" wire:model.defer="design_type_id" :options="$design_types" />
+                    <x-jet-input-error for="design_type_id" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Medidas" class="mt-3" />
-                    <x-jet-input wire:model.defer="dimentions" placeholder="ancho X largo X alto" type="text" class="w-full mt-2 placeholder:text-xs" />
-                    <x-jet-input-error for="dimentions" class="mt-3" />
+                    <x-jet-input wire:model.defer="dimentions" placeholder="ancho X largo X alto" type="text"
+                        class="w-full mt-2 placeholder:text-xs" />
+                    <x-jet-input-error for="dimentions" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Unidad" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="measurement_unit_id">
-                        <option value="" selected>-- Seleccione --</option>
-                        @forelse($units as $unit)
-                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                        @empty
-                        <option value="">No hay ninguna unidad de medida registrada</option>
-                        @endforelse
-                    </x-select>
-                    <x-jet-input-error for="measurement_unit_id" class="mt-3" />
+                    <x-select class="mt-2 w-full" wire:model.defer="measurement_unit_id" :options="$units" />
+                    <x-jet-input-error for="measurement_unit_id" class="text-xs" />
                 </div>
                 <div class="col-span-2">
                     <x-jet-label value="Pantones" class="mt-3" />
                     <x-jet-input wire:model.defer="pantones" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="pantones" class="mt-3" />
+                    <x-jet-input-error for="pantones" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Datos" class="mt-3" />
-                    <textarea wire:model.defer="design_data" rows="5" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                    <x-jet-input-error for="design_data" class="mt-3" />
+                    <textarea wire:model.defer="design_data" rows="5"
+                        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    <x-jet-input-error for="design_data" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Requerimientos/especificaciones" class="mt-3" />
-                    <textarea wire:model.defer="especifications" rows="5" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                    <x-jet-input-error for="especifications" class="mt-3" />
+                    <textarea wire:model.defer="especifications" rows="5"
+                        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    <x-jet-input-error for="especifications" class="text-xs" />
                 </div>
-                <x-image-uploader :image="$plans_image" :imageExtensions="$image_extensions" :imageId="$plans_image_id" label="Imagen de plano" model="plans_image" class="col-span-2" />
-                <x-image-uploader :image="$logo_image" :imageExtensions="$image_extensions" :imageId="$logo_image_id" :showAlerts="false" label="Imagen de logo" model="logo_image" class="col-span-2" />
+                <x-image-uploader :image="$plans_image" :imageExtensions="$image_extensions" :imageId="$plans_image_id" label="Imagen de plano"
+                    model="plans_image" class="col-span-2" />
+                <x-image-uploader :image="$logo_image" :imageExtensions="$image_extensions" :imageId="$logo_image_id" :showAlerts="false"
+                    label="Imagen de logo" model="logo_image" class="col-span-2" />
             </div>
 
 
@@ -158,7 +97,8 @@
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-button wire:click="store" wire:loading.attr="disabled" wire:target="store, plans_image, logo_image" class="disabled:opacity-25">
+            <x-jet-button wire:click="store" wire:loading.attr="disabled" wire:target="store, plans_image, logo_image"
+                class="disabled:opacity-25">
                 Crear
             </x-jet-button>
         </x-slot>
