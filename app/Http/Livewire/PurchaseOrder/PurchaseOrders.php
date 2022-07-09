@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PurchaseOrder;
 
+use App\Mail\PurchaseOrderMailable;
 use App\Mail\PurchaseOrderReceivedMailable;
 use App\Models\MovementHistory;
 use App\Models\PurchaseOrder;
@@ -34,6 +35,7 @@ class PurchaseOrders extends Component
         'delete',
         'show',
         'edit',
+        'emitOrder',
     ];
 
     public function updatingSearch()
@@ -84,6 +86,11 @@ class PurchaseOrders extends Component
         $this->emit('success', 'Orden de compra eliminada');
     }
 
+    public function openUnitsConvertionModal(PurchaseOrder $purchase_order)
+    {
+        $this->emitTo('purchase-order.units-convertion', 'openModal', $purchase_order);
+    }
+
     public function receiveOrder(PurchaseOrder $purchase_order)
     {
         $success_message = "";
@@ -120,24 +127,35 @@ class PurchaseOrders extends Component
                     'stock_action_type_id' => 9, //compra
                 ]);
             }
-            
+
             // send email notification
             Mail::to('maribel@emblemas3d.com')
                 // ->bcc('miguelvz26.mv@gmail.com')
-                ->queue( new PurchaseOrderReceivedMailable($purchase_order) );
+                ->queue(new PurchaseOrderReceivedMailable($purchase_order));
         }
 
         $this->emit('success', 'Orden de compra recibida.' . $success_message);
         $this->render();
     }
 
-    public function emitOrder(PurchaseOrder $purchase_order)
+    public function emitOrder(PurchaseOrder $purchase_order, $notify_vendor)
     {
         $purchase_order->emitted_at = date('Y-m-d');
         $purchase_order->status = 'En espera de recepción';
         $purchase_order->save();
 
-        $this->emit('success', 'Orden de compra emitida a proveedor');
+        // send email notification
+        if ($notify_vendor) {
+            Mail::to($purchase_order->contact->email)
+                ->bcc('maribel@emblemas3d.com')
+                ->queue(new PurchaseOrderMailable($purchase_order));
+            $this->emit('success', 'Orden de compra emitida a proveedor');
+        } else {
+            Mail::to('maribel@emblemas3d.com')
+                ->queue(new PurchaseOrderMailable($purchase_order));
+            $this->emit('success', 'Orden de compra marcada como emitida. No olvides notificar al proveedor');
+        }
+
         $this->render();
     }
 
@@ -148,6 +166,21 @@ class PurchaseOrders extends Component
 
         $this->emit('success', 'Orden de compra cancelada. Avisar a proveedor');
         $this->render();
+    }
+
+    public function alert(PurchaseOrder $purchase_order)
+    {
+        $this->emit('two-options', [
+            "Al emitir esta OC se enviará un correo a gerencia. <br>
+            También es posible mandar la OC al contacto relacionado (<b>{$purchase_order->contact->email}</b>) con una plantilla
+            ya definida o puede marcar esta OC como emitida y enviar correo al proveedor con su propia plantilla",
+            'Enviar a proveedor',
+            'Sólo marcar como emitida',
+            'purchase-order.purchase-orders',
+            'emitOrder',
+            $purchase_order
+        ]);
+        $this->loading = true;
     }
 
     public function render()

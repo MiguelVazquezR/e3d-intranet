@@ -29,3 +29,20 @@ Livewire.on('confirm', data => {
         }
     })
 });
+
+Livewire.on('two-options', data => {
+    Swal.fire({
+        title: '¿Qué desea hacer?',
+        html: data[0],
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: data[1],
+        denyButtonText: data[2],
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emitTo(data[3], data[4], data[5], true);
+        } else if (result.isDenied) {
+            Livewire.emitTo(data[3], data[4], data[5], false);
+        }
+    })
+});

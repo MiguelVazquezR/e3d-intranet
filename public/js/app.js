@@ -5587,6 +5587,22 @@ Livewire.on('confirm', function (data) {
     }
   });
 });
+Livewire.on('two-options', function (data) {
+  Swal.fire({
+    title: '¿Qué desea hacer?',
+    html: data[0],
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: data[1],
+    denyButtonText: data[2]
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      Livewire.emitTo(data[3], data[4], data[5], true);
+    } else if (result.isDenied) {
+      Livewire.emitTo(data[3], data[4], data[5], false);
+    }
+  });
+});
 
 /***/ }),
 

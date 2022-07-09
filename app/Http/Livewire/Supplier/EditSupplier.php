@@ -95,9 +95,9 @@ class EditSupplier extends Component
 
         // load contacts
         foreach ($supplier->contacts as $i => $contact) {
-            if ($contact->model_name == Supplier::class) {
+            $this->contact_list[] = $contact->toArray();
+            if ($contact->birth_date) {
                 $birth_date = $contact->birth_date->isoFormat('YYYY-MM-DD');
-                $this->contact_list[] = $contact->toArray();
                 end($this->contact_list)["birth_date"] = $birth_date;
             }
         }
@@ -316,7 +316,7 @@ class EditSupplier extends Component
         $index = array_search($id, $this->temporary_contacts_deleted_list);
         unset($this->temporary_contacts_deleted_list[$index]);
     }
-    
+
     public function removeFromTemporaryBankDataDeletedList($id)
     {
         $index = array_search($id, $this->temporary_bank_data_deleted_list);
@@ -331,7 +331,7 @@ class EditSupplier extends Component
             unset($this->contact_list[$index]);
         }
     }
-    
+
     public function deleteBankData($index)
     {
         if (array_key_exists('id', $this->bank_data_list[$index])) {

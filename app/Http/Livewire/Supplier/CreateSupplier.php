@@ -57,7 +57,7 @@ class CreateSupplier extends Component
         'email' => 'required',
         'contact_phone' => 'required|numeric',
     ];
-    
+
     protected $bank_data_rules = [
         'beneficiary_name' => 'required',
         'account' => 'required|numeric',
@@ -100,12 +100,12 @@ class CreateSupplier extends Component
 
         // create contacts
         foreach ($this->contact_list as $contact) {
-            $contact["model_id"] = $supplier->id;
-            $contact["model_name"] = Supplier::class;
-            $contact["birth_date"] = explode('T',$contact["birth_date"])[0];
+            $contact["contactable_id"] = $supplier->id;
+            $contact["contactable_type"] = Supplier::class;
+            $contact["birth_date"] = explode('T', $contact["birth_date"])[0];
             Contact::create($contact);
         }
-        
+
         // create bank data
         foreach ($this->bank_data_list as $bank_data) {
             $bank_data["supplier_id"] = $supplier->id;
@@ -127,12 +127,12 @@ class CreateSupplier extends Component
             'email' => $this->email,
             'birth_date' => '2021-' . $this->month . '-' . $this->day,
         ]);
-        
+
         $this->contact_list[] = $contact->toArray();
-        
+
         $this->resetContact();
     }
-    
+
     public function addBankDataToList()
     {
         $this->validate($this->bank_data_rules);
@@ -142,9 +142,9 @@ class CreateSupplier extends Component
             'CLABE' => $this->CLABE,
             'bank' => $this->bank,
         ]);
-        
+
         $this->bank_data_list[] = $bank_data->toArray();
-        
+
         $this->resetBankData();
     }
 
@@ -164,7 +164,7 @@ class CreateSupplier extends Component
 
         $this->resetContact();
     }
-    
+
     public function updateBankDataFromList()
     {
         $this->validate($this->bank_data_rules);
@@ -193,7 +193,7 @@ class CreateSupplier extends Component
         }
         $this->edit_contact_index = $index;
     }
-    
+
     public function editBankData($index)
     {
         $bank_data = new BankData($this->bank_data_list[$index]);
@@ -201,7 +201,7 @@ class CreateSupplier extends Component
         $this->account = $this->bank_data_list[$index]["account"];
         $this->CLABE = $this->bank_data_list[$index]["CLABE"];
         $this->bank = $this->bank_data_list[$index]["bank"];
-        
+
         $this->edit_bank_data_index = $index;
     }
 
@@ -210,7 +210,7 @@ class CreateSupplier extends Component
         $this->edit_contact_index = null;
         $this->resetContact();
     }
-    
+
     public function closeEditBankData()
     {
         $this->edit_bank_data_index = null;
@@ -228,7 +228,7 @@ class CreateSupplier extends Component
             'edit_contact_index',
         ]);
     }
-    
+
     public function resetBankData()
     {
         $this->reset([
@@ -244,7 +244,7 @@ class CreateSupplier extends Component
     {
         unset($this->contact_list[$index]);
     }
-    
+
     public function deleteBankData($index)
     {
         unset($this->bank_data_list[$index]);

@@ -27,29 +27,27 @@
                         <div class="col-span-2 flex flex-col">
                             <x-jet-label value="Contacto" class="mt-3" />
                             @foreach ($supplier->contacts as $contact)
-                                @if ($contact->model_name == 'App\\Models\\' . Supplier::class)
-                                    <label class="flex items-center radio cursor-pointer">
-                                        <input wire:model="contact_id" value="{{ $contact->id }}" type="radio"
-                                            name="for" />
-                                        <div class="px-2">
-                                            <div
-                                                class="col-span-2 flex flex-col lg:flex-row items-center text-sm mb-1 py-2 mx-6 border-b-2 lg:justify-center">
-                                                <div>
-                                                    <i class="fas fa-user-circle mr-1"></i><span
-                                                        class="mr-2">{{ $contact->name }}</span>
-                                                </div>
-                                                <div>
-                                                    <i class="fas fa-envelope mr-1"></i><span
-                                                        class="mr-2">{{ $contact->email }}</span>
-                                                </div>
-                                                <div>
-                                                    <i class="fas fa-phone-alt mr-1"></i><span
-                                                        class="mr-2">{{ $contact->phone }}</span>
-                                                </div>
+                                <label class="flex items-center radio cursor-pointer">
+                                    <input wire:model="contact_id" value="{{ $contact->id }}" type="radio"
+                                        name="for" />
+                                    <div class="px-2">
+                                        <div
+                                            class="col-span-2 flex flex-col lg:flex-row items-center text-sm mb-1 py-2 mx-6 border-b-2 lg:justify-center">
+                                            <div>
+                                                <i class="fas fa-user-circle mr-1"></i><span
+                                                    class="mr-2">{{ $contact->name }}</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-envelope mr-1"></i><span
+                                                    class="mr-2">{{ $contact->email }}</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-phone-alt mr-1"></i><span
+                                                    class="mr-2">{{ $contact->phone }}</span>
                                             </div>
                                         </div>
-                                    </label>
-                                @endif
+                                    </div>
+                                </label>
                             @endforeach
                             <x-jet-input-error for="contact_id" class="text-xs" />
                         </div>
@@ -92,7 +90,7 @@
                 @endphp
                 <x-item-list :index="$i" active="true" :objectId="null">
                     <x-product-quick-view :image="$p_o_p->product->image" :name="$p_o_p->product->name">
-                        <span class="text-blue-500">{{ $p_o_p->quantity }} {{ $p_o_p->product->unit->name }}
+                        <span class="text-blue-500">{{ $p_o_p->quantity }} unidades
                         </span>
                     </x-product-quick-view>
                 </x-item-list>

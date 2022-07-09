@@ -17,23 +17,18 @@
                 </div>
                 <h4 class="text-center text-sm text-sky-500 my-1 col-span-2">Contactos</h4>
                 @foreach ($supplier->contacts as $contact)
-                    @if ($contact->model_name == 'App\\Models\\' . Supplier::class)
-                        <div
-                            class="col-span-2 flex flex-col lg:flex-row items-center text-xs mb-1 py-2 mx-6 border-b-2 lg:justify-center">
-                            <div>
-                                <i class="fas fa-user-circle mr-1"></i><span
-                                    class="mr-2">{{ $contact->name }}</span>
-                            </div>
-                            <div>
-                                <i class="fas fa-envelope mr-1"></i><span
-                                    class="mr-2">{{ $contact->email }}</span>
-                            </div>
-                            <div>
-                                <i class="fas fa-phone-alt mr-1"></i><span
-                                    class="mr-2">{{ $contact->phone }}</span>
-                            </div>
+                    <div
+                        class="col-span-2 flex flex-col lg:flex-row items-center text-xs mb-1 py-2 mx-6 border-b-2 lg:justify-center">
+                        <div>
+                            <i class="fas fa-user-circle mr-1"></i><span class="mr-2">{{ $contact->name }}</span>
                         </div>
-                    @endif
+                        <div>
+                            <i class="fas fa-envelope mr-1"></i><span class="mr-2">{{ $contact->email }}</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-phone-alt mr-1"></i><span class="mr-2">{{ $contact->phone }}</span>
+                        </div>
+                    </div>
                 @endforeach
                 <h4 class="text-center text-sm text-sky-500 my-1 col-span-2">Cuenas bancarias</h4>
                 @foreach ($supplier->bankAccounts as $bank_data)
@@ -44,12 +39,11 @@
                                 class="mr-2">{{ $bank_data->beneficiary_name }}</span>
                         </div>
                         <div>
-                            <i class="fas fa-money-check mr-1"></i><span
-                                class="mr-2">{{ $bank_data->account }} CLABE: {{ $bank_data->CLABE }}</span>
+                            <i class="fas fa-money-check mr-1"></i><span class="mr-2">{{ $bank_data->account }}
+                                CLABE: {{ $bank_data->CLABE }}</span>
                         </div>
                         <div>
-                            <i class="fas fa-university mr-1"></i><span
-                                class="mr-2">{{ $bank_data->bank }}</span>
+                            <i class="fas fa-university mr-1"></i><span class="mr-2">{{ $bank_data->bank }}</span>
                         </div>
                     </div>
                 @endforeach

@@ -12,8 +12,8 @@ class PurchaseOrderMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = "Nueva orden de compra";
-    public $purchase_order;
+    public $subject = "Nueva orden de compra",
+        $purchase_order;
     /**
      * Create a new message instance.
      *

@@ -11,7 +11,7 @@
 
     <div class="py-6">
 
-        <div wire:loading wire:target="edit,show,receiveOrder,emitOrder,cancelOrder">
+        <div wire:loading wire:target="edit,show,receiveOrder,emitOrder,cancelOrder,openUnitsConvertionModal">
             <x-loading-indicator />
         </div>
 
@@ -98,13 +98,13 @@
                                             Formato orden de compra
                                         </x-jet-dropdown-link>
                                         @if (is_null($item->emitted_at) && $item->authorized_user_id)
-                                        <x-jet-dropdown-link wire:click="emitOrder( {{ $item }} )"
+                                        <x-jet-dropdown-link wire:click="alert( {{ $item }} )"
                                             :link="false">
                                             Marcar como orden emitida a proveedor
                                         </x-jet-dropdown-link>
                                         @endif
                                         @if (is_null($item->received_at) && !is_null($item->emitted_at))
-                                        <x-jet-dropdown-link wire:click="receiveOrder( {{ $item }} )"
+                                        <x-jet-dropdown-link wire:click="openUnitsConvertionModal( {{ $item }} )"
                                             :link="false">
                                             Marcar como orden recibida
                                         </x-jet-dropdown-link>   
@@ -133,6 +133,7 @@
         <!-- aditional modals -->
         @livewire('purchase-ordered-product.create-purchase-ordered-product')
         @livewire('purchase-ordered-product.edit-purchase-ordered-product')
+        @livewire('purchase-order.units-convertion')
 
     </div>
 

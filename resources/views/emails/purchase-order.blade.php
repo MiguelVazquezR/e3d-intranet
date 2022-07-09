@@ -6,19 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <title>Document</title>
+    <title>Nueva orden de compra</title>
 </head>
 
-<body>
-    <h1>Pantilla para ordenes de compra</h1>
-    <div class="bg-gray-200">
-        Prueba de envio de correos automaticos: <br>
-        <div class="grid grid-cols-2 gap-x-2">
-            <b>Proveedor:</b> {{ $purchase_order->supplier->name }}
-            <b>contacto:</b> {{ $purchase_order->contact->name }} - {{ $purchase_order->contact->email }}
-        </div>
-        <i class="fas fa-building mr-2"></i>
-    </div>
+<body style="font-size: 9px;">
+    <div>
+        Orden de compra OC-{{ str_pad($purchase_order->id, 4, '0', STR_PAD_LEFT) }}
+        <br><br>
+        @php
+            $all_products = $purchase_order->purchaseOrderedProducts;
+        @endphp
+        @foreach ($all_products as $i => $pop)
+            <div>
+                {{ $i + 1 }}-
+                <b>Artículo:</b> {{ $pop->product->name }} x {{ $pop->quantity }} unidades<br>
+                <b>Código:</b> {{ $pop->code ?? '--' }}<br>
+                <b>Notas:</b> {{ $pop->notes ?? '--' }}<br>
+            </div>
+        @endforeach
+    </div> <br>
+    <p>
+        Favor de no responder a este correo. Cualquier duda o aclaración, notificar a
+        <b>asistente.director@emblemas3d.com</b> o <b>maribel@emblemas3d.com</b>. <br>
+        Gracias, excelente día.
+    </p>
 </body>
 
 </html>

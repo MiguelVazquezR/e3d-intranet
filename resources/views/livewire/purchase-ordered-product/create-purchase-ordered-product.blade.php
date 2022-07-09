@@ -15,7 +15,7 @@
                     @livewire('products.search-products')
                 </div>
                 <div  class="col-span-2">
-                    <x-jet-label value="Cantidad {{ $product_for_buy ? '('.$product_for_buy->unit->name.')' : '' }}" class="mt-3" />
+                    <x-jet-label value="Unidades" class="mt-3" />
                     <x-jet-input wire:model.defer="quantity" type="number" class="w-full mt-2" />
                     <x-jet-input-error for="quantity" class="text-xs" />
                 </div>
