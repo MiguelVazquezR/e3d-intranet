@@ -15,8 +15,6 @@
         @foreach ($purchase_order->purchaseOrderedProducts as $pop)
             <div>
                 - {{ $pop->product->name }}, {{ $pop->quantity }} {{ $pop->product->unit->name }}<br>
-                <img src="{{ $message->embed(storage_path() . '/app/' . $pop->product->image) }}"
-                    style="width:25%;">
             </div>
         @endforeach
     </div><br><br>

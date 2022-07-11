@@ -36,6 +36,7 @@ class PurchaseOrders extends Component
         'show',
         'edit',
         'emitOrder',
+        'receiveOrder',
     ];
 
     public function updatingSearch()
@@ -91,7 +92,7 @@ class PurchaseOrders extends Component
         $this->emitTo('purchase-order.units-convertion', 'openModal', $purchase_order);
     }
 
-    public function receiveOrder(PurchaseOrder $purchase_order)
+    public function receiveOrder(PurchaseOrder $purchase_order, $convertions)
     {
         $success_message = "";
         $purchase_order->received_at = date('Y-m-d');
@@ -99,13 +100,15 @@ class PurchaseOrders extends Component
         $purchase_order->save();
 
         // create stock movements
-        foreach ($purchase_order->purchaseOrderedProducts as $pop) {
+        $products = $purchase_order->purchaseOrderedProducts;
+        foreach ($products as $i => $pop) {
             $stock_product = StockProduct::where('product_id', $pop->product->id)->first();
+            $_quantity = $pop->quantity * $convertions[$i];
             if (!$stock_product) {
                 $stock_product = StockProduct::create([
                     'product_id'  =>  $pop->product->id,
                     'location'  =>  'Por definir',
-                    'quantity'  =>  $pop->quantity,
+                    'quantity'  =>  $_quantity,
                     'image'  => 'public/stock_products/default.jpg',
                 ]);
                 // create movement history
@@ -114,13 +117,13 @@ class PurchaseOrders extends Component
                     'user_id' => Auth::user()->id,
                     'description' => "Se agregó producto '{$pop->product->name}' a inventario mediante la recepción de una orden de compra."
                 ]);
-                $success_message .= "<li class='list-disc ml-2 text-sm text-green-500'>Se agregó <b>{$pop->product->name}</b> a inventario con {$pop->quantity} unidades</li>";
+                $success_message .= "<li class='list-disc ml-2 text-sm text-green-500'>Se agregó <b>{$pop->product->name}</b> a inventario con {$_quantity} unidades</li>";
             } else {
-                $stock_product->quantity = $stock_product->quantity + $pop->quantity;
+                $stock_product->quantity = $stock_product->quantity + $_quantity;
                 $stock_product->save();
-                $success_message .= "<li class='list-disc ml-2 text-sm text-green-500'>Se agregaron {$pop->quantity} unidades al inventario <b>({$pop->product->name})</b></li>";
+                $success_message .= "<li class='list-disc ml-2 text-sm text-green-500'>Se agregaron {$_quantity} unidades al inventario <b>({$pop->product->name})</b></li>";
                 StockMovement::create([
-                    'quantity' => $pop->quantity,
+                    'quantity' => $_quantity,
                     'notes' => "Agregado desde OC con ID {$purchase_order->id}",
                     'user_id' => Auth::user()->id,
                     'stock_product_id' => $stock_product->id,
@@ -131,7 +134,7 @@ class PurchaseOrders extends Component
             // send email notification
             Mail::to('maribel@emblemas3d.com')
                 // ->bcc('miguelvz26.mv@gmail.com')
-                ->queue(new PurchaseOrderReceivedMailable($purchase_order));
+                ->send(new PurchaseOrderReceivedMailable($purchase_order));
         }
 
         $this->emit('success', 'Orden de compra recibida.' . $success_message);
@@ -148,11 +151,11 @@ class PurchaseOrders extends Component
         if ($notify_vendor) {
             Mail::to($purchase_order->contact->email)
                 ->bcc('maribel@emblemas3d.com')
-                ->queue(new PurchaseOrderMailable($purchase_order));
+                ->send(new PurchaseOrderMailable($purchase_order));
             $this->emit('success', 'Orden de compra emitida a proveedor');
         } else {
             Mail::to('maribel@emblemas3d.com')
-                ->queue(new PurchaseOrderMailable($purchase_order));
+                ->send(new PurchaseOrderMailable($purchase_order));
             $this->emit('success', 'Orden de compra marcada como emitida. No olvides notificar al proveedor');
         }
 

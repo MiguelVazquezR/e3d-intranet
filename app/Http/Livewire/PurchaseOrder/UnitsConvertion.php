@@ -23,14 +23,14 @@ class UnitsConvertion extends Component
     public function openModal(PurchaseOrder $purchase_order)
     {
         $this->purchase_order = $purchase_order;
-        $this->all_products = $purchase_order->purchaseOrderedProducts;
-        array_fill(0, $purchase_order->purchaseOrderedProducts->count(), 1);
+        $this->convertions = array_fill(0, $purchase_order->purchaseOrderedProducts->count(), 1);
         $this->open = true;
     }
 
     public function receive()
     {
-        dd($this->convertions);
+        $this->emitTo('purchase-order.purchase-orders', 'receiveOrder', $this->purchase_order, $this->convertions);
+        $this->resetExcept('purchase_order');
     }
 
     public function render()
