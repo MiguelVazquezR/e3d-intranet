@@ -47,7 +47,7 @@ class CreateSellOrderedProduct extends Component
             foreach($composit_product->compositProductDetails as $cpd) {
                 if($cpd->product->product_status_id == 3) {
                     $this->first_production_messages [] = 
-                    "<b>{$cpd->product->name}</b> al ser primera producción, no se requiere registro de inventario, pero no olvide cambiar status a <b>Activo</b> desde el módulo de productos simples y crear su registro de inventario al contar con existencias físicas.";
+                    "<b>{$cpd->product->name}</b> Se creará automáticamente el registro de este producto en inventario, pero no olvide cambiar status a <b>Activo</b> desde el módulo de productos simples y ajustar las existencias físicas del inventario.";
                 } else {
                     $stock_product = StockProduct::where('product_id', $cpd->product_id)->first();
                     if($stock_product) {
@@ -58,8 +58,7 @@ class CreateSellOrderedProduct extends Component
                         }
                     } else {
                         $this->no_stock_record_messages [] = 
-                        "No existe ningún registro de <b>{$cpd->product->name}</b> en inventario. Favor de registrarlo para poder continuar";
-                        $this->reset('quantity');
+                        "Se creará automáticamente el registro de <b>{$cpd->product->name}</b> en inventario ya que no existe actualmente. Pero recuerda ajustar las existencias físicas del inventario";
                     }
                 }
             }
@@ -67,7 +66,7 @@ class CreateSellOrderedProduct extends Component
             $product = Product::find($product_for_sell->model_id);
             if($product->product_status_id == 3) {
                 $this->first_production_messages [] = 
-                    "<b>{$product->name}</b> al ser primera producción, no se requiere registro de inventario, pero no olvide cambiar status a <b>Activo</b> desde el módulo de productos simples y crear su registro de inventario al contar con existencias físicas.";
+                    "<b>{$product->name}</b> Se creará automáticamente el registro de este producto en inventario, pero no olvide cambiar status a <b>Activo</b> desde el módulo de productos simples y ajustar las existencias físicas del inventario.";
             } else {
                 $stock_product = StockProduct::where('product_id', $product->id)->first();
                 if($stock_product) {
@@ -77,8 +76,7 @@ class CreateSellOrderedProduct extends Component
                     }
                 } else {
                     $this->no_stock_record_messages [] = 
-                        "No existe ningún registro de <b>$product->name</b> en inventario. Favor de registrarlo para poder continuar";
-                    $this->reset('quantity');
+                        "Se creará automáticamente el registro de <b>$product->name</b> en inventario ya que no existe actualmente. Pero recuerda ajustar las existencias físicas del inventario";
                 }
             }
         }

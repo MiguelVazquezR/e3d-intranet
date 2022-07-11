@@ -35,12 +35,12 @@
             @if ($no_stock_record_messages)
                 <!-- alert messages for no stock recorded -->
                 <div x-data="{ open: true }" x-show="open"
-                    class="flex justify-between mx-auto bg-red-100 rounded-lg p-4 my-1 text-sm font-medium text-red-700"
+                    class="flex justify-between mx-auto bg-amber-100 rounded-lg p-4 my-1 text-sm font-medium text-amber-700"
                     role="alert">
                     <div class="w-11/12 flex">
                         <i class="fas fa-exclamation-triangle w-5 h-5 inline mr-3"></i>
                         <div>
-                            <span class="font-extrabold">¡No hay registro de inventario! </span>
+                            <span class="font-extrabold">No hay registro de inventario</span>
                             <br>
                             <ul>
                                 @foreach ($no_stock_record_messages as $message)

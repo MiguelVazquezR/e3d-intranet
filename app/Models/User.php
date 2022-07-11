@@ -43,6 +43,17 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // relationships -------------------------------
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+    
+    public function activities()
+    {
+        return $this->hasMany(UserHasSellOrderedProduct::class);
+    }
+
     public function weekSalary($formated = true)
     {
         $week_salary = $this->employee->salary * $this->employee->hours_per_week;
@@ -51,11 +62,6 @@ class User extends Authenticatable
             return number_format($week_salary, 2);
         else
             return $week_salary;
-    }
-
-    public function employee()
-    {
-        return $this->hasOne(Employee::class);
     }
 
     /**
@@ -116,13 +122,6 @@ class User extends Authenticatable
             }
         }
         return $current_week_registers;
-    }
-
-    protected function _getPip()
-    {
-        $external_content = file_get_contents('http://checkip.dyndns.com/');
-        preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', $external_content, $m);
-        return $m[1];
     }
 
     protected function _setTime($time, $new_register = false, $attribute = null)
@@ -438,4 +437,11 @@ class User extends Authenticatable
 
         return $late_days;
     }
+
+    public function getCommittedTime()
+    {
+        return $this->activities->sum('estimated_time');
+    }
+
+
 }

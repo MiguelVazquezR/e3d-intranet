@@ -23,10 +23,6 @@ use App\Http\Livewire\SellOrder\SellOrders;
 use App\Http\Livewire\StockHome\Base;
 use App\Http\Livewire\Supplier\Suppliers;
 use App\Http\Livewire\User\Users;
-use App\Mail\ApproveMailable;
-use App\Mail\PurchaseOrderMailable;
-use App\Models\PurchaseOrder;
-use App\Models\Quote;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 

@@ -20,6 +20,7 @@ class SellOrderedProduct extends Model
         'sell_order_id',
     ];
 
+    // relationships -----------------------------------
     public function activityDetails()
     {
         return $this->hasMany(UserHasSellOrderedProduct::class);
@@ -38,5 +39,11 @@ class SellOrderedProduct extends Model
     public function shippingPackages()
     {
         return $this->hasMany(ShippingPackage::class);
+    }
+
+    // others- ---------------------------------------------
+    public function getEstimatedTime()
+    {
+        return 90;
     }
 }

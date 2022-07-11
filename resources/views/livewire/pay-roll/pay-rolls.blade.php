@@ -24,8 +24,8 @@
         </div>
         <div class="w-3/4 mx-auto flex justify-between pt-8">
             <div>
-                <span class="input mr-2 text-sm">Mostrar</span>
-                <select class="mt-2" wire:model="elements">
+                <span class="mr-2 text-sm">Mostrar</span>
+                <select class="input mt-2" wire:model="elements">
                     <option value="10" selected>10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>

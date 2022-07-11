@@ -43,7 +43,7 @@ class Employee extends Model
         'Jueves',
     ];
 
-    // Relationships
+    // Relationships -----------------------------------
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -54,22 +54,7 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
-    // public function getBirthDateAttribute()
-    // {
-    //     return new Carbon($this->attributes['birth_date']);
-    // }
-
-    // public function getJoinDateAttribute()
-    // {
-    //     return new Carbon($this->attributes['join_date']);
-    // }
-
-    // public function getVacationsUpdatedAtAttribute()
-    // {
-    //     return new Carbon($this->attributes['vacations_updated_at']);
-    // }
-
-    // accessors & mutatores
+    // accessors & mutatores -----------------------------
     public function getBonusesAttribute()
     {
         return $this->attributes['bonuses']
@@ -164,6 +149,33 @@ class Employee extends Model
     public function joinedDays()
     {
         return $this->join_date->floatDiffInDays();
+    }
+    
+    /**
+     * Return the operator with least time committed . 
+     *
+     * @return App\Modals\User
+     */
+    public static function getAvailableOperator()
+    {
+        $operators = User::role('Auxiliar_producción')
+        ->where('active', 1)
+        ->with('employee')
+        ->get();
+
+        $available = null;
+
+        foreach ($operators as $operator) {
+            if(is_null($available)) {
+                $available = $operator;
+            } else {
+                if ($available->getCommittedTime() > $operator->getCommittedTime()) {
+                    $available = $operator;
+                }
+            }
+        }
+
+        return $available;
     }
 
     protected function _addDay()

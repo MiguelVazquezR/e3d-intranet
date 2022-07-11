@@ -6,12 +6,14 @@ use App\Mail\ApproveMailable;
 use App\Models\CompositProduct;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\MovementHistory;
 use App\Models\Product;
 use App\Models\SellOrder;
 use App\Models\SellOrderedProduct;
 use App\Models\StockMovement;
 use App\Models\StockProduct;
+use App\Models\UserHasSellOrderedProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -163,10 +165,10 @@ class CreateSellOrder extends Component
         if ($this->oce) {
             $sell_order->oce = $this->oce->store('files/OCEs', 'public');
         }
-        
+
         if (Auth::user()->can('autorizar_ordenes_venta')) {
             $sell_order->authorized_user_id = Auth::user()->id;
-            $sell_order->status = 'Autorizado. Asignar tareas';
+            $sell_order->status = 'Sin iniciar';
         } else {
             // send email notification
             Mail::to('maribel@emblemas3d.com')
@@ -181,6 +183,9 @@ class CreateSellOrder extends Component
             $s_o_p["sell_order_id"] = $sell_order->id;
             $sop = SellOrderedProduct::create($s_o_p);
 
+            if (auth()->user()->can('autorizar_ordenes_venta'))
+                $this->_assignOperator($sop);
+
             if ($sell_order->authorized_user_id) {
                 // create stock movements
                 $product_for_sell = $sop->productForSell;
@@ -188,6 +193,9 @@ class CreateSellOrder extends Component
                     $composit_product = CompositProduct::find($product_for_sell->model_id);
                     foreach ($composit_product->compositProductDetails as $cpd) {
                         $stock_product = StockProduct::where('product_id', $cpd->product_id)->first();
+                        if (!$stock_product) {
+                            $stock_product = $this->_createNewStockProduct($cpd->product);
+                        }
                         $quantity_needed = $sop->quantity * $cpd->quantity;
                         StockMovement::create([
                             'quantity' => $quantity_needed,
@@ -203,6 +211,9 @@ class CreateSellOrder extends Component
                 } else {
                     $product = Product::find($product_for_sell->model_id);
                     $stock_product = StockProduct::where('product_id', $product->id)->first();
+                    if (!$stock_product) {
+                        $stock_product = $this->_createNewStockProduct($product);
+                    }
                     $quantity_needed = $sop->quantity;
                     StockMovement::create([
                         'quantity' => $quantity_needed,
@@ -217,7 +228,6 @@ class CreateSellOrder extends Component
                 }
             }
         }
-        
 
         $this->reset();
         $this->oce = rand();
@@ -230,6 +240,27 @@ class CreateSellOrder extends Component
     {
         return view('livewire.sell-order.create-sell-order', [
             'currencies' => Currency::all(),
+        ]);
+    }
+
+    // protected methods ----------------------------------
+    protected function _assignOperator($sell_ordered_product)
+    {
+        UserHasSellOrderedProduct::create([
+            'estimated_time' => $sell_ordered_product->getEstimatedTime(),
+            'indications' => 'Asignado automáticamente',
+            'sell_ordered_product_id' => $sell_ordered_product->id,
+            'user_id' => Employee::getAvailableOperator()->id
+        ]);
+    }
+
+    protected function _createNewStockProduct(Product $product)
+    {
+        return StockProduct::create([
+            'product_id'  =>  $product->id,
+            'location'  =>  'Por definir',
+            'quantity'  =>  0,
+            'image'  => 'public/stock_products/default.jpg',
         ]);
     }
 }
