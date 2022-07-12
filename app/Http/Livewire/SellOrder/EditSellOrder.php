@@ -5,12 +5,14 @@ namespace App\Http\Livewire\SellOrder;
 use App\Models\CompositProduct;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\MovementHistory;
 use App\Models\Product;
 use App\Models\SellOrder;
 use App\Models\SellOrderedProduct;
 use App\Models\StockMovement;
 use App\Models\StockProduct;
+use App\Models\UserHasSellOrderedProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -107,17 +109,21 @@ class EditSellOrder extends Component
     {
         $success_message = '';
         $this->sell_order->authorized_user_id = Auth::user()->id;
-        $this->sell_order->status = 'Autorizado. Asignar tareas';
+        $this->sell_order->status = 'Sin iniciar';
         $this->sell_order->save();
 
         /// create stock movements
         foreach ($this->sell_order->sellOrderedProducts as $sop) {
             // create stock movements (- out)
+            $this->_assignOperator($sop);
             $product_for_sell = $sop->productForSell;
             if ($product_for_sell->model_name == CompositProduct::class) {
                 $composit_product = CompositProduct::find($product_for_sell->model_id);
                 foreach ($composit_product->compositProductDetails as $cpd) {
                     $stock_product = StockProduct::where('product_id', $cpd->product_id)->first();
+                    if (!$stock_product) {
+                        $stock_product = $this->_createNewStockProduct($cpd->product);
+                    }
                     $quantity_needed = $sop->quantity * $cpd->quantity;
                     StockMovement::create([
                         'quantity' => $quantity_needed,
@@ -133,6 +139,9 @@ class EditSellOrder extends Component
             } else {
                 $product = Product::find($product_for_sell->model_id);
                 $stock_product = StockProduct::where('product_id', $product->id)->first();
+                if (!$stock_product) {
+                    $stock_product = $this->_createNewStockProduct($product);
+                }
                 $quantity_needed = $sop->quantity;
                 StockMovement::create([
                     'quantity' => $quantity_needed,
@@ -363,6 +372,27 @@ class EditSellOrder extends Component
     {
         return view('livewire.sell-order.edit-sell-order', [
             'currencies' => Currency::all(),
+        ]);
+    }
+
+    // protected methods ----------------------------------
+    protected function _assignOperator($sell_ordered_product)
+    {
+        UserHasSellOrderedProduct::create([
+            'estimated_time' => $sell_ordered_product->getEstimatedTime(),
+            'indications' => 'Asignado automáticamente',
+            'sell_ordered_product_id' => $sell_ordered_product->id,
+            'user_id' => Employee::getAvailableOperator()->id
+        ]);
+    }
+
+    protected function _createNewStockProduct(Product $product)
+    {
+        return StockProduct::create([
+            'product_id'  =>  $product->id,
+            'location'  =>  'Por definir',
+            'quantity'  =>  0,
+            'image'  => 'public/stock_products/default.jpg',
         ]);
     }
 }

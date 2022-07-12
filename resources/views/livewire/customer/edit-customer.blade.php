@@ -37,19 +37,19 @@
                     <div>
                         <x-jet-label value="Razón social" class="mt-3" />
                         <x-jet-input wire:model.defer="company.bussiness_name" type="text" class="w-full mt-2" />
-                        <x-jet-input-error for="company.bussiness_name" class="mt-3" />
+                        <x-jet-input-error for="company.bussiness_name" class="text-xs" />
                     </div>
                     <div class="lg:grid lg:grid-cols-2 lg:gap-x-2">
                         <div>
                             <x-jet-label value="Teléfono" class="mt-3" />
                             <x-jet-input wire:model.defer="company.phone" type="text" class="w-full mt-2" />
-                            <x-jet-input-error for="company.phone" class="mt-3" />
+                            <x-jet-input-error for="company.phone" class="text-xs" />
                         </div>
 
                         <div>
                             <x-jet-label value="RFC" class="mt-3" />
                             <x-jet-input wire:model.defer="company.rfc" type="text" class="w-full mt-2" />
-                            <x-jet-input-error for="company.rfc" class="mt-3" />
+                            <x-jet-input-error for="company.rfc" class="text-xs" />
                         </div>
                     </div>
 
@@ -59,13 +59,13 @@
                             <x-jet-input wire:model.defer="company.fiscal_address" type="text"
                                 class="w-full mt-2 placeholder:text-xs"
                                 placeholder="calle, colonia, # interior y/o exterior, ciudad, estado, país" />
-                            <x-jet-input-error for="company.fiscal_address" class="mt-3" />
+                            <x-jet-input-error for="company.fiscal_address" class="text-xs" />
                         </div>
 
                         <div>
                             <x-jet-label value="C.P." class="mt-3" />
                             <x-jet-input wire:model.defer="company.post_code" type="text" class="w-full mt-2" />
-                            <x-jet-input-error for="company.post_code" class="mt-3" />
+                            <x-jet-input-error for="company.post_code" class="text-xs" />
                         </div>
                     </div>
 
@@ -85,7 +85,7 @@
                             <div>
                                 <x-jet-label value="Nombre" class="mt-1" />
                                 <x-jet-input wire:model.defer="name" type="text" class="w-full mt-2" />
-                                <x-jet-input-error for="name" class="mt-3" />
+                                <x-jet-input-error for="name" class="text-xs" />
                             </div>
 
                             <div class="lg:grid lg:grid-cols-4 lg:gap-x-2">
@@ -94,13 +94,13 @@
                                     <x-jet-input wire:model.defer="address" type="text"
                                         class="w-full mt-2 placeholder:text-xs"
                                         placeholder="calle, colonia, # interior y/o exterior, ciudad, estado, país" />
-                                    <x-jet-input-error for="address" class="mt-3" />
+                                    <x-jet-input-error for="address" class="text-xs" />
                                 </div>
                                 <div>
                                     <x-jet-label value="C.P." class="mt-3" />
                                     <x-jet-input wire:model.defer="branch_post_code" type="text"
                                         class="w-full mt-2" />
-                                    <x-jet-input-error for="branch_post_code" class="mt-3" />
+                                    <x-jet-input-error for="branch_post_code" class="text-xs" />
                                 </div>
                             </div>
 
@@ -117,7 +117,7 @@
                             <x-jet-secondary-button class="ml-2 rounded-full" wire:click="openCreateSatMethod">
                                 <i class="fas fa-plus"></i>
                             </x-jet-secondary-button>
-                            <x-jet-input-error for="sat_method_id" class="mt-3" />
+                            <x-jet-input-error for="sat_method_id" class="text-xs" />
 
                             <x-jet-label value="Medio de pago" class="mt-3" />
                             <select class="input mt-2 w-3/4" wire:model.defer="sat_way_id">
@@ -133,7 +133,7 @@
                                 wire:click="$emitTo('currency.create-currency', 'openModal')">
                                 <i class="fas fa-plus"></i>
                             </x-jet-secondary-button>
-                            <x-jet-input-error for="sat_way_id" class="mt-3" />
+                            <x-jet-input-error for="sat_way_id" class="text-xs" />
 
                             <x-jet-label value="Uso de factura" class="mt-3" />
                             <x-select class="mt-2 w-3/4" wire:model.defer="sat_type_id" :options="$sat_types" name="description" />
@@ -141,7 +141,7 @@
                                 wire:click="$emitTo('currency.create-currency', 'openModal')">
                                 <i class="fas fa-plus"></i>
                             </x-jet-secondary-button>
-                            <x-jet-input-error for="sat_type_id" class="mt-3" />
+                            <x-jet-input-error for="sat_type_id" class="text-xs" />
 
                             <!-- Contacts -->
                             <h2 wire:click="$set('add_contact', {{ !$add_contact }})"
@@ -159,7 +159,7 @@
                                         <x-jet-label value="Nombre" class="mt-1" />
                                         <x-jet-input wire:model.defer="contact_name" type="text"
                                             class="w-full mt-2" />
-                                        <x-jet-input-error for="contact_name" class="mt-3" />
+                                        <x-jet-input-error for="contact_name" class="text-xs" />
                                     </div>
 
                                     <div class="lg:grid lg:grid-cols-2 lg:gap-x-2">
@@ -167,16 +167,16 @@
                                             <x-jet-label value="Correo" class="mt-3" />
                                             <x-jet-input wire:model.defer="email" type="text"
                                                 class="w-full mt-2 placeholder:text-xs" />
-                                            <x-jet-input-error for="email" class="mt-3" />
+                                            <x-jet-input-error for="email" class="text-xs" />
                                         </div>
                                         <div>
                                             <x-jet-label value="Teléfono" class="mt-3" />
                                             <x-jet-input wire:model.defer="contact_phone" type="text"
                                                 class="w-full mt-2" />
-                                            <x-jet-input-error for="contact_phone" class="mt-3" />
+                                            <x-jet-input-error for="contact_phone" class="text-xs" />
                                         </div>
                                         <div class="col-span-full">
-                                            <x-jet-label value="Cumpleaños" class="mt-3" />
+                                            <x-jet-label value="Cumpleaños" class="text-xs" />
                                             <div class="grid grid-cols-2 gap-3">
                                                 <div>
                                                     <x-jet-label value="Día" class="mt-3" />
@@ -187,7 +187,7 @@
                                                             </option>
                                                         @endfor
                                                     </select>
-                                                    <x-jet-input-error for="day" class="mt-1" />
+                                                    <x-jet-input-error for="day" class="text-xs" />
                                                 </div>
                                                 <div>
                                                     <x-jet-label value="Mes" class="mt-3" />
@@ -198,7 +198,7 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    <x-jet-input-error for="month" class="mt-3" />
+                                                    <x-jet-input-error for="month" class="text-xs" />
                                                 </div>
                                             </div>
                                         </div>
@@ -267,7 +267,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <x-jet-input-error for="contact_list" class="mt-3" />
+                            <x-jet-input-error for="contact_list" class="text-xs" />
                         </div>
                     @endif
                     @foreach ($branch_list as $i => $branch)
@@ -284,7 +284,7 @@
                             </x-product-quick-view>
                         </x-item-list>
                     @endforeach
-                    <x-jet-input-error for="branch_list" class="mt-3" />
+                    <x-jet-input-error for="branch_list" class="text-xs" />
                 </div>
 
                 <!-- products -->

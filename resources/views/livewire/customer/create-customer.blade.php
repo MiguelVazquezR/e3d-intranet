@@ -20,19 +20,19 @@
             <div>
                 <x-jet-label value="Razón social" class="mt-3" />
                 <x-jet-input wire:model.defer="bussiness_name" type="text" class="w-full mt-2" />
-                <x-jet-input-error for="bussiness_name" class="mt-3" />
+                <x-jet-input-error for="bussiness_name" class="text-xs" />
             </div>
             <div class="lg:grid lg:grid-cols-2 lg:gap-x-2">
                 <div>
                     <x-jet-label value="Teléfono" class="mt-3" />
                     <x-jet-input wire:model.defer="phone" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="phone" class="mt-3" />
+                    <x-jet-input-error for="phone" class="text-xs" />
                 </div>
 
                 <div>
                     <x-jet-label value="RFC" class="mt-3" />
                     <x-jet-input wire:model.defer="rfc" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="rfc" class="mt-3" />
+                    <x-jet-input-error for="rfc" class="text-xs" />
                 </div>
             </div>
 
@@ -40,13 +40,13 @@
                 <div class="lg:col-span-3">
                     <x-jet-label value="Dirección" class="mt-3" />
                     <x-jet-input wire:model.defer="fiscal_address" type="text" class="w-full mt-2 placeholder:text-xs" placeholder="calle, colonia, # interior y/o exterior, ciudad, estado, país" />
-                    <x-jet-input-error for="fiscal_address" class="mt-3" />
+                    <x-jet-input-error for="fiscal_address" class="text-xs" />
                 </div>
 
                 <div>
                     <x-jet-label value="C.P." class="mt-3" />
                     <x-jet-input wire:model.defer="post_code" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="post_code" class="mt-3" />
+                    <x-jet-input-error for="post_code" class="text-xs" />
                 </div>
             </div>
 
@@ -76,63 +76,56 @@
                 <div>
                     <x-jet-label value="Nombre" class="mt-1" />
                     <x-jet-input wire:model.defer="name" type="text" class="w-full mt-2" />
-                    <x-jet-input-error for="name" class="mt-3" />
+                    <x-jet-input-error for="name" class="text-xs" />
                 </div>
 
                 <div class="lg:grid lg:grid-cols-4 lg:gap-x-2">
                     <div class="lg:col-span-3">
                         <x-jet-label value="Dirección" class="mt-3" />
                         <x-jet-input wire:model.defer="address" type="text" class="w-full mt-2 placeholder:text-xs" placeholder="calle, colonia, # interior y/o exterior, ciudad, estado, país" />
-                        <x-jet-input-error for="address" class="mt-3" />
+                        <x-jet-input-error for="address" class="text-xs" />
                     </div>
                     <div>
                         <x-jet-label value="C.P." class="mt-3" />
                         <x-jet-input wire:model.defer="branch_post_code" type="text" class="w-full mt-2" />
-                        <x-jet-input-error for="branch_post_code" class="mt-3" />
+                        <x-jet-input-error for="branch_post_code" class="text-xs" />
                     </div>
                 </div>
 
                 <x-jet-label value="Método de pago" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model.defer="sat_method_id">
+                <select class="input mt-2 w-3/4" wire:model.defer="sat_method_id">
                     <option value="" selected>--- Seleccione ---</option>
                     @forelse($sat_methods as $method)
                     <option value="{{ $method->id }}">{{ $method->key .' - '. $method->description }}</option>
                     @empty
                     <option value="">No hay ningun método registrado</option>
                     @endforelse
-                </x-select>
+                </select>
                 <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('sat-method.create-sat-method', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
-                <x-jet-input-error for="sat_method_id" class="mt-3" />
+                <x-jet-input-error for="sat_method_id" class="text-xs" />
 
                 <x-jet-label value="Medio de pago" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model.defer="sat_way_id">
+                <select class="input mt-2 w-3/4" wire:model.defer="sat_way_id">
                     <option value="" selected>--- Seleccione ---</option>
                     @forelse($sat_ways as $way)
                     <option value="{{ $way->id }}">{{ $way->key .' - '. $way->description }}</option>
                     @empty
                     <option value="">No hay ningun medio registrado</option>
                     @endforelse
-                </x-select>
+                </select>
                 <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('sat-way.create-sat-way', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
-                <x-jet-input-error for="sat_way_id" class="mt-3" />
+                <x-jet-input-error for="sat_way_id" class="text-xs" />
 
                 <x-jet-label value="Uso de factura" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model.defer="sat_type_id">
-                    <option value="" selected>--- Seleccione ---</option>
-                    @forelse($sat_types as $type)
-                    <option value="{{ $type->id }}">{{ $type->description }}</option>
-                    @empty
-                    <option value="">No hay ningun tipo registrado</option>
-                    @endforelse
-                </x-select>
+                <x-select class="mt-2 w-3/4" wire:model.defer="sat_type_id" :options="$sat_types" name="description" />
                 <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('sat-type.create-sat-type', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
-                <x-jet-input-error for="sat_type_id" class="mt-3" />
+                <x-jet-input-error for="sat_type_id" class="text-xs" />
 
                 <!-- Contacts -->
                 <h2 wire:click="$set('add_contact', {{!$add_contact}})" class="text-center font-bold text-lg text-sky-600 my-2 hover:cursor-pointer">
@@ -159,41 +152,41 @@
                     <div>
                         <x-jet-label value="Nombre" class="mt-1" />
                         <x-jet-input wire:model.defer="contact_name" type="text" class="w-full mt-2" />
-                        <x-jet-input-error for="contact_name" class="mt-1" />
+                        <x-jet-input-error for="contact_name" class="text-xs" />
                     </div>
 
                     <div class="lg:grid lg:grid-cols-2 lg:gap-x-2">
                         <div>
                             <x-jet-label value="Correo" class="mt-3" />
                             <x-jet-input wire:model.defer="email" type="text" class="w-full mt-2 placeholder:text-xs" />
-                            <x-jet-input-error for="email" class="mt-1" />
+                            <x-jet-input-error for="email" class="text-xs" />
                         </div>
                         <div>
                             <x-jet-label value="Teléfono" class="mt-3" />
                             <x-jet-input wire:model.defer="contact_phone" type="text" class="w-full mt-2" />
-                            <x-jet-input-error for="contact_phone" class="mt-1" />
+                            <x-jet-input-error for="contact_phone" class="text-xs" />
                         </div>
                         <div class="col-span-full">
                             <x-jet-label value="Cumpleaños" class="mt-3" />
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
                                     <x-jet-label value="Día" class="mt-3" />
-                                    <x-select class="mt-2 w-full" wire:model.defer="day">
+                                    <select class="input mt-2 w-full" wire:model.defer="day">
                                         <option value="">-- Seleccione --</option>
                                         @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}">{{ $day }}</option>
                                             @endfor
-                                    </x-select>
-                                    <x-jet-input-error for="day" class="mt-1" />
+                                    </select>
+                                    <x-jet-input-error for="day" class="text-xs" />
                                 </div>
                                 <div>
                                     <x-jet-label value="Mes" class="mt-3" />
-                                    <x-select class="mt-2 w-full" wire:model.defer="month">
+                                    <select class="input mt-2 w-full" wire:model.defer="month">
                                         <option value="">-- Seleccione --</option>
                                         @foreach($months as $key => $month)
                                         <option value="{{ $key }}">{{ $month }}</option>
                                         @endforeach
-                                    </x-select>
-                                    <x-jet-input-error for="month" class="mt-3" />
+                                    </select>
+                                    <x-jet-input-error for="month" class="text-xs" />
                                 </div>
                             </div>
                         </div>

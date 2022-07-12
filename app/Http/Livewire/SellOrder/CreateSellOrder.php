@@ -14,6 +14,7 @@ use App\Models\SellOrderedProduct;
 use App\Models\StockMovement;
 use App\Models\StockProduct;
 use App\Models\UserHasSellOrderedProduct;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -147,7 +148,7 @@ class CreateSellOrder extends Component
         $aditional_data = [
             'customer_id' => $this->customer->id,
             'notes' => $this->notes,
-            'user_id' => Auth::user()->id,
+            'user_id' => auth()->user()->id,
         ];
 
         $sell_order = SellOrder::create($validated_data + $aditional_data);
@@ -155,7 +156,7 @@ class CreateSellOrder extends Component
         // create movement history
         MovementHistory::create([
             'movement_type' => 1,
-            'user_id' => Auth::user()->id,
+            'user_id' => auth()->user()->id,
             'description' => "Se creó nueva orden de venta con ID: {$sell_order->id}"
         ]);
 
@@ -166,14 +167,15 @@ class CreateSellOrder extends Component
             $sell_order->oce = $this->oce->store('files/OCEs', 'public');
         }
 
-        if (Auth::user()->can('autorizar_ordenes_venta')) {
-            $sell_order->authorized_user_id = Auth::user()->id;
+        if (auth()->user()->can('autorizar_ordenes_venta')) {
+            $sell_order->authorized_user_id = auth()->user()->id;
             $sell_order->status = 'Sin iniciar';
         } else {
             // send email notification
-            Mail::to('maribel@emblemas3d.com')
-                // ->bcc('miguelvz26.mv@gmail.com')
-                ->queue(new ApproveMailable('Orden de venta', $sell_order->id, SellOrder::class));
+            if (App::environment('production'))
+                Mail::to('maribel@emblemas3d.com')
+                    // ->bcc('miguelvz26.mv@gmail.com')
+                    ->queue(new ApproveMailable('Orden de venta', $sell_order->id, SellOrder::class));
         }
 
         $sell_order->save();
@@ -183,10 +185,9 @@ class CreateSellOrder extends Component
             $s_o_p["sell_order_id"] = $sell_order->id;
             $sop = SellOrderedProduct::create($s_o_p);
 
-            if (auth()->user()->can('autorizar_ordenes_venta'))
-                $this->_assignOperator($sop);
-
             if ($sell_order->authorized_user_id) {
+                // assign operator
+                $this->_assignOperator($sop);
                 // create stock movements
                 $product_for_sell = $sop->productForSell;
                 if ($product_for_sell->model_name == CompositProduct::class) {
@@ -200,7 +201,7 @@ class CreateSellOrder extends Component
                         StockMovement::create([
                             'quantity' => $quantity_needed,
                             'notes' => "Para OV con ID $sell_order->id",
-                            'user_id' => Auth::user()->id,
+                            'user_id' => auth()->user()->id,
                             'stock_product_id' => $stock_product->id,
                             'stock_action_type_id' => 5, //venta
                         ]);
@@ -218,7 +219,7 @@ class CreateSellOrder extends Component
                     StockMovement::create([
                         'quantity' => $quantity_needed,
                         'notes' => "Para OV con ID $sell_order->id",
-                        'user_id' => Auth::user()->id,
+                        'user_id' => auth()->user()->id,
                         'stock_product_id' => $stock_product->id,
                         'stock_action_type_id' => 5, //venta
                     ]);
