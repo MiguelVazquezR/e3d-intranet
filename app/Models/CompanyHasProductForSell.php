@@ -21,7 +21,7 @@ class CompanyHasProductForSell extends Model
         'new_price_currency',
         'company_id',
     ];
-    
+
     protected $dates = [
         'old_date',
         'new_date',
@@ -36,18 +36,17 @@ class CompanyHasProductForSell extends Model
     // {
     //     return $this->morphTo();
     // }
-    
+
     public function model()
     {
-        if($this->model_name == Product::class)
-        return $this->belongsTo(Product::class);
+        if ($this->model_name == Product::class)
+            return $this->belongsTo(Product::class);
         else
-        return $this->belongsTo(CompositProduct::class);
+            return $this->belongsTo(CompositProduct::class);
     }
-    
+
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
-
 }
