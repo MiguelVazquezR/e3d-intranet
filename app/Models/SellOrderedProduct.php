@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ServiceClasses\ActivityTimeCalc;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,6 +45,7 @@ class SellOrderedProduct extends Model
     // others- ---------------------------------------------
     public function getEstimatedTime()
     {
-        return 90;
+        $calculator = new ActivityTimeCalc($this);
+        return $calculator->calculateTime();
     }
 }
