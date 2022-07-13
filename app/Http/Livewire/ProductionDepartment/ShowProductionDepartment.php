@@ -11,7 +11,7 @@ class ShowProductionDepartment extends Component
 {
     public $sell_order,
         $open = false,
-        $active_tab = 0;
+        $active_tab = 1;
 
     protected $listeners = [
         'openModal',

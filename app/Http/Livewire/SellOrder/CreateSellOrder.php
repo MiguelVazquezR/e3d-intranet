@@ -15,7 +15,6 @@ use App\Models\StockMovement;
 use App\Models\StockProduct;
 use App\Models\UserHasSellOrderedProduct;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
