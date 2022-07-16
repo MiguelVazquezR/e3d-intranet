@@ -129,10 +129,10 @@
                 <span class="">{{ $user->employee->hours_per_week }}</span>
                 <span class="">hrs hechas</span>
                 <span class="">
-                    @if ($user->totalTime($pay_roll->id, false) < $user->employee->hours_per_week)
+                    @if ($user->totalTime($pay_roll->id, false, true) < $user->employee->hours_per_week)
                         <i class="fas fa-exclamation-triangle text-red-600"></i>
                     @endif
-                    {{ $user->totalTime($pay_roll->id) }}
+                    {{ $user->totalTime($pay_roll->id, true, true) }}
                 </span>
                 <span class="">sueldo/hora</span>
                 <span class="">${{ $user->employee->salary }}</span>

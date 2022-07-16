@@ -173,6 +173,12 @@
                                         Nóminas
                                     </x-jet-dropdown-link>
                                 @endcan
+                                @can('autorizar_tiempo_adicional')
+                                    <x-jet-dropdown-link href="{{ route('additional_time_requests') }}">
+                                        <i class="fas fa-user-clock"></i>
+                                        Solicitudes de tiempo adicional
+                                    </x-jet-dropdown-link>
+                                @endcan
                                 @can('tabla_reuniones')
                                     <x-jet-dropdown-link href="{{ route('meetings') }}">
                                         <i class="far fa-handshake"></i>

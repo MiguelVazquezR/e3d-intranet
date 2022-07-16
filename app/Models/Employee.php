@@ -177,6 +177,16 @@ class Employee extends Model
 
         return $available;
     }
+    
+    /**
+     * Return . 
+     *
+     * @return bool
+     */
+    public function exceedWeeklyHours($pay_roll_id = null)
+    {
+        return $this->user->totalTime($pay_roll_id, false) > $this->hours_per_week;
+    }
 
     protected function _addDay()
     {

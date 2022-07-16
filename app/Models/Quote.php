@@ -19,6 +19,7 @@ class Quote extends Model
         'department',
         'tooling_cost',
         'freight_cost',
+        'first_production_days',
         'strikethrough_tooling_cost',
         'notes',
         'sell_order_id',

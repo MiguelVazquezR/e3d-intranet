@@ -43,7 +43,7 @@ class CreateQuote extends Component
     protected $rules = [
         'receiver' => 'required|max:60',
         'department' => 'required|max:60',
-        'first_production_days' => 'required|max:60',
+        'first_production_days' => 'required|max:70',
         'tooling_cost' => 'required|max:56',
         'freight_cost' => 'required|max:56',
         'currency_id' => 'required',

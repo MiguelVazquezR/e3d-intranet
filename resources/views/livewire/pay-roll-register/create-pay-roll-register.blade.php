@@ -50,13 +50,43 @@
                             {{ $user->name }}
                         </p>
                     </div>
-                    <div class="flex flex-col justify-center h-full col-span-full mt-2">
+                    <div class="flex flex-col justify-center h-full col-span-full">
+                        <!-- banner -->
+                        <div x-data="{ open: true }" x-show="open"
+                            class="w-11/12 flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                            role="alert">
+                            <div class="w-11/12 flex">
+                                <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
+                                <div>
+                                    Ya no está permitido exceder las horas de tu jornada semanal. Si se exceden sin
+                                    previa autorización, estas no se tomarán en
+                                    cuenta en la nómina <br>
+                                    @if ($user->hasRole('Auxiliar_producción'))
+                                        @if ($user->additionalTimeRequest())
+                                            <div
+                                                class="px-2 py-1 rounded-full text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
+                                                {{ $user->additionalTimeRequest()->authorized_by ? 'Autorizado' : 'Esperando autorización' }}
+                                            </div>
+                                        @else
+                                            <button wire:loading.attr="disabled" wire:target="requestTime"
+                                                wire:click="requestTime"
+                                                class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                                                Solicitar autorización
+                                            </button>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
 
+                            <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
+                        </div>
                         <!-- Table -->
                         <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                             <header class="px-5 py-4 border-b border-gray-100 flex justify-between text-sm">
                                 <h2 class="font-semibold text-gray-600">Semana</h2>
-                                <h2 class="font-semibold text-gray-600">Tiempo hasta ahora: {{ $user->totalTime() }}
+                                <h2 class="font-semibold text-gray-600">Tiempo hasta ahora: <span
+                                        class="{{ $user->employee->exceedWeeklyHours() ? 'text-red-500' : '' }}">{{ $user->totalTime() }}</span>
+                                    / {{ $user->employee->hours_per_week }}
                                 </h2>
                             </header>
                             <div class="p-3">

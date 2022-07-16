@@ -174,7 +174,7 @@ class CreatePayRollRegister extends Component
     public function verifyLocation()
     {
         if (Auth::user()->can('home_office')) {
-             $this->registerTime();
+            $this->registerTime();
         } else {
             $this->emit('getLocation');
         }
@@ -240,6 +240,12 @@ class CreatePayRollRegister extends Component
         $this->emit('success', 'Nómina cerrada. Cualquier cambio se puede realizar en la sección de edición');
         $this->emitTo('pay-roll.pay-rolls', 'render');
         $this->reset();
+    }
+
+    public function requestTime()
+    {
+        $this->emitTo('pay-roll-more-time.create', 'openModal');
+        $this->current_week_registers = $this->user->currentWeekRegisters();
     }
 
     public function render()

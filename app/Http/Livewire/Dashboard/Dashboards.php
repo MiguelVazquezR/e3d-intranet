@@ -7,6 +7,8 @@ use App\Models\DesignOrder;
 use App\Models\Employee;
 use App\Models\Meeting;
 use App\Models\MovementHistory;
+use App\Models\PayRoll;
+use App\Models\PayRollMoreTime;
 use App\Models\PurchaseOrder;
 use App\Models\Quote;
 use App\Models\SellOrder;
@@ -23,6 +25,7 @@ class Dashboards extends Component
         $sell_orders_for_authorize,
         $purchase_orders_for_authorize,
         $design_orders_for_authorize,
+        $additional_time_for_authorize,
         $so_to_start,
         $low_stock,
         $created_histories,
@@ -43,6 +46,7 @@ class Dashboards extends Component
         $this->quotes_for_authorize = Quote::whereNull('authorized_user_id')->get();
         $this->sell_orders_for_authorize = SellOrder::whereNull('authorized_user_id')->get();
         $this->purchase_orders_for_authorize = PurchaseOrder::whereNull('authorized_user_id')->get();
+        $this->additional_time_for_authorize = PayRollMoreTime::whereNull('authorized_by')->where('pay_roll_id', PayRoll::currentPayRoll()->id)->get();
         $this->design_orders_for_authorize = DesignOrder::whereNull('authorized_user_id')->get();
         $this->so_to_start = SellOrder::where('status', 'Autorizado. Asignar tareas')->get();
         $this->packages_for_shipping = ShippingPackage::where('status', 'Prepando para envío')->get();

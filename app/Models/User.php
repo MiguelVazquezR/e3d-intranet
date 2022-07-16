@@ -48,7 +48,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Employee::class);
     }
-    
+
     public function activities()
     {
         return $this->hasMany(UserHasSellOrderedProduct::class);
@@ -199,7 +199,7 @@ class User extends Authenticatable
 
     public function normalSalary($pay_roll = null, $formated = true)
     {
-        $normal_salary = $this->employee->salary * $this->totalTime($pay_roll, false);
+        $normal_salary = $this->employee->salary * $this->totalTime($pay_roll, false, true);
 
         if ($formated)
             return number_format($normal_salary, 2);
@@ -217,7 +217,7 @@ class User extends Authenticatable
             return $extra_salary;
     }
 
-    public function totalTime($pay_roll = null, $in_text = true)
+    public function totalTime($pay_roll = null, $in_text = true, $time_limitted = false)
     {
         $total_time = 0;
         if (is_null($pay_roll)) {
@@ -228,6 +228,18 @@ class User extends Authenticatable
             $carry += $this->timeForRegister($item, false);
             return $carry;
         });
+
+        if ($time_limitted) {
+            $weekly_limit = $this->employee->hours_per_week;
+            if ($this->additionalTimeRequest($pay_roll)) {
+                $weekly_limit += $this->additionalTimeRequest($pay_roll)->authorized_by
+                    ? $this->_timeToHours($this->additionalTimeRequest($pay_roll)->additional_time)
+                    : 0;
+            }
+            if ($total_time > $weekly_limit) {
+                $total_time = $weekly_limit;
+            }
+        }
 
         if ($in_text)
             return $this->_hoursToTime($total_time);
@@ -335,12 +347,12 @@ class User extends Authenticatable
         return $carry;
     }
 
-    public function _hoursPerDay()
+    protected function _hoursPerDay()
     {
         return $this->employee->hours_per_week / (7 - count($this->employee->days_off));
     }
 
-    public function _hoursToTime($hours)
+    protected function _hoursToTime($hours)
     {
         if ($hours == 0) return '--:--';
 
@@ -354,6 +366,12 @@ class User extends Authenticatable
         if ($minutes < 10) $minutes = "0$minutes";
 
         return "$hours:$minutes";
+    }
+
+    protected function _timeToHours($time)
+    {
+        $hours = explode(':', $time)[0] + (explode(':', $time)[1] / 60);
+        return $hours;
     }
 
     public function getBonuses($pay_roll = null)
@@ -443,5 +461,20 @@ class User extends Authenticatable
         return $this->activities->sum('estimated_time');
     }
 
+    public function additionalTimeRequest($pay_roll_id = null)
+    {
+        if ($pay_roll_id) {
+            $request = PayRollMoreTime::where('user_id', $this->id)
+                ->where('pay_roll_id', $pay_roll_id)
+                ->get();
+        } else {
+            $request = PayRollMoreTime::where('user_id', $this->id)
+                ->where('pay_roll_id', PayRoll::currentPayRoll()->id)
+                ->get();
+        }
 
+        return $request->all()
+            ? $request->all()[0]
+            : null;
+    }
 }

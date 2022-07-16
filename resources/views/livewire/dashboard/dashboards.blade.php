@@ -183,6 +183,12 @@
                 <x-dashboard-panel-1 href="{{ route('sell-orders') }}" title="Órdenes de venta sin asignar tareas"
                     :counter="$so_to_start->count()" icon="fas fa-tasks" />
             @endcan
+
+            <!-- Additional time for authorize -->
+            @can('autorizar_tiempo_adicional')
+                <x-dashboard-panel-1 href="{{ route('additional_time_requests') }}" title="Hrs adicionales por autorizar"
+                    :counter="$additional_time_for_authorize->count()" icon="fas fa-user-clock" />
+            @endcan
         </div>
 
         <h2 class="text-2xl text-gray-400 mb-3 mt-8 ml-6">Colaboradores (empleados)</h2>

@@ -13,6 +13,7 @@ use App\Http\Livewire\Meeting\Meetings;
 use App\Http\Livewire\NewUpdate\NewUpdates;
 use App\Http\Livewire\Organization\Organization;
 use App\Http\Livewire\PayRoll\PayRolls;
+use App\Http\Livewire\PayRollMoreTime\Index;
 use App\Http\Livewire\Permission\Permissions;
 use App\Http\Livewire\ProductionDepartment\HomeProduction;
 use App\Http\Livewire\Products\Products;
@@ -23,6 +24,7 @@ use App\Http\Livewire\SellOrder\SellOrders;
 use App\Http\Livewire\StockHome\Base;
 use App\Http\Livewire\Supplier\Suppliers;
 use App\Http\Livewire\User\Users;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -136,17 +138,21 @@ Route::get('/bonos', Bonuses::class)
 Route::get('/novedades', NewUpdates::class)
     ->middleware('auth')
     ->name('news');
-        
-        // // artisan commands
-     Route::get('/clear-cache', function() {
-         Artisan::call('cache:clear');
-         return "app cache clear!";
-      });
-     
-      Route::get('event-cache', function() {
-         Artisan::call('event:clear');
-         return "events cache clear!";
-      });
+
+Route::get('/tiempo-adicional', Index::class)
+    ->middleware('auth')
+    ->name('additional_time_requests');
+
+// // artisan commands
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    return "app cache clear!";
+});
+
+Route::get('event-cache', function () {
+    Artisan::call('event:clear');
+    return "events cache clear!";
+});
      
     //  Route::get('/view-cache', function() {
     //     Artisan::call('view:cache');
