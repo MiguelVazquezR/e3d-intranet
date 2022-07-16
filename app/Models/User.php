@@ -230,12 +230,7 @@ class User extends Authenticatable
         });
 
         if ($time_limitted) {
-            $weekly_limit = $this->employee->hours_per_week;
-            if ($this->additionalTimeRequest($pay_roll)) {
-                $weekly_limit += $this->additionalTimeRequest($pay_roll)->authorized_by
-                    ? $this->_timeToHours($this->additionalTimeRequest($pay_roll)->additional_time)
-                    : 0;
-            }
+            $weekly_limit = $this->weeklyLimitTime($pay_roll, false);
             if ($total_time > $weekly_limit) {
                 $total_time = $weekly_limit;
             }
@@ -245,6 +240,21 @@ class User extends Authenticatable
             return $this->_hoursToTime($total_time);
         else
             return $total_time;
+    }
+
+    public function weeklyLimitTime($pay_roll_id = null, $in_text = true)
+    {
+        $weekly_limit = $this->employee->hours_per_week;
+        if ($this->additionalTimeRequest($pay_roll_id)) {
+            $weekly_limit += $this->additionalTimeRequest($pay_roll_id)->authorized_by
+                ? $this->_timeToHours($this->additionalTimeRequest($pay_roll_id)->additional_time)
+                : 0;
+        }
+
+        if ($in_text)
+            return $this->_hoursToTime($weekly_limit);
+        else
+            return $weekly_limit;
     }
 
     public function totalExtraTime($pay_roll = null, $in_text = true)

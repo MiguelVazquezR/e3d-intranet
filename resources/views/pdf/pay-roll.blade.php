@@ -29,13 +29,20 @@
                 <div class="w-full px-2 bg-white shadow-lg rounded-lg border border-gray-400 mt-1">
                     <header class="px-2 py-2 border-b border-gray-200">
                         <h2 class="font-semibold text-gray-800">
-                            <div class="flex justify-between mt-1">
+                            <div class="flex items-center justify-between mt-1">
                                 <!-- name -->
                                 <p> <i class="fas fa-user"></i> {{ $user->name }} </p>
                                 <!-- period -->
                                 <p> <i class="fas fa-calendar-alt"></i> del
                                     {{ $pay_roll->start_period->isoFormat('DD MMMM YYYY') }} al
                                     {{ $pay_roll->end_period->isoFormat('DD MMMM YYYY') }} </p>
+                                @if ($user->additionalTimeRequest($pay_roll->id))
+                                    @if ($user->additionalTimeRequest($pay_roll->id)->authorized_by)
+                                        <p class="bg-green-50 text-green-500 rounded-full px-1 py-px border">
+                                            {{ substr($user->additionalTimeRequest($pay_roll->id)->additional_time, 0, 5) }} hrs.
+                                            autorizadas</p>
+                                    @endif
+                                @endif
                             </div>
                         </h2>
                     </header>
@@ -146,7 +153,8 @@
                 <span class="">sueldo sin bonos</span>
                 <span class="">${{ $user->normalSalary($pay_roll->id) }}</span>
                 <span class="">Hrs extra</span>
-                <span class="">{{ $user->totalExtraTime($pay_roll->id) }} (${{ $user->extraSalary($pay_roll->id) }})</span>
+                <span class="">{{ $user->totalExtraTime($pay_roll->id) }}
+                    (${{ $user->extraSalary($pay_roll->id) }})</span>
                 <span class="">deducciones</span>
                 <span class="">-${{ $user->employee->discounts }}</span>
                 <span class="">total</span>
@@ -155,7 +163,8 @@
                 <span class="col-span-2">firma</span>
             </div>
         </div>
-        <p class="text-gray-500 mb-6 mt-1 leading-tight" style="font-size: 6px;">RECIBI DE LA EMPRESA EMBLEMAS 3D MEXICO SA
+        <p class="text-gray-500 mb-6 mt-1 leading-tight" style="font-size: 6px;">RECIBI DE LA EMPRESA EMBLEMAS 3D MEXICO
+            SA
             DE CV LA CANTIDAD SEÑALADA
             MISMA QUE CUBRE LAS PERCEPCIONES QUE ME CORRESPONDEN EN EL PERIODO INDICADO,
             NO EXISTIENDO NINGUN ADEUDO POR PARTE DE LA EMPRESA PARA CON EL SUSCRITO,

@@ -86,7 +86,7 @@
                                 <h2 class="font-semibold text-gray-600">Semana</h2>
                                 <h2 class="font-semibold text-gray-600">Tiempo hasta ahora: <span
                                         class="{{ $user->employee->exceedWeeklyHours() ? 'text-red-500' : '' }}">{{ $user->totalTime() }}</span>
-                                    / {{ $user->employee->hours_per_week }}
+                                    / {{ $user->weeklyLimitTime() }}
                                 </h2>
                             </header>
                             <div class="p-3">
