@@ -9,12 +9,13 @@ use App\Models\CompositProduct;
 use App\Models\Contact;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\MovementHistory;
 use App\Models\Product;
 use App\Models\Quote;
 use App\Models\SellOrder;
 use App\Models\SellOrderedProduct;
-use Illuminate\Support\Facades\Auth;
+use App\Models\UserHasSellOrderedProduct;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -85,7 +86,7 @@ class TurnIntoSellOrder extends Component
             $this->products_for_sell_list[] = [
                 'model_id' => $product->composit_product_id,
                 'model_name' => CompositProduct::class,
-                'new_date' => now(),
+                'new_date' => date('Y-m-d H:i:s'),
                 'new_price' => $product->price,
                 'new_price_currency' => $currency,
                 'quantity' => $product->quantity,
@@ -106,7 +107,7 @@ class TurnIntoSellOrder extends Component
 
         // sell ordered products
         foreach ($this->products_for_sell_list as $product) {
-            $this->sell_ordered_products_list [] = [
+            $this->sell_ordered_products_list[] = [
                 'quantity' => $product["quantity"],
                 'for_sell' => 1,
                 'new_design' => 0,
@@ -135,7 +136,7 @@ class TurnIntoSellOrder extends Component
         $aditional_data = [
             'customer_id' => $this->customer->id,
             'notes' => $this->notes,
-            'user_id' => Auth::user()->id,
+            'user_id' => auth()->user()->id,
         ];
 
         $sell_order = SellOrder::create($validated_data + $aditional_data);
@@ -143,7 +144,7 @@ class TurnIntoSellOrder extends Component
         // create movement history
         MovementHistory::create([
             'movement_type' => 1,
-            'user_id' => Auth::user()->id,
+            'user_id' => auth()->user()->id,
             'description' => "Se creó nueva orden de venta con ID: {$sell_order->id} desde cotización con ID: {$this->quote->id}"
         ]);
 
@@ -154,14 +155,15 @@ class TurnIntoSellOrder extends Component
             $sell_order->oce = $this->oce->store('files/OCEs', 'public');
         }
 
-        if (Auth::user()->can('autorizar_ordenes_venta')) {
-            $sell_order->authorized_user_id = Auth::user()->id;
-            $sell_order->status = 'Autorizado. Asignar tareas';
+        if (auth()->user()->can('autorizar_ordenes_venta')) {
+            $sell_order->authorized_user_id = auth()->user()->id;
+            $sell_order->status = 'Sin iniciar';
         } else {
             // send email notification
-            Mail::to('maribel@emblemas3d.com')
-                // ->bcc('miguelvz26.mv@gmail.com')
-                ->queue(new ApproveMailable('Orden de venta', $sell_order->id, SellOrder::class));
+            if (App::environment('production'))
+                Mail::to('maribel@emblemas3d.com')
+                    // ->bcc('miguelvz26.mv@gmail.com')
+                    ->queue(new ApproveMailable('Orden de venta', $sell_order->id, SellOrder::class));
         }
 
         $sell_order->save();
@@ -177,6 +179,11 @@ class TurnIntoSellOrder extends Component
             $s_o_p["sell_order_id"] = $sell_order->id;
             $s_o_p["company_has_product_for_sell_id"] = $pfs->id;
             $sop = SellOrderedProduct::create($s_o_p);
+
+            if ($sell_order->authorized_user_id) {
+                // assign operator
+                $this->_assignOperator($sop);
+            }
         }
 
         $this->quote->update(['sell_order_id' => $sell_order->id]);
@@ -186,10 +193,28 @@ class TurnIntoSellOrder extends Component
 
         $this->emitTo('sell-order.sell-orders', 'render');
         $this->emit('success', 'Nueva orden de venta creada. ' . $success_message);
-        $this->emitTo('quote.quotes','render');
+        $this->emitTo('quote.quotes', 'render');
     }
 
-    private function _createCustomer()
+    public function render()
+    {
+        return view('livewire.quote.turn-into-sell-order', [
+            'currencies' => Currency::all(),
+        ]);
+    }
+
+    // protected methods ----------------------------------
+    protected function _assignOperator($sell_ordered_product)
+    {
+        UserHasSellOrderedProduct::create([
+            'estimated_time' => $sell_ordered_product->getEstimatedTime(),
+            'indications' => 'Asignado automáticamente',
+            'sell_ordered_product_id' => $sell_ordered_product->id,
+            'user_id' => Employee::getAvailableOperator()->id
+        ]);
+    }
+
+    protected function _createCustomer()
     {
         $company = Company::create([
             'bussiness_name' => $this->quote->customer_name,
@@ -210,7 +235,7 @@ class TurnIntoSellOrder extends Component
         ]);
     }
 
-    private function _createContact()
+    protected function _createContact()
     {
         return Contact::create([
             'contactable_id' => $this->customer->id,
@@ -219,12 +244,5 @@ class TurnIntoSellOrder extends Component
             'email' => 'COLOCAR !',
             'phone' => '1',
         ])->id;
-    }
-
-    public function render()
-    {
-        return view('livewire.quote.turn-into-sell-order', [
-            'currencies' => Currency::all(),
-        ]);
     }
 }

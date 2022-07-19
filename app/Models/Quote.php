@@ -32,7 +32,7 @@ class Quote extends Model
     
     public function sellOrder()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(SellOrder::class);
     }
 
     public function authorized_by()
