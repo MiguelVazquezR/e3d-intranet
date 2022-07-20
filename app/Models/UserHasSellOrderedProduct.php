@@ -22,6 +22,11 @@ class UserHasSellOrderedProduct extends Model
         'finish',
     ];
 
+    protected $dates = [
+        'start',
+        'finish',
+    ];
+
     public function operator()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -48,9 +53,9 @@ class UserHasSellOrderedProduct extends Model
 
     public function totalTime()
     {
-        $start = new Carbon($this->attributes["start"]);
-        $finish = new Carbon($this->attributes["finish"]);
-        $start_to_finish_time = $start->diffInMinutes($finish);
+        // $start = new Carbon($this->attributes["start"]);
+        // $finish = new Carbon($this->attributes["finish"]);
+        $start_to_finish_time = $this->start->diffInMinutes($this->finish);
 
         return $start_to_finish_time - $this->time_paused;
     }

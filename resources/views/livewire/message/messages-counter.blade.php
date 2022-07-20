@@ -34,7 +34,8 @@
                             </span>
                         </div>
                         <div wire:click="render">
-                            <i class="fas fa-sync-alt text-sm text-gray-500 hover:cursor-pointer"></i>
+                            <i wire:loading.remove class="fas fa-sync-alt text-sm text-gray-500 hover:cursor-pointer"></i>
+                            <i wire:loading class="text-sm text-gray-400">. . .</i>
                         </div>
                     </div>
                     @if ($received)

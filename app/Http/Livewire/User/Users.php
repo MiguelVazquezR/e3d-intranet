@@ -70,6 +70,11 @@ class Users extends Component
     {
         $this->emitTo('user.reset-password', 'openModal', $user);
     }
+    
+    public function activitiesReport(User $user)
+    {
+        $this->emitTo('user.activities-report', 'openModal', $user);
+    }
 
     public function delete(User $user)
     {
