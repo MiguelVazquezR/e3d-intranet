@@ -20,12 +20,12 @@
 
             <!-- banner -->
             <div x-data="{ open: true }" x-show="open"
-                class="w-11/12 flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                class="w-full flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
                 role="alert">
-                <div class="w-11/12 flex">
+                <div class="w-full flex">
                     <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
                     <div>
-                        Es necesario subir un archivo con los detalles de las actividades que justifiquen
+                        Es necesario describir las actividades que justifiquen
                         el tiempo adicional que estas solicitando.
                     </div>
                 </div>
@@ -33,10 +33,9 @@
                 <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
             </div>
 
-            <div class="mt-3">
-                <x-jet-label value="Reporte de actividades por hacer" />
-                <input wire:model.defer="report" type="file" class="text-sm mt-2" id="{{ $report_id }}">
-                <x-jet-input-error for="report" class="text-xs" />
+            <div wire:ignore>
+                <x-jet-label value="Reporte" class="mt-3" />
+                <textarea id="editor" wire:model.defer="report" rows="3"></textarea>
             </div>
         </x-slot>
 
@@ -52,5 +51,42 @@
         </x-slot>
 
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                    heading: {
+                        options: [{
+                                model: 'paragraph',
+                                title: 'Paragraph',
+                                class: 'ck-heading_paragraph'
+                            },
+                            {
+                                model: 'heading1',
+                                view: 'h1',
+                                title: 'Heading 1',
+                                class: 'ck-heading_heading1'
+                            },
+                            {
+                                model: 'heading2',
+                                view: 'h2',
+                                title: 'Heading 2',
+                                class: 'ck-heading_heading2'
+                            }
+                        ]
+                    }
+                })
+                .then(function(editor) {
+                    editor.model.document.on('change:data', () => {
+                        @this.set('report', editor.getData());
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        </script>
+    @endpush
 
 </div>

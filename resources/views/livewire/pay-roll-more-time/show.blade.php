@@ -17,9 +17,12 @@
                 <x-jet-label value="Tiempo solicitado" class="mt-3" />
                 <p>{{ substr($request->additional_time, 0, 5) }} hrs.</p>
             </div>
-
+            
             <div class="mt-3">
-                <a href="{{ Storage::url($request->report) }}" target="_blank" class="underline text-blue-500 text-lg">Reporte</a>
+                <x-jet-label value="Descripción de actividades" />
+                <div class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">
+                    {!! $request->report !!}
+                </div>
             </div>
 
         </x-slot>

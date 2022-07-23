@@ -5,15 +5,11 @@ namespace App\Http\Livewire\PayRollMoreTime;
 use App\Models\PayRoll;
 use App\Models\PayRollMoreTime;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use WithFileUploads;
-
     public $open = false,
         $report,
-        $report_id,
         $minutes,
         $hours;
 
@@ -28,18 +24,11 @@ class Create extends Component
         'render',
     ];
 
-
     public function updatingOpen()
     {
         if ($this->open == true) {
             $this->resetExcept(['open']);
-            $this->report_id = rand();
         }
-    }
-
-    public function mount()
-    {
-        $this->report_id = rand();
     }
 
     public function openModal()
@@ -55,12 +44,10 @@ class Create extends Component
             'pay_roll_id' => PayRoll::currentPayRoll()->id,
             'user_id' => auth()->user()->id,
             'additional_time' => "$this->hours:$this->minutes",
+            'report' => $this->report,
         ]);
 
-        $request->report = $this->report->store('files/additional-time-reports', 'public');
         $request->save();
-
-        $this->report_id = rand();
 
         $this->reset();
 

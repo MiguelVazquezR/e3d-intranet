@@ -18,7 +18,7 @@ class CreatePayRollMoreTimesTable extends Migration
 
             $table->foreignId('pay_roll_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->string('report')->nullable();
+            $table->tetx('report')->nullable();
             $table->unsignedTinyInteger('authorized_by')->nullable();
             $table->timestamp('authorized_at')->nullable();
             $table->time('additional_time');

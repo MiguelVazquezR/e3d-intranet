@@ -62,7 +62,7 @@ class ActivityTimeCalc
                 return $this->_forSticker();
                 break;
             default:
-                return 90;
+                return 20;
         }
     }
 
