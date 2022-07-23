@@ -35,7 +35,7 @@
 
             <div wire:ignore>
                 <x-jet-label value="Reporte" class="mt-3" />
-                <textarea id="editor" wire:model.defer="report" rows="3"></textarea>
+                <textarea id="editor2" wire:model.defer="report" rows="3"></textarea>
             </div>
         </x-slot>
 
@@ -55,7 +55,7 @@
     @push('js')
         <script>
             ClassicEditor
-                .create(document.querySelector('#editor'), {
+                .create(document.querySelector('#editor2'), {
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
                     heading: {
                         options: [{
