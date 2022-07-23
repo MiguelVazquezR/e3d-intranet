@@ -19,8 +19,11 @@
                 </select>
             </div>
             <div class="mt-3">
+                <div wire:loading.block class="text-lg my-5 text-gray-500 text-center p-4">
+                    Cargando ...
+                </div>
                 @if ($activities)
-                    <div class="container p-2 mx-auto sm:p-4 text-gray-500">
+                    <div wire:loading.remove class="container p-2 mx-auto sm:p-4 text-gray-500">
                         <h2 class="mb-2 text-2xl font-semibold leading-tight">Actividades</h2>
                         <div
                             class="overflow-auto max-h-72 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
@@ -96,7 +99,7 @@
                         </div>
                     </div>
                 @else
-                    <p class="text-xs my-5 text-gray-500 text-center border rounded p-4">No hay actividades para mostrar
+                    <p wire:loading.remove class="text-xs my-5 text-gray-500 text-center border rounded p-4">No hay actividades para mostrar
                     </p>
                 @endif
             </div>

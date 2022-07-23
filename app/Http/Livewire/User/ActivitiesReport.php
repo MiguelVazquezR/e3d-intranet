@@ -34,13 +34,19 @@ class ActivitiesReport extends Component
         }
     }
 
+    public function updatedFilter()
+    {
+        $this->loadActivities();
+    }
+
     public function openModal(User $user)
     {
         $this->open = true;
         $this->user = $user;
+        $this->loadActivities();
     }
-
-    public function render()
+    
+    public function loadActivities()
     {
         if ($this->filter == 1) {
             $from = PayRoll::currentPayRoll()->start_period;
@@ -53,7 +59,10 @@ class ActivitiesReport extends Component
         }else {
             $this->activities = $this->user->activities->all();
         }
+    }
 
+    public function render()
+    {
         return view('livewire.user.activities-report');
     }
 }
