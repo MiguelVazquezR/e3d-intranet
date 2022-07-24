@@ -174,8 +174,8 @@
 
             <!-- design department -->
             @can('editar_departamento_diseño')
-                <x-dashboard-panel-1 href="{{ route('design-department') }}" title="Órdenes sin iniciar"
-                    :counter="$design_to_start->count()" icon="fas fa-drafting-compass" />
+                <x-dashboard-panel-1 href="{{ route('design-department') }}" title="Órdenes sin iniciar" :counter="$design_to_start->count()"
+                    icon="fas fa-drafting-compass" />
             @endcan
 
             <!-- SO to start -->
@@ -198,10 +198,37 @@
             <!-- weekly performance -->
             <x-dashboard-panel-2 class="lg:col-span-2" title="Desempeño semanal producción"
                 icon="<i class='fas fa-medal'></i>">
-                <div class="flex justify-center items-center text-sm text-gray-500 p-4">
-                    <div class="mr-3">
-                        En desarrollo
-                    </div>
+                @if ($employee_performance)
+                    <p class="text-center my-2 text-sm text-green-500 font-bold">
+                        Agradecemos su esfuerzo
+                    </p>
+                @endif
+                <div class="mb-1 text-sm text-gray-500 p-1">
+                    @forelse($employee_performance as $performance)
+                        @php
+                            $user = App\Models\User::find($performance['user_id']);
+                        @endphp
+                        <div class="mb-3">
+                            <x-avatar-with-title-subtitle :user="$user">
+                                <x-slot name="title">
+                                    {{ $user->name }}
+                                </x-slot>
+                                <x-slot name="subtitle">
+                                    <p class="flex flex-col lg:flex-row items-center">
+                                        <span>Tiempo invertido: {{ $performance['time'] }} min.</span>
+                                        <i class="fas fa-circle px-1 hidden lg:inline" style="font-size: 4px;"></i>
+                                        <span>Órdenes terminadas: {{ $performance['orders'] }}</span>
+                                        <i class="fas fa-circle px-1 hidden lg:inline" style="font-size: 4px;"></i>
+                                        <span>Tiempo pausado: {{ $performance['paused'] }} min.</span>
+                                    </p>
+                                </x-slot>
+                            </x-avatar-with-title-subtitle>
+                        </div>
+                    @empty
+                        <div class="my-3 lg:col-span-full text-center">
+                            Los resultados se muestran cada viernes
+                        </div>
+                    @endforelse
                 </div>
             </x-dashboard-panel-2>
 

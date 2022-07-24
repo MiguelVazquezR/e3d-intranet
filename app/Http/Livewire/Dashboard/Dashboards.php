@@ -39,6 +39,7 @@ class Dashboards extends Component
         $soon_customers_birthdays = [],
         $anniversaries = [],
         $new_employees = [],
+        $employee_performance = [],
         $design_to_start;
 
     public function mount()
@@ -53,6 +54,15 @@ class Dashboards extends Component
         $this->created_histories = MovementHistory::where('movement_type', 1)->latest()->take(15)->get();
         $this->edited_histories = MovementHistory::where('movement_type', 2)->latest()->take(15)->get();
         $this->deleted_histories = MovementHistory::where('movement_type', 3)->latest()->take(15)->get();
+        if (date('N') == 5) {
+            $this->employee_performance = UserHasSellOrderedProduct::whereDate('created_at', '>', now()->subDays(7))
+                ->whereNotNull('finish')
+                ->groupBy('user_id')
+                ->selectRaw('SUM(estimated_time) as `time`, SUM(time_paused) as paused, COUNT(user_id) as `orders`, user_id')
+                ->orderBy('time', 'DESC')
+                ->get()
+                ->toArray();
+        }
         $this->meetings_as_creator = Meeting::where('user_id', Auth::user()->id)
             ->where('status', 'Esperando inicio')
             ->orWhere('status', 'Iniciada')

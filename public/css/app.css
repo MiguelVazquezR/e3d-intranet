@@ -3285,6 +3285,10 @@ select {
     margin-top: 2.75rem;
   }
 
+  .lg\:inline {
+    display: inline;
+  }
+
   .lg\:grid {
     display: grid;
   }
