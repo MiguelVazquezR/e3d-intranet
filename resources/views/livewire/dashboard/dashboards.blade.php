@@ -5,7 +5,7 @@
                 <i class="fas fa-home mr-2"></i>
                 Inicio
             </div>
-            <a href="{{ route('news') }}" class="text-blue-400">
+            <a href="{{ route('news') }}" class="{{ $new_update ? 'text-blue-600 animate-pulse underline' : 'text-gray-400' }} relative">
                 <i class="fas fa-book mr-1"></i>
                 Novedades
             </a>

@@ -7,6 +7,7 @@ use App\Models\DesignOrder;
 use App\Models\Employee;
 use App\Models\Meeting;
 use App\Models\MovementHistory;
+use App\Models\NewUpdate;
 use App\Models\PayRoll;
 use App\Models\PayRollMoreTime;
 use App\Models\PurchaseOrder;
@@ -40,10 +41,12 @@ class Dashboards extends Component
         $anniversaries = [],
         $new_employees = [],
         $employee_performance = [],
+        $new_update = false,
         $design_to_start;
 
     public function mount()
     {
+        $this->new_update = !empty(NewUpdate::whereDate('created_at', '>', now()->subDays(2))->pluck('id')->all());
         $this->quotes_for_authorize = Quote::whereNull('authorized_user_id')->get();
         $this->sell_orders_for_authorize = SellOrder::whereNull('authorized_user_id')->get();
         $this->purchase_orders_for_authorize = PurchaseOrder::whereNull('authorized_user_id')->get();
