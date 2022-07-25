@@ -55,7 +55,7 @@ class CreateQuote extends Component
         'price' => 'required',
         'quantity' => 'required',
         'currency_id' => 'required',
-        'product_notes' => 'max:120',
+        'product_notes' => 'max:255',
     ];
 
     protected $listeners = [

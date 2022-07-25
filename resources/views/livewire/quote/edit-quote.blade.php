@@ -223,7 +223,7 @@
                 <x-jet-label value="Notas" class="mt-3" />
                 <textarea wire:model.defer="quote.notes" rows="5"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
-                <x-jet-input-error for="qoute.notes" class="text-xs" />
+                <x-jet-input-error for="quote.notes" class="text-xs" />
             </div>
 
         </x-slot>

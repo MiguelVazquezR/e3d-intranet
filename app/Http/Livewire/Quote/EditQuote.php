@@ -51,7 +51,7 @@ class EditQuote extends Component
         'quote.freight_cost' => 'required',
         'quote.currency_id' => 'required',
         'quote.strikethrough_tooling_cost' => 'min:0',
-        'quote.notes' => 'max:120',
+        'quote.notes' => 'max:255',
         'quote.customer_name' => 'max:150',
         'customer' => 'required',
     ];
