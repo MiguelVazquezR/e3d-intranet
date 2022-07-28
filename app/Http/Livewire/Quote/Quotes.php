@@ -83,6 +83,7 @@ class Quotes extends Component
     public function render()
     {
         $quotes = Quote::where('id', 'like', "%$this->search%")
+            ->orWhere('customer_name', 'like', "%$this->search%")
             ->orWhere('customer_id', 'like', "%$this->search%")
             ->orWhereHas('creator', function ($query) {
                 $query->where('name', 'like', "%$this->search%");

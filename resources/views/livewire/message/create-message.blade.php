@@ -85,7 +85,7 @@
                 })
                 .then(function(editor) {
                     editor.model.document.on('change:data', () => {
-                        @this.set('report', editor.getData());
+                        @this.set('body', editor.getData());
                     })
                 })
                 .catch(error => {
