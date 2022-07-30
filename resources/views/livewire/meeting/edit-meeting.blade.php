@@ -51,7 +51,7 @@
             @endif
             <div>
                 <x-jet-label value="Participantes" class="mt-3" />
-                <x-select class="mt-2 w-full" wire:model="user_id" :options="$users">
+                <x-select class="mt-2 w-full" wire:model="user_id" :options="$users" />
             </div>
             <div class="my-3">
                 <x-jet-label value="Lista de participantes" class="mt-3" />
