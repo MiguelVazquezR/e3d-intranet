@@ -11,10 +11,10 @@
                         <span class="hover:cursor-pointer inline-flex items-center">
                             <i class="fas fa-bullhorn"></i>
                             @if ($unreaded)
-                                <span
-                                    class="badge mb-3 bg-red-700 rounded-full px-2 py-1 text-center object-right-top text-white mr-1"
-                                    style="font-size: 10px;">
-                                    {{ $unreaded }}
+                                <span class="flex h-4 w-4 relative">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
+                                    <span class="absolute flex justify-center items-center rounded-full h-3 w-3 bg-red-500 text-white font-semibold" style="font-size: 10px">{{ $unreaded }}</span>
                                 </span>
                             @endif
                         </span>
@@ -34,12 +34,13 @@
                             </span>
                         </div>
                         <div wire:click="render">
-                            <i wire:loading.remove class="fas fa-sync-alt text-sm text-gray-500 hover:cursor-pointer"></i>
-                            <i wire:loading class="text-sm text-gray-400">. . .</i>
+                            <i wire:loading.remove
+                                class="fas fa-sync-alt text-sm text-gray-500 hover:cursor-pointer"></i>
+                            <i wire:loading class="fas fa-sync-alt text-sm text-gray-400 animate-spin"></i>
                         </div>
                     </div>
                     @if ($received)
-                        <div @click="can_close = true"
+                        <div wire:loading.remove @click="can_close = true"
                             class="divide-y-2 max-h-56 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
                             @forelse ($notifications as $notification)
                                 @php
@@ -59,8 +60,9 @@
                                 <p class="p-2 py-2 text-xs text-center text-gray-500"> No tienes mensajes </p>
                             @endforelse
                         </div>
+                        <p wire:loading class="p-2 py-2 text-xs text-center text-gray-500"> Cargando ... </p>
                     @else
-                        <div @click="can_close = true"
+                        <div wire:loading.remove @click="can_close = true"
                             class="divide-y-2 max-h-56 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
                             @forelse ($sent_messages as $sent_message)
                                 <x-jet-dropdown-link wire:click="showMessage('{{ $sent_message->id }}')"
@@ -76,6 +78,7 @@
                                 <p class="p-2 py-2 text-xs text-center text-gray-500"> No tienes mensajes </p>
                             @endforelse
                         </div>
+                        <p wire:loading class="p-2 py-2 text-xs text-center text-gray-500"> Cargando ... </p>
                     @endif
                     <x-jet-dropdown-link :link="false" class="text-left text-blue-400 text-xs border-t"
                         wire:click="createMessage">

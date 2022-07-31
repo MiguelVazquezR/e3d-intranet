@@ -52,6 +52,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserHasSellOrderedProduct::class);
     }
+    
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class);
+    }
 
     public function weekSalary($formated = true)
     {
