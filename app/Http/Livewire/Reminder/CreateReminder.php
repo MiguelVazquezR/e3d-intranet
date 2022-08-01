@@ -12,7 +12,7 @@ class CreateReminder extends Component
         $remind_at;
 
     protected $rules = [
-        'title' => 'required|max:10',
+        'title' => 'required|max:191',
     ];
 
     protected $listeners = [

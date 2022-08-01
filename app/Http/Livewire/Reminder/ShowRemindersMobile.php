@@ -5,10 +5,8 @@ namespace App\Http\Livewire\Reminder;
 use App\Models\Reminder;
 use Livewire\Component;
 
-class DropDown extends Component
+class ShowRemindersMobile extends Component
 {
-    public $notify = false;
-
     protected $listeners = [
         'render',
         'delete',
@@ -28,11 +26,8 @@ class DropDown extends Component
     }
 
     public function showNotification()
-    {
-        $this->notify = !empty(Reminder::where('remind_at', '<', now())
-            ->where('user_id', auth()->user()->id)
-            ->pluck('id')
-            ->all());
+    {        
+        $this->emitTo('reminder.drop-down-mobile', 'showNotification');
     }
 
     public function render()
@@ -40,6 +35,6 @@ class DropDown extends Component
         $reminders = auth()->user()->reminders;
         $this->showNotification();
 
-        return view('livewire.reminder.drop-down', compact('reminders'));
+        return view('livewire.reminder.show-reminders-mobile', compact('reminders'));
     }
 }

@@ -53,30 +53,30 @@
                     <div class="flex flex-col justify-center h-full col-span-full">
                         <!-- banner -->
                         <div x-data="{ open: true }" x-show="open"
-                            class="w-11/12 flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                            class="w-11/12 flex justify-between mx-auto bg-pink-100 rounded-lg p-4 my-6 text-sm font-medium text-pink-700"
                             role="alert">
                             <div class="w-11/12 flex">
                                 <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
                                 <div>
-                                    Ya no está permitido exceder las horas de tu jornada semanal. Si se exceden sin
-                                    previa autorización, estas no se tomarán en
-                                    cuenta en la nómina <br>
-                                    @if ($user->hasRole('Auxiliar_producción'))
-                                        @if ($user->additionalTimeRequest())
-                                            <div
-                                                class="px-2 py-1 rounded-full text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
-                                                {{ $user->additionalTimeRequest()->authorized_by ? 'Autorizado' : 'Esperando autorización' }}
-                                            </div>
-                                        @else
-                                            <button wire:loading.attr="disabled" wire:target="requestTime"
-                                                wire:click="requestTime"
-                                                class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
-                                                Solicitar autorización
-                                            </button>
-                                        @endif
-                                    @endif
+                                   A partir de hoy, 3 retardos por semana se penalizará con un día completo rebajado de la nómina. <br>
+                                   Esto lo hará automáticamente el sistema y nadie lo puede revertir.
                                 </div>
                             </div>
+
+                            @if ($user->hasRole('Auxiliar_producción'))
+                                @if ($user->additionalTimeRequest())
+                                    <div
+                                        class="px-2 py-1 rounded-full text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
+                                        {{ $user->additionalTimeRequest()->authorized_by ? 'Autorizado' : 'Esperando autorización' }}
+                                    </div>
+                                @else
+                                    <button wire:loading.attr="disabled" wire:target="requestTime"
+                                        wire:click="requestTime"
+                                        class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                                        Solicitar autorización
+                                    </button>
+                                @endif
+                            @endif
 
                             <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
                         </div>

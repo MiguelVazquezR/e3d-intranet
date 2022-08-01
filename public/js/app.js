@@ -5622,6 +5622,8 @@ __webpack_require__(/*! ./alerts */ "./resources/js/alerts.js");
 
 __webpack_require__(/*! ./geolocation */ "./resources/js/geolocation.js");
 
+__webpack_require__(/*! ./reminder */ "./resources/js/reminder.js");
+
 
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
@@ -5702,6 +5704,21 @@ Livewire.on('getLocation', function () {
 
 function between(x, min, max) {
   return x >= min && x <= max;
+}
+
+/***/ }),
+
+/***/ "./resources/js/reminder.js":
+/*!**********************************!*\
+  !*** ./resources/js/reminder.js ***!
+  \**********************************/
+/***/ (() => {
+
+var intervalId = window.setInterval(emitEvent, 60000);
+
+function emitEvent() {
+  Livewire.emitTo('reminder.drop-down', 'showNotification');
+  Livewire.emitTo('reminder.drop-down-mobile', 'showNotification');
 }
 
 /***/ }),
