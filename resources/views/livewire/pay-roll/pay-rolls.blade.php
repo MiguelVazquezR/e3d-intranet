@@ -94,6 +94,7 @@
         
         <!-- aditional modals -->
         @livewire('pay-roll-more-time.create')
+        @livewire('pay-roll-more-time.edit')
         
     </div>
 

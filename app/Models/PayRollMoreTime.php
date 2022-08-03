@@ -13,7 +13,7 @@ class PayRollMoreTime extends Model
         'pay_roll_id',
         'user_id',
         'report',
-        'authorizad_by',
+        'authorized_by',
         'authorized_at',
         'additional_time',
         'comments',

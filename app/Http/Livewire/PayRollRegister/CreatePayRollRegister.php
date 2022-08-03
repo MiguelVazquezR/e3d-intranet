@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\JustificationEvent;
 use App\Models\MovementHistory;
 use App\Models\PayRoll;
+use App\Models\PayRollMoreTime;
 use App\Models\PayRollRegister;
 use App\Models\User;
 use Carbon\Carbon;
@@ -245,6 +246,12 @@ class CreatePayRollRegister extends Component
     public function requestTime()
     {
         $this->emitTo('pay-roll-more-time.create', 'openModal');
+        $this->current_week_registers = $this->user->currentWeekRegisters();
+    }
+    
+    public function editRequest(PayRollMoreTime $time_request)
+    {
+        $this->emitTo('pay-roll-more-time.edit', 'openModal', $time_request);
         $this->current_week_registers = $this->user->currentWeekRegisters();
     }
 

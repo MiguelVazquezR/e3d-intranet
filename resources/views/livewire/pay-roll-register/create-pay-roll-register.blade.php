@@ -69,8 +69,14 @@
                         @if ($user->hasRole('Auxiliar_producción'))
                             @if ($user->additionalTimeRequest())
                                 <div
-                                    class="px-2 py-1 rounded-full text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
-                                    {{ $user->additionalTimeRequest()->authorized_by ? 'Autorizado' : 'Esperando autorización' }}
+                                    class="flex items-center justify-center px-2 py-1 rounded text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
+                                    {{ $user->additionalTimeRequest()->authorized_by ? 'Horas autorizadas' : 'Esperando autorización' }}
+                                    <button wire:loading.attr="disabled" wire:target="editRequest"
+                                        wire:click="editRequest({{ $user->additionalTimeRequest() }})"
+                                        class="ml-3 flex items-center justify-center w-6 h-6 rounded-full {{$user->additionalTimeRequest()->authorized_by ? 'bg-green-300 text-green-600 hover:bg-green-500 hover:text-green-300' : 'bg-orange-300 text-orange-600 hover:bg-orange-500 hover:text-orange-300' }}  disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200"
+                                        title="Editar solicitud">
+                                        <i class="fas fa-pen text-xs"></i>
+                                    </button>
                                 </div>
                             @else
                                 <button wire:loading.attr="disabled" wire:target="requestTime" wire:click="requestTime"

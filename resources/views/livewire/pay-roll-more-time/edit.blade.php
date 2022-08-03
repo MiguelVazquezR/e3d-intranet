@@ -25,10 +25,8 @@
                 <div class="w-full flex">
                     <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
                     <div>
-                        Es necesario describir las actividades que justifiquen
-                        el tiempo adicional que estas solicitando. <br>
-                        Sólo se podrá realizar una solicitud por semana, por lo que debes de ingresar las horas semanales
-                        adicionales a tu jornada normal.
+                        Al actualizar los datos de la solicitud, se volverá a pasar a revisión
+                        para volver a autorizar si es que ya estaba autorizado.
                     </div>
                 </div>
 
@@ -36,8 +34,14 @@
             </div>
 
             <div wire:ignore>
-                <x-jet-label value="Reporte" class="mt-3" />
-                <textarea id="editor2" wire:model.defer="report" rows="3"></textarea>
+                <x-jet-label value="Nuevo reporte" class="mt-3" />
+                <textarea id="editor3" wire:model.defer="report" rows="3"></textarea>
+            </div>
+            <div class="mt2">
+                <x-jet-label value="Reporte registrado" class="mt-3" />
+                <div class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">
+                    {!! $_report !!}
+                </div>
             </div>
         </x-slot>
 
@@ -47,8 +51,8 @@
             </x-jet-secondary-button>
 
             <x-jet-button class="mr-2 disabled:opacity-25 disabled:cursor-not-allowed" wire:loading.attr="disabled"
-                wire:target="send" wire:click="send">
-                Solicitar
+                wire:target="update" wire:click="update">
+                Actualizar
             </x-jet-button>
         </x-slot>
 
@@ -57,7 +61,7 @@
     @push('js')
         <script>
             ClassicEditor
-                .create(document.querySelector('#editor2'), {
+                .create(document.querySelector('#editor3'), {
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
                     heading: {
                         options: [{
