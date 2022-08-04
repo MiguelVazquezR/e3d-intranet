@@ -185,7 +185,7 @@ class Employee extends Model
      */
     public function exceedWeeklyHours($pay_roll_id = null)
     {
-        return $this->user->totalTime($pay_roll_id, false) > $this->hours_per_week;
+        return $this->user->totalTime($pay_roll_id, false) > $this->user->weeklyLimitTime($pay_roll_id, false);
     }
 
     protected function _addDay()

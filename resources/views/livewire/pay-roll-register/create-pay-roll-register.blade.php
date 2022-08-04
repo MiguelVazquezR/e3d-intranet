@@ -81,7 +81,7 @@
                             @else
                                 <button wire:loading.attr="disabled" wire:target="requestTime" wire:click="requestTime"
                                     class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
-                                    Solicitar autorización
+                                    Solicitar horas adicionales
                                 </button>
                             @endif
                         @endif
