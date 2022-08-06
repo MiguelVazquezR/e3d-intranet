@@ -68,6 +68,16 @@ class User extends Authenticatable
             return $week_salary;
     }
 
+    public function marketingTasks()
+    {
+        return $this->belongsToMany(MarketingTask::class);
+    }
+    
+    public function marketingProjects()
+    {
+        return $this->hasMany(MarketingProject::class);
+    }
+
     /**
      * Returns array with all registers on current week.
      * PayRollRegister object if has checked_in or

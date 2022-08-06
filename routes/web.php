@@ -9,6 +9,7 @@ use App\Http\Livewire\Dashboard\Dashboards;
 use App\Http\Livewire\DesignDepartment\HomeDesign;
 use App\Http\Livewire\DesignOrder\DesignOrders;
 use App\Http\Livewire\Holyday\Holydays;
+use App\Http\Livewire\Marketing\MarketingIndex;
 use App\Http\Livewire\Meeting\Meetings;
 use App\Http\Livewire\NewUpdate\NewUpdates;
 use App\Http\Livewire\Organization\Organization;
@@ -142,6 +143,10 @@ Route::get('/novedades', NewUpdates::class)
 Route::get('/tiempo-adicional', Index::class)
     ->middleware('auth')
     ->name('additional_time_requests');
+
+Route::get('/mercadotecia', MarketingIndex::class)
+    ->middleware('auth')
+    ->name('marketing-department');
 
 // // artisan commands
 Route::get('/clear-cache', function () {

@@ -167,6 +167,12 @@
                                         Departamento de producción
                                     </x-jet-dropdown-link>
                                 @endcan
+                                @can('tabla_departamento_mercadotecnia')
+                                    <x-jet-dropdown-link href="{{ route('marketing-department') }}">
+                                        <i class="fas fa-lightbulb"></i>
+                                        Departamento de mercadotecnia
+                                    </x-jet-dropdown-link>
+                                @endcan
                                 @can('tabla_nóminas')
                                     <x-jet-dropdown-link href="{{ route('pay-rolls') }}">
                                         <i class="fas fa-money-check-alt"></i>
@@ -432,6 +438,11 @@
                     Departamento de producción
                 </x-jet-responsive-nav-link>
             @endcan
+            @can('tabla_departamento_mercadotecnia')
+                <x-jet-responsive-nav-link href="{{ route('marketing-department') }}" :active="request()->routeIs('marketing-department')">
+                    Departamento de mercadotecnia
+                </x-jet-responsive-nav-link>
+            @endcan
             @can('tabla_nóminas')
                 <x-jet-responsive-nav-link href="{{ route('pay-rolls') }}" :active="request()->routeIs('pay-rolls')">
                     Nóminas
@@ -455,6 +466,11 @@
             @can('tabla_bonos')
                 <x-jet-responsive-nav-link href="{{ route('bonuses') }}" :active="request()->routeIs('bonuses')">
                     Bonos
+                </x-jet-responsive-nav-link>
+            @endcan
+            @can('autorizar_tiempo_adicional')
+                <x-jet-responsive-nav-link href="{{ route('additional_time_requests') }}" :active="request()->routeIs('additional_time_requests')">
+                    Solicitudes de tiempo adicional
                 </x-jet-responsive-nav-link>
             @endcan
         </div>
