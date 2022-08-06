@@ -248,6 +248,11 @@ class Employee extends Model
         return $period;
     }
 
+    public function salaryPerDay()
+    {
+        return $this->salary * $this->hoursPerDay();
+    }
+
     public function hoursPerDay()
     {
         return $this->hours_per_week / (7 - count($this->days_off));
@@ -255,7 +260,7 @@ class Employee extends Model
 
     public function vacationsPay($formated = true)
     {
-        $vacation_bonus = $this->vacations * $this->salary * $this->hoursPerDay();
+        $vacation_bonus = $this->vacations * $this->salaryPerDay();
 
         if ($formated)
             return number_format($vacation_bonus, 2);

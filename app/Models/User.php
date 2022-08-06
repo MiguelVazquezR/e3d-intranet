@@ -52,7 +52,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserHasSellOrderedProduct::class);
     }
-    
+
     public function reminders()
     {
         return $this->hasMany(Reminder::class);
@@ -189,17 +189,17 @@ class User extends Authenticatable
         return is_null($absences) ? 0 : $absences;
     }
 
-    public function countJustifications($pay_roll = null)
-    {
-        $justifications = array_reduce($this->currentWeekRegisters($pay_roll), function ($carry, $item) {
-            if ($item == 'Vacaciones' || $item == 'Falta justificada' || $item == 'Descanso' || $item == 'Incapacidad' || $item == 'Día feriado') {
-                $carry++;
-            }
-            return $carry;
-        });
+    // public function countJustifications($pay_roll = null)
+    // {
+    //     $justifications = array_reduce($this->currentWeekRegisters($pay_roll), function ($carry, $item) {
+    //         if ($item == 'Vacaciones' || $item == 'Falta justificada' || $item == 'Descanso' || $item == 'Incapacidad' || $item == 'Día feriado') {
+    //             $carry++;
+    //         }
+    //         return $carry;
+    //     });
 
-        return is_null($justifications) ? 0 : $justifications;
-    }
+    //     return is_null($justifications) ? 0 : $justifications;
+    // }
 
     public function normalSalary($pay_roll = null, $formated = true)
     {
@@ -281,9 +281,14 @@ class User extends Authenticatable
 
     public function totalSalary($pay_roll = null, $formated = true)
     {
+        $discount_by_late = $this->discountByDelay($pay_roll)
+        ? $this->employee->salaryPerDay()
+        : 0;
+        
         $total_salary = $this->normalSalary($pay_roll, false) +
             array_sum($this->getBonuses($pay_roll)) -
-            $this->employee->discounts +
+            $this->employee->discounts -
+            $discount_by_late +
             $this->extraSalary($pay_roll, false);
 
         if ($formated)
@@ -437,14 +442,14 @@ class User extends Authenticatable
                     ? 0
                     : $bonus->amount($this->employee->hours_per_week);
                 break;
-            case 6: {
-                    $total = ($this->_workeableDays() - $this->absences($pay_roll->id) /*- $this->countJustifications()*/) * $bonus->amount($this->employee->hours_per_week);
-                    $earned =
-                        $total >= 0
-                        ? $total
-                        : 0;
-                }
-                break;
+                // case 6: {
+                //         $total = ($this->_workeableDays() - $this->absences($pay_roll->id) /*- $this->countJustifications()*/) * $bonus->amount($this->employee->hours_per_week);
+                //         $earned =
+                //             $total >= 0
+                //             ? $total
+                //             : 0;
+                //     }
+                //     break;
         }
 
         return $earned;
@@ -490,5 +495,26 @@ class User extends Authenticatable
         return $request->all()
             ? $request->all()[0]
             : null;
+    }
+
+    public function delayTime($pay_roll)
+    {
+        $delay_time = array_reduce($this->currentWeekRegisters($pay_roll), function ($carry, $item) {
+            if ( !is_null($item) && !is_string($item) ) {
+                // dd($item->late);
+                $carry += $item->late;
+            }
+            return $carry;
+        });
+
+        return is_null($delay_time) ? 0 : $delay_time;
+    }
+
+    //config: limit of delay minutes per week
+    public function discountByDelay($pay_roll_id = null)
+    {
+        $time_late = $this->delayTime($pay_roll_id);
+       return (!$this->hasRole('Auxiliar_producción') &&  $time_late >= 15);
+       
     }
 }

@@ -22,6 +22,10 @@ class PayRollRegister extends Model
         'user_id',
     ];
 
+    protected $dates = [
+        'day'
+    ];
+
     public function payRoll()
     {
         return $this->belongsTo(PayRoll::class);
@@ -37,10 +41,10 @@ class PayRollRegister extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getDayAttribute()
-    {
-        return new Carbon($this->attributes["day"]);
-    }
+    // public function getDayAttribute()
+    // {
+    //     return new Carbon($this->attributes["day"]);
+    // }
 
     public function late()
     {
@@ -53,25 +57,36 @@ class PayRollRegister extends Model
                 ->employee
                 ->checkInTimes[0];
         }
-        $hour_check_in = intval(explode(':', $check_in)[0]);
-        $minute_check_in = intval(explode(':', $check_in)[1]);
+        // $hour_check_in = intval(explode(':', $check_in)[0]);
+        // $minute_check_in = intval(explode(':', $check_in)[1]);
 
-        $hour_checked = intval(explode(':', $this->check_in)[0]);
-        $minute_checked = intval(explode(':', $this->check_in)[1]);
+        // $hour_checked = intval(explode(':', $this->check_in)[0]);
+        // $minute_checked = intval(explode(':', $this->check_in)[1]);
 
-        if ($hour_checked > $hour_check_in) {
-            $this->late = 1;
-        } elseif ($hour_checked == $hour_check_in) {
-            if ($minute_checked > $minute_check_in) {
-                $this->late = 1;
-            } else {
-                $this->late = 0;
-            }
+        $checkin_time = Carbon::parse($check_in);
+        $attendence_time = Carbon::parse($this->check_in);
+
+        $minutes_late = $checkin_time->diffInMinutes($attendence_time);
+
+        if ($minutes_late > 0) {
+            $this->late = $minutes_late;
         } else {
             $this->late = 0;
         }
+        // if ($hour_checked > $hour_check_in) {
+        //     $this->late = 1;
+        // } elseif ($hour_checked == $hour_check_in) {
+        //     if ($minute_checked > $minute_check_in) {
+        //         $this->late = 1;
+        //     } else {
+        //         $this->late = 0;
+        //     }
+        // } else {
+        //     $this->late = 0;
+        // }
 
         $this->save();
+        return $minutes_late;
     }
 
     public function fillEmptyTimes($update_record = true, $previus_register = true)
@@ -86,7 +101,7 @@ class PayRollRegister extends Model
                 $this->end_break = date('H:i');
                 $this->check_out = date('H:i');
             }
-        } elseif (!$this->end_break) { 
+        } elseif (!$this->end_break) {
             if ($previus_register) {
                 $this->end_break = $this->start_break;
                 $this->check_out = $this->start_break;
@@ -106,6 +121,5 @@ class PayRollRegister extends Model
         } else {
             return $this;
         }
-
     }
 }

@@ -58,7 +58,7 @@
                             <div class="w-11/12 flex">
                                 <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
                                 <div>
-                                    A partir de hoy, 3 retardos por semana se penalizará con un día completo rebajado de
+                                    A partir de hoy, la acumulación de <b>15 minutos en delante de retardos por semana</b>, se penalizará con un día completo rebajado de
                                     la nómina. <br>
                                     Esto lo hará automáticamente el sistema y nadie lo puede revertir.
                                 </div>

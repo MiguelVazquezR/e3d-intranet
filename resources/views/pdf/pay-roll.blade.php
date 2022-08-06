@@ -39,7 +39,8 @@
                                 @if ($user->additionalTimeRequest($pay_roll->id))
                                     @if ($user->additionalTimeRequest($pay_roll->id)->authorized_by)
                                         <p class="bg-green-50 text-green-500 rounded-full px-1 py-px border">
-                                            {{ substr($user->additionalTimeRequest($pay_roll->id)->additional_time, 0, 5) }} hrs.
+                                            {{ substr($user->additionalTimeRequest($pay_roll->id)->additional_time, 0, 5) }}
+                                            hrs.
                                             autorizadas</p>
                                     @endif
                                 @endif
@@ -128,37 +129,47 @@
             <!-- details -->
             <div class="grid grid-cols-2 gap-x-2 leading-snug uppercase text-xs" style="font-size: 11px;">
                 <span class="col-span-2">Fecha:</span>
-                <span class="">semanal</span>
-                <span class="">${{ $user->weekSalary() }}</span>
-                <span class="">faltas</span>
-                <span class="">{{ $user->absences($pay_roll->id) }}</span>
-                <span class="">hrs semanales</span>
-                <span class="">{{ $user->employee->hours_per_week }}</span>
-                <span class="">hrs hechas</span>
-                <span class="">
+                <span>semanal</span>
+                <span>${{ $user->weekSalary() }}</span>
+                <span>faltas</span>
+                <span>{{ $user->absences($pay_roll->id) }}</span>
+                <span>hrs semanales</span>
+                <span>{{ $user->employee->hours_per_week }}</span>
+                <span>hrs hechas</span>
+                <span>
                     @if ($user->totalTime($pay_roll->id, false, true) < $user->employee->hours_per_week)
                         <i class="fas fa-exclamation-triangle text-red-600"></i>
                     @endif
                     {{ $user->totalTime($pay_roll->id, true, true) }}
                 </span>
-                <span class="">sueldo/hora</span>
-                <span class="">${{ $user->employee->salary }}</span>
+                <span>sueldo/hora</span>
+                <span>${{ $user->employee->salary }}</span>
                 @foreach ($user->getBonuses($pay_roll->id) as $bonus_id => $earned)
                     @php
                         $bonus = App\Models\Bonus::find($bonus_id);
                     @endphp
-                    <span class="">{{ $bonus->name }}</span>
-                    <span class="">${{ $earned }}</span>
+                    <span>{{ $bonus->name }}</span>
+                    <span>${{ $earned }}</span>
                 @endforeach
-                <span class="">sueldo sin bonos</span>
-                <span class="">${{ $user->normalSalary($pay_roll->id) }}</span>
-                <span class="">Hrs extra</span>
-                <span class="">{{ $user->totalExtraTime($pay_roll->id) }}
+                <span>sueldo sin bonos</span>
+                <span>${{ $user->normalSalary($pay_roll->id) }}</span>
+                <span>Hrs extra</span>
+                <span>{{ $user->totalExtraTime($pay_roll->id) }}
                     (${{ $user->extraSalary($pay_roll->id) }})</span>
-                <span class="">deducciones</span>
-                <span class="">-${{ $user->employee->discounts }}</span>
-                <span class="">total</span>
-                <span class="">${{ $user->totalSalary($pay_roll->id) }}</span>
+                @if ($user->employee->discounts || $user->discountByDelay($pay_roll->id))
+                    <span>deducciones</span>
+                    <div>
+                        @if ($user->employee->discounts)
+                            <span class="text-red-500">-${{ $user->employee->discounts }} (IMSS)</span> <br>
+                        @endif
+                        @if ($user->discountByDelay($pay_roll->id))
+                            <span class="text-red-500">-${{ number_format($user->employee->salaryPerDay(), 2) }}
+                                (retardos)</span>
+                        @endif
+                    </div>
+                @endif
+                <span>total</span>
+                <span>${{ $user->totalSalary($pay_roll->id) }}</span>
                 <span class="col-span-2">&nbsp;</span>
                 <span class="col-span-2">firma</span>
             </div>

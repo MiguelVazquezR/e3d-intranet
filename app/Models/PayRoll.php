@@ -17,20 +17,25 @@ class PayRoll extends Model
         'closed',
     ];
 
+    protected $dates = [
+        'start_period',
+        'end_period',
+    ];
+
     public function registers()
     {
         return $this->hasMany(PayRollRegister::class);
     }
 
-    public function getStartPeriodAttribute()
-    {
-        return new Carbon($this->attributes["start_period"]);
-    }
+    // public function getStartPeriodAttribute()
+    // {
+    //     return new Carbon($this->attributes["start_period"]);
+    // }
     
-    public function getEndPeriodAttribute()
-    {
-        return new Carbon($this->attributes["end_period"]);
-    }
+    // public function getEndPeriodAttribute()
+    // {
+    //     return new Carbon($this->attributes["end_period"]);
+    // }
 
     public static function currentWeek()
     {
