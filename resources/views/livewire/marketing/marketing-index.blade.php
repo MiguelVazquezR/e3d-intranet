@@ -5,6 +5,7 @@
                 <i class="fas fa-lightbulb mr-2"></i>
                 Departamento de mercadotecnia
             </div>
+            @livewire('marketing.create-project')
         </h2>
     </x-slot>
 
@@ -96,10 +97,9 @@
         </x-table>
 
         <!-- show modal -->
-        @livewire('design-department.show-design-department')
+        @livewire('marketing.show-project')
 
         <!-- aditional modales -->
-        @livewire('design-result.create-design-result')
 
     </div>
 
