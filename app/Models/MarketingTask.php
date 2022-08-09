@@ -13,7 +13,7 @@ class MarketingTask extends Model
         'description',
         'finished_at',
         'estimated_finish',
-        'marketing_proyect_id',
+        'marketing_project_id',
     ];
 
     protected $dates = [

@@ -19,7 +19,7 @@ class CreateMarketingTasksTable extends Migration
             $table->string('description', 255);
             $table->timestamp('finished_at')->nullable();
             $table->timestamp('estimated_finish');
-            $table->foreignId('marketing_proyect_id')->constrained()->onDelete('cascade');
+            $table->foreignId('marketing_project_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

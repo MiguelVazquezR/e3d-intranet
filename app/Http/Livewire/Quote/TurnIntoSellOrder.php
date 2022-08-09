@@ -16,6 +16,7 @@ use App\Models\Quote;
 use App\Models\SellOrder;
 use App\Models\SellOrderedProduct;
 use App\Models\UserHasSellOrderedProduct;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
