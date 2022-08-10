@@ -36,8 +36,8 @@ class EditCustomer extends Component
         $contact_name,
         $email,
         $contact_phone,
-        $day,
-        $month,
+        $day = 1,
+        $month = 1,
         $months = [
             1 => 'Enero',
             2 => 'Febrero',
@@ -171,8 +171,8 @@ class EditCustomer extends Component
                             ->update($contact);
                     } else {
                         $contact["birth_date"] = explode('T', $contact["birth_date"])[0];
-                        $contact["model_id"] = $branch['branch']['id'];
-                        $contact["model_name"] = Customer::class;
+                        $contact["contactable_id"] = $branch['branch']['id'];
+                        $contact["contactable_type"] = Customer::class;
                         Contact::create($contact);
                     }
                 }
@@ -184,8 +184,8 @@ class EditCustomer extends Component
 
                 foreach ($branch['contacts'] as $contact) {
                     $contact["birth_date"] = explode('T', $contact["birth_date"])[0];
-                    $contact["model_id"] = $new_branch->id;
-                    $contact["model_name"] = Customer::class;
+                    $contact["contactable_id"] = $new_branch->id;
+                    $contact["contactable_type"] = Customer::class;
                     Contact::create($contact);
                 }
             }

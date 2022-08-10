@@ -57,7 +57,7 @@ class MarketingIndex extends Component
 
     public function show(MarketingProject $project)
     {
-        //$this->emitTo('design-department.show-design-department', 'openModal', $design_order);
+        $this->emitTo('marketing.show-project', 'openModal', $project);
     }
 
     // public function edit(MarketingProject $project)
