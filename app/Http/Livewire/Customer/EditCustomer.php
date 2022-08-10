@@ -10,6 +10,7 @@ use App\Models\MovementHistory;
 use App\Models\SatMethod;
 use App\Models\SatType;
 use App\Models\SatWay;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -116,6 +117,8 @@ class EditCustomer extends Component
                 if ($contact->birth_date) {
                     $birth_date = $contact->birth_date->isoFormat('YYYY-MM-DD');
                     $contacts_list[$i]["birth_date"] = $birth_date;
+                }else {
+                    $contacts_list[$i]["birth_date"] = '2021-01-01';
                 }
             }
             $this->branch_list[] = [
@@ -242,7 +245,6 @@ class EditCustomer extends Component
     public function updateBranchFromList()
     {
         $validated_data = $this->validate($this->branch_rules);
-
         // change key for good storing data
         unset($validated_data['branch_post_cost']);
         $validated_data['post_code'] = $this->branch_post_code;
@@ -288,10 +290,10 @@ class EditCustomer extends Component
                 'birth_date' => '2021-' . $this->month . '-' . $this->day,
             ]);
         }
-
         $this->contact_list[$this->edit_contact_index] = $contact->toArray();
         $this->contact_list[$this->edit_contact_index]["birth_date"] = $contact->birth_date->isoFormat('YYYY-MM-DD');
         $this->resetContact();
+        // dd($this->contact_list);
     }
 
     public function editBranch($index)
@@ -309,13 +311,14 @@ class EditCustomer extends Component
 
     public function editContact($index)
     {
-        $contact = Contact::find($this->contact_list[$index]["id"]);
-        $this->contact_name = $this->contact_list[$index]["name"];
-        $this->contact_phone = $this->contact_list[$index]["phone"];
-        $this->email = $this->contact_list[$index]["email"];
-        if ($contact->birth_date && $contact->birth_date->isoFormat('YYYY') == '2021') {
-            $this->day = $contact->birth_date->isoFormat('D');
-            $this->month = $contact->birth_date->isoFormat('M');
+        $contact = $this->contact_list[$index];
+        $this->contact_name = $contact["name"];
+        $this->contact_phone = $contact["phone"];
+        $this->email = $contact["email"];
+        if ($contact["birth_date"]) {
+            $date = new Carbon($contact["birth_date"]);
+            $this->day = $date->isoFormat('D');
+            $this->month = $date->isoFormat('M');
         }
         $this->edit_contact_index = $index;
     }
