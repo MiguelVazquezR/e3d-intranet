@@ -57,15 +57,10 @@ class PayRollRegister extends Model
                 ->employee
                 ->checkInTimes[0];
         }
-        // $hour_check_in = intval(explode(':', $check_in)[0]);
-        // $minute_check_in = intval(explode(':', $check_in)[1]);
-
-        // $hour_checked = intval(explode(':', $this->check_in)[0]);
-        // $minute_checked = intval(explode(':', $this->check_in)[1]);
 
         $checkin_time = Carbon::parse($check_in);
         $attendence_time = Carbon::parse($this->check_in);
-
+        
         $minutes_late = $checkin_time->diffInMinutes($attendence_time);
 
         if ($minutes_late > 0) {
@@ -73,17 +68,6 @@ class PayRollRegister extends Model
         } else {
             $this->late = 0;
         }
-        // if ($hour_checked > $hour_check_in) {
-        //     $this->late = 1;
-        // } elseif ($hour_checked == $hour_check_in) {
-        //     if ($minute_checked > $minute_check_in) {
-        //         $this->late = 1;
-        //     } else {
-        //         $this->late = 0;
-        //     }
-        // } else {
-        //     $this->late = 0;
-        // }
 
         $this->save();
         return $minutes_late;

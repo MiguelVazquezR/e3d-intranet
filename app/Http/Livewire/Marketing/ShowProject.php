@@ -9,12 +9,15 @@ class ShowProject extends Component
 {
     public $open = false,
         $tasks = [],
-        $feedback,
         $project;
 
     protected $listeners = [
         'render',
         'openModal',
+    ];
+
+    protected $rules = [
+        'project.feedback' => 'max:500'
     ];
 
     public function updatingOpen()
@@ -24,7 +27,12 @@ class ShowProject extends Component
                 'open',
             ]);
         }
+    }
 
+    public function sendFeedback()
+    {
+        $this->project->save();
+        $this->emit('success', 'Se han guardado los comentarios');
     }
 
     public function openModal(MarketingProject $project)

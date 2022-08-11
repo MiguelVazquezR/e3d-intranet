@@ -15,7 +15,8 @@
             @if ($project)
                 <div>
                     <x-jet-label value="Objetivo(s)" />
-                    <p>{!! $project->objective !!}</p>
+                    <div class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">{!! $project->objective !!}
+                    </div>
                 </div>
                 <div class="lg:grid grid-cols-3 gap-x-2">
                     <div class="mt-3">
@@ -78,9 +79,18 @@
                                         </td>
                                         <td class="p-3">
                                             @foreach ($task->users as $user)
-                                                <p
-                                                    class="text-xs rounded lg:rounded-full px-2 py-px bg-blue-100 text-gray-600 mt-1">
-                                                    {{ $user->name }}</p>
+                                                <p title="{{ $user->pivot->finished_at ? 'Tarea completada' : 'Tarea sin completar' }}"
+                                                    class="flex justify-between items-center text-xs rounded lg:rounded-full px-2 py-px {{ $user->pivot->finished_at ? 'bg-green-100' : 'bg-blue-100' }} text-gray-600 mt-1">
+                                                    @if ($user->pivot->finished_at)
+                                                        <i class="fas fa-check text-green-400 mr-2"></i>
+                                                    @endif
+                                                    {{ $user->name }}
+                                                    @if ($project->authorizedBy && auth()->user()->id == $user->id && !$user->pivot->finished_at)
+                                                    <span class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full border-green-400 border" title="Marcar como terminada">
+                                                        <i class="fas fa-check text-green-400" style="font-size: 9px;"></i>
+                                                    </span>
+                                                    @endif
+                                                </p>
                                             @endforeach
                                         </td>
                                     </tr>
@@ -92,7 +102,17 @@
                 @if (auth()->user()->can('autorizar_proyectos_marketing'))
                     <div wire:ignore>
                         <x-jet-label value="Dejar comentarios" class="mt-3" />
-                        <textarea wire:model.refer="feedback" rows="3" class="w-full border-gray-300"></textarea>
+                        <textarea wire:model="project.feedback" rows="3" class="w-full border-gray-300"></textarea>
+                    </div>
+                    {{-- buttons --}}
+                    <div>
+                        <button
+                            wire:click="sendFeedback"
+                            wire:loading.attr="disabled"
+                            wire:target="sendFeedback"
+                            class="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-1 text-center disabled:opacity-25 disabled:cursor-not-allowed">
+                            Enviar comentario
+                        </button>
                     </div>
                 @else
                     <x-jet-label value="Comentarios" class="mt-3" />
@@ -102,13 +122,6 @@
                 @endif
             @endif
 
-            {{-- buttons --}}
-            <div>
-                <button
-                    class="mt-1 text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-1 text-center disabled:opacity-25 disabled:cursor-not-allowed">
-                    button
-                </button>
-            </div>
         </x-slot>
 
         <x-slot name="footer">

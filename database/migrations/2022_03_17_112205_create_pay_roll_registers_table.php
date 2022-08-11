@@ -28,7 +28,7 @@ class CreatePayRollRegistersTable extends Migration
             
             $table->boolean('extras_enabled')->default(0);
 
-            $table->unsignedTinyInteger('late')->default(0);
+            $table->unsignedInteger('late')->default(0);
 
             $table->foreignId('pay_roll_id')
                 ->constrained()

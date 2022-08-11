@@ -18,6 +18,7 @@ class CreateMarketingTaskUserTable extends Migration
 
             $table->foreignId('user_id')->constrained();
             $table->foreignId('marketing_task_id')->constrained();
+            $table->timestamp('finished_at')->nullable();
 
             $table->timestamps();
         });

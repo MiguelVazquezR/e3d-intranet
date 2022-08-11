@@ -9,7 +9,6 @@ use App\Models\PayRoll;
 use App\Models\PayRollMoreTime;
 use App\Models\PayRollRegister;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -204,7 +203,6 @@ class CreatePayRollRegister extends Component
                         $obj_register = PayRollRegister::find($register["id"]);
                         if ($obj_register->check_in) {
                             $obj_register->update($register);
-                            $obj_register->late();
                         } else {
                             $obj_register->delete();
                         }
