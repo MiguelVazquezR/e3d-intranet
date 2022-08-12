@@ -58,7 +58,8 @@
                             <div class="w-11/12 flex">
                                 <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
                                 <div>
-                                    A partir del <u>viernes 5 de Agosto</u>, la acumulación de <b>15 minutos en delante de retardos por semana</b>, se penalizará con un día completo rebajado de
+                                    A partir del <u>viernes 5 de Agosto</u>, la acumulación de <b>15 minutos en delante
+                                        de retardos por semana</b>, se penalizará con un día completo rebajado de
                                     la nómina. <br>
                                     Esto lo hará automáticamente el sistema y nadie lo puede revertir.
                                 </div>
@@ -66,25 +67,25 @@
 
                             <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
                         </div>
-                        @if ($user->hasRole('Auxiliar_producción'))
-                            @if ($user->additionalTimeRequest())
-                                <div
-                                    class="flex items-center justify-center px-2 py-1 rounded text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
-                                    {{ $user->additionalTimeRequest()->authorized_by ? 'Horas autorizadas' : 'Esperando autorización' }}
-                                    <button wire:loading.attr="disabled" wire:target="editRequest"
-                                        wire:click="editRequest({{ $user->additionalTimeRequest() }})"
-                                        class="ml-3 flex items-center justify-center w-6 h-6 rounded-full {{$user->additionalTimeRequest()->authorized_by ? 'bg-green-300 text-green-600 hover:bg-green-500 hover:text-green-300' : 'bg-orange-300 text-orange-600 hover:bg-orange-500 hover:text-orange-300' }}  disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200"
-                                        title="Editar solicitud">
-                                        <i class="fas fa-pen text-xs"></i>
-                                    </button>
-                                </div>
-                            @else
-                                <button wire:loading.attr="disabled" wire:target="requestTime" wire:click="requestTime"
-                                    class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
-                                    Solicitar horas adicionales
+                        {{-- @if ($user->hasRole('Auxiliar_producción')) --}}
+                        @if ($user->additionalTimeRequest())
+                            <div
+                                class="flex items-center justify-center px-2 py-1 rounded text-center mt-2 {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-50 text-green-500' : 'bg-orange-50 text-orange-500' }}">
+                                {{ $user->additionalTimeRequest()->authorized_by ? 'Horas autorizadas' : 'Esperando autorización' }}
+                                <button wire:loading.attr="disabled" wire:target="editRequest"
+                                    wire:click="editRequest({{ $user->additionalTimeRequest() }})"
+                                    class="ml-3 flex items-center justify-center w-6 h-6 rounded-full {{ $user->additionalTimeRequest()->authorized_by ? 'bg-green-300 text-green-600 hover:bg-green-500 hover:text-green-300' : 'bg-orange-300 text-orange-600 hover:bg-orange-500 hover:text-orange-300' }}  disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200"
+                                    title="Editar solicitud">
+                                    <i class="fas fa-pen text-xs"></i>
                                 </button>
-                            @endif
+                            </div>
+                        @else
+                            <button wire:loading.attr="disabled" wire:target="requestTime" wire:click="requestTime"
+                                class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                                Solicitar horas adicionales
+                            </button>
                         @endif
+                        {{-- @endif --}}
                         <!-- Table -->
                         <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                             <header class="px-5 py-4 border-b border-gray-100 flex justify-between text-sm">

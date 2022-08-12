@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Marketing;
 
 use App\Models\MarketingProject;
+use App\Models\User;
 use Livewire\Component;
 
 class ShowProject extends Component
@@ -33,6 +34,20 @@ class ShowProject extends Component
     {
         $this->project->save();
         $this->emit('success', 'Se han guardado los comentarios');
+    }
+
+    public function completeTask($task_id, $user_id)
+    {
+        $user = User::find($user_id);
+        $user->marketingTasks()->sync([$task_id => ['finished_at' => now()->toDateTimeString()]]);
+        $this->refreshTasks();
+        $this->emit('success', 'Tarea marcada como completada');
+    }
+
+    public function refreshTasks()
+    {
+        $this->project = MarketingProject::find($this->project->id);
+        $this->tasks = $this->project->tasks;
     }
 
     public function openModal(MarketingProject $project)

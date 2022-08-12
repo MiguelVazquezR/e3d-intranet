@@ -72,25 +72,36 @@
                                 @foreach ($tasks as $task)
                                     <tr class="border border-opacity-20 border-gray-700 bg-white">
                                         <td class="p-3">
-                                            <p>{{ $task->description }}</p>
+                                            <p>
+                                                {{ $task->description }}
+                                            </p>
                                         </td>
                                         <td class="p-3">
                                             <p>{{ $task->estimated_finish->isoFormat('DD MMM YYYY hh:mm a') }}</p>
                                         </td>
                                         <td class="p-3">
                                             @foreach ($task->users as $user)
-                                                <p title="{{ $user->pivot->finished_at ? 'Tarea completada' : 'Tarea sin completar' }}"
+                                                <div title="{{ $user->pivot->finished_at ? 'Tarea completada' : 'Tarea sin completar' }}"
                                                     class="flex justify-between items-center text-xs rounded lg:rounded-full px-2 py-px {{ $user->pivot->finished_at ? 'bg-green-100' : 'bg-blue-100' }} text-gray-600 mt-1">
                                                     @if ($user->pivot->finished_at)
                                                         <i class="fas fa-check text-green-400 mr-2"></i>
+                                                        <div class="flex flex-col">
+                                                            {{ $user->name }}
+                                                            <span title="{{ $user->pivot->finished_at }}"
+                                                                class="text-gray-400">{{ Carbon\Carbon::parse($user->pivot->finished_at)->diffForHumans() }}</span>
+                                                        </div>
+                                                    @else
+                                                        {{ $user->name }}
                                                     @endif
-                                                    {{ $user->name }}
                                                     @if ($project->authorizedBy && auth()->user()->id == $user->id && !$user->pivot->finished_at)
-                                                    <span class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full border-green-400 border" title="Marcar como terminada">
-                                                        <i class="fas fa-check text-green-400" style="font-size: 9px;"></i>
-                                                    </span>
+                                                        <span
+                                                            wire:click="completeTask({{ $task['id'] }}, {{ $user['id'] }})"
+                                                            class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full text-green-400 bg-green-100 border-green-400 border hover:bg-green-400 hover:text-green-600 hover:border-green-600"
+                                                            title="Marcar como terminada">
+                                                            <i class="fas fa-check" style="font-size: 9px;"></i>
+                                                        </span>
                                                     @endif
-                                                </p>
+                                                </div>
                                             @endforeach
                                         </td>
                                     </tr>
@@ -106,10 +117,7 @@
                     </div>
                     {{-- buttons --}}
                     <div>
-                        <button
-                            wire:click="sendFeedback"
-                            wire:loading.attr="disabled"
-                            wire:target="sendFeedback"
+                        <button wire:click="sendFeedback" wire:loading.attr="disabled" wire:target="sendFeedback"
                             class="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-1 text-center disabled:opacity-25 disabled:cursor-not-allowed">
                             Enviar comentario
                         </button>
