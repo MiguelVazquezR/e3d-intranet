@@ -44,7 +44,7 @@
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
                             <p class="text-gray-900 whitespace-no-wrap">
-                                {{ $item->owner->name }}
+                                {{ $item->creator->name }}
                             </p>
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
@@ -61,6 +61,17 @@
                             <p class="text-gray-900 whitespace-no-wrap">
                                 ${{ number_format($item->project_cost, 2) }}
                             </p>
+                        </td>
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
+                            <div class="font-medium text-blue-700" style="font-size: 10px">
+                                <span>Tareas: </span>
+                                <span> {{ $item->completedTasks()->count() }} </span>
+                                <span> / </span>
+                                <span> {{ $item->tasks->count() }} </span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2" title="{{ $item->progressPercentage() }}% completado">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: {{ $item->progressPercentage() }}%"></div>
+                            </div>
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
                             <p class="text-gray-900 whitespace-no-wrap">

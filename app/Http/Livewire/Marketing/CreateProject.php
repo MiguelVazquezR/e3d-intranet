@@ -46,7 +46,7 @@ class CreateProject extends Component
     public function updatedUserId($user_id)
     {
         if ($user_id === 'all') {
-            $this->user_list = User::where('active', 1)->where('id', '!=', auth()->user()->id)->pluck('id')->all();
+            $this->user_list = User::where('active', 1)->pluck('id')->all();
         } elseif (!in_array($user_id, $this->user_list)) {
             $this->user_list[] = $user_id;
         }
@@ -132,7 +132,7 @@ class CreateProject extends Component
 
     public function render()
     {
-        $users = User::where('active', 1)->where('id', '!=', auth()->user()->id)->get();
+        $users = User::where('active', 1)->get();
 
         return view('livewire.marketing.create-project', compact('users'));
     }

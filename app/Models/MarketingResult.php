@@ -12,12 +12,12 @@ class MarketingResult extends Model
     protected $fillable = [
         'description',
         'file',
-        'marketing_project_id',
+        'marketing_task_user_id',
     ];
 
     // Relationships------------------------------
-    public function project()
-    {
-        return $this->belongsTo(MarketingProject::class, 'marketing_project_id');
-    }
+    // public function project()
+    // {
+    //     return $this->belongsTo(MarketingProject::class, 'marketing_project_id');
+    // }
 }

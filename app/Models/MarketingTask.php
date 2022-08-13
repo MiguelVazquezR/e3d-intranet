@@ -29,6 +29,18 @@ class MarketingTask extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('finished_at');
+        return $this->belongsToMany(User::class)->withPivot('id', 'finished_at');
+    }
+
+    // methods -------------------------------------
+    public function isCompleted()
+    {
+        $completed = $this->users->reduce(function ($carry, $user) {
+            if ($user->pivot->finished_at)
+                return $carry = $carry + 1;
+            else
+                return $carry = 0;
+        });
+        return $completed;
     }
 }

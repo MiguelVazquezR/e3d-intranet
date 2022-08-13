@@ -38,7 +38,7 @@
                    {{ explode('T',$task['estimated_finish'])[0] .' '. explode('T',$task['estimated_finish'])[1] }}
                 </li>
             @endforeach
-            <div class="lg:grid grid-cols-2 gap-x-2">
+            <div class="lg:grid grid-cols-2 gap-x-2 bg-gray-200 shadow-lg px-2 py-1 rounded-md mt-2">
                 <div class="mt-2">
                     <x-jet-label value="Tarea" />
                     <x-jet-input wire:model.defer="description" type="text" class="w-full" />

@@ -11,7 +11,7 @@
 
 <body>
     <p>
-        <b>{{ $model->creator->name }}</b> ha creado nueva <b>{{ $module_name }}</b>
+        <b>{{ $model->creator->name }}</b> ha creado nueva(o) <b>{{ $module_name }}</b>
         con ID <b>{{ $model->id }}</b> y se requiere de su aprobación.
     </p>
 </body>

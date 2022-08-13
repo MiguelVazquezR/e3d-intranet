@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function marketingTasks()
     {
-        return $this->belongsToMany(MarketingTask::class);
+        return $this->belongsToMany(MarketingTask::class)->withPivot('id', 'finished_at');
     }
     
     public function marketingProjects()

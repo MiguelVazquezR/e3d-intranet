@@ -18,7 +18,7 @@ class CreateMarketingResultsTable extends Migration
 
             $table->text('description')->nullable();
             $table->string('file');
-            $table->foreignId('marketing_project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('marketing_task_user_id')->constrained();
 
             $table->timestamps();
         });

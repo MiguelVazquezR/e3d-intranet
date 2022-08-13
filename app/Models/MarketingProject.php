@@ -34,7 +34,7 @@ class MarketingProject extends Model
         return $this->hasMany(MarketingResult::class);
     }
 
-    public function owner()
+    public function creator()
     {
         return $this->belongsTo(User::class, 'project_owner_id');
     }
@@ -42,5 +42,36 @@ class MarketingProject extends Model
     public function authorizedBy()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // methods -------------------------------------------------------
+    public function uncompletedTasks()
+    {
+        $uncompleted = collect();
+        foreach($this->tasks as $task) {
+            if(!$task->isCompleted()) {
+                $uncompleted->push($task);
+            }
+        }
+
+        return $uncompleted;
+    }
+
+    public function completedTasks()
+    {
+        $completed = collect();
+        foreach($this->tasks as $task) {
+            if($task->isCompleted()) {
+                $completed->push($task);
+            }
+        }
+
+        return $completed;
+    }
+
+    public function progressPercentage()
+    {
+        $percentage = ($this->completedTasks()->count() / $this->tasks->count()) * 100;
+        return round($percentage, 2);
     }
 }

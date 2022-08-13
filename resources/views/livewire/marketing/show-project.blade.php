@@ -21,13 +21,13 @@
                 <div class="lg:grid grid-cols-3 gap-x-2">
                     <div class="mt-3">
                         <x-jet-label value="Costo de desarrollo" />
-                        <span>MXN$ {{ $project->project_cost }}</span>
+                        <span>MXN$ {{ number_format($project->project_cost, 2) }}</span>
                     </div>
                     <div class="mt-3">
                         <x-jet-label value="Propietario" />
-                        <x-avatar-with-title-subtitle :user="$project->owner">
+                        <x-avatar-with-title-subtitle :user="$project->creator">
                             <x-slot name="title">
-                                {{ $project->owner->name }}
+                                {{ $project->creator->name }}
                             </x-slot>
                             <x-slot name="subtitle">
                                 <span class="text-xs text-gray-400">
@@ -70,7 +70,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($tasks as $task)
-                                    <tr class="border border-opacity-20 border-gray-700 bg-white">
+                                    <tr x-data="{ tooltip_open: false }"
+                                        class="relative border border-opacity-20 border-gray-700 bg-white">
                                         <td class="p-3">
                                             <p>
                                                 {{ $task->description }}
@@ -87,19 +88,58 @@
                                                         <i class="fas fa-check text-green-400 mr-2"></i>
                                                         <div class="flex flex-col">
                                                             {{ $user->name }}
-                                                            <span title="{{ $user->pivot->finished_at }}"
-                                                                class="text-gray-400">{{ Carbon\Carbon::parse($user->pivot->finished_at)->diffForHumans() }}</span>
+                                                            <div>
+                                                                <span title="{{ $user->pivot->finished_at }}"
+                                                                    class="text-gray-400 cursor-help"
+                                                                    title="{{ $user->pivot->finished_at }}">{{ Carbon\Carbon::parse($user->pivot->finished_at)->diffForHumans() }}
+                                                                </span>
+                                                                @php
+                                                                    $_evidence = App\Models\MarketingResult::where('marketing_task_user_id', $user->pivot->id)->first();
+                                                                @endphp
+                                                                <a href="{{ Storage::url($_evidence->file) }}" target="_blank">
+                                                                    <i title="Ver evidencia"
+                                                                        class="fas fa-file cursor-pointer text-green-400 hover:text-green-600 ml-3"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     @else
                                                         {{ $user->name }}
                                                     @endif
                                                     @if ($project->authorizedBy && auth()->user()->id == $user->id && !$user->pivot->finished_at)
-                                                        <span
-                                                            wire:click="completeTask({{ $task['id'] }}, {{ $user['id'] }})"
-                                                            class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full text-green-400 bg-green-100 border-green-400 border hover:bg-green-400 hover:text-green-600 hover:border-green-600"
+                                                        <span @click="tooltip_open = !tooltip_open"
+                                                            class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full text-blue-400 bg-blue-100 border-blue-400 border"
                                                             title="Marcar como terminada">
-                                                            <i class="fas fa-check" style="font-size: 9px;"></i>
+                                                            <i class="fas fa-angle-up" style="font-size: 10px;"></i>
                                                         </span>
+                                                        <div x-show="tooltip_open" x-transition
+                                                            x-transition:enter.duration.500ms
+                                                            x-transition:leave.duration.400ms title="Evidencia de tarea"
+                                                            class="w-full lg:w-2/3 absolute right-0 lg:right-4 -top-6 px-3 py-1 rounded bg-gray-800 text-white shadow">
+                                                            <div class="flex items-center">
+                                                                <x-jet-label class="text-white hidden lg:block"
+                                                                    value="Evidencia:" />
+                                                                <div>
+                                                                    <input wire:model.defer="evidence" type="file"
+                                                                        class="text-xs mx-2 file:py-1 file:px-1
+                                                                        file:rounded-full file:border-0
+                                                                        file:text-xs file:font-semibold
+                                                                        file:bg-blue-50 file:text-blue-700
+                                                                        hover:file:bg-blue-100"
+                                                                        id="{{ $evidence_id }}">
+                                                                    <x-jet-input-error for="evidence" class="text-xs" />
+                                                                </div>
+                                                                <i wire:loading wire:target="evidence"
+                                                                    class="fas fa-sync-alt text-sm text-gray-400 animate-spin"></i>
+                                                                @if ($evidence)
+                                                                    <button wire:loading.remove wire:target="evidence"
+                                                                        @click="tooltip_open = false"
+                                                                        wire:click="completeTask({{ $task->id }}, {{ $user->id }}, {{ $user->pivot->id }})"
+                                                                        class="flex justify-center items-center rounded-full w-5 h-5 bg-blue-300"
+                                                                        title="Subir evidencia"><i
+                                                                            class="fas fa-upload text-xs text-blue-600"></i></button>
+                                                                @endif
+                                                            </div>
+                                                        </div>
                                                     @endif
                                                 </div>
                                             @endforeach
@@ -110,7 +150,8 @@
                         </table>
                     </div>
                 </div>
-                @if (auth()->user()->can('autorizar_proyectos_marketing'))
+                {{-- feedback --}}
+                @if (auth()->user()->can('autorizar_proyectos_mercadotecnia'))
                     <div wire:ignore>
                         <x-jet-label value="Dejar comentarios" class="mt-3" />
                         <textarea wire:model="project.feedback" rows="3" class="w-full border-gray-300"></textarea>
@@ -125,8 +166,8 @@
                 @else
                     <x-jet-label value="Comentarios" class="mt-3" />
                     <div
-                        class="{{ $project->feedbak ? 'px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg' : 'text-gray-400 text-xs' }} mb-2">
-                        {!! $project->feedbak ?? 'No hay comentarios de retroalimentación' !!}</div>
+                        class="{{ $project->feedback ? 'px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg' : 'text-gray-400 text-xs' }} mb-2">
+                        {{ $project->feedback ?? 'No hay comentarios de retroalimentación' }}</div>
                 @endif
             @endif
 
@@ -136,6 +177,19 @@
             <x-jet-secondary-button class="mr-2" wire:click="$set('open', false)">
                 Cancelar
             </x-jet-secondary-button>
+            @if ($project)
+                @if (auth()->user()->can('autorizar_proyectos_mercadotecnia') && !$project->authorized_by_id)
+                    <x-jet-button wire:click="authorize" wire:loading.attr="disabled" wire:target="authorize"
+                        class="disabled:opacity-25">
+                        Autorizar
+                    </x-jet-button>
+                @else
+                    <x-jet-danger-button wire:click="cancel" wire:loading.attr="disabled" wire:target="cancel"
+                        class="disabled:opacity-25">
+                        Cancelar
+                    </x-jet-danger-button>
+                @endif
+            @endif
         </x-slot>
 
     </x-jet-dialog-modal>

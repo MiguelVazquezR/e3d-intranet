@@ -20,7 +20,8 @@ class MarketingIndex extends Component
         'project_owner_id' => 'creador de proyecto',
         'created_at' => 'creado el',
         'project_name' => 'nombre de proyecto',
-        'project_cost' => 'costo aproximado',
+        'project_cost' => 'costo',
+        'updated_at' => 'Progreso',
         'authorized_by_id' => 'Autorización',
     ];
 
@@ -70,13 +71,16 @@ class MarketingIndex extends Component
         $marketing_projects = MarketingProject::where(function ($q) {
             $q->where('id', 'like', "%$this->search%")
                 ->orWhere('project_name', 'like', "%$this->search%")
-                ->orWhereHas('owner', function ($query) {
+                ->orWhereHas('creator', function ($query) {
                     $query->where('name', 'like', "%$this->search%");
                 });
         })
+            ->with('tasks')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->elements);
-
+    
+        // dd(MarketingProject::find(1)->uncompletedTasks());
         return view('livewire.marketing.marketing-index', compact('marketing_projects'));
+
     }
 }

@@ -5,7 +5,8 @@
                 <i class="fas fa-home mr-2"></i>
                 Inicio
             </div>
-            <a href="{{ route('news') }}" class="{{ $new_update ? 'text-blue-600 animate-pulse underline' : 'text-gray-400' }} relative">
+            <a href="{{ route('news') }}"
+                class="{{ $new_update ? 'text-blue-600 animate-pulse underline' : 'text-gray-400' }} relative">
                 <i class="fas fa-book mr-1"></i>
                 Novedades
             </a>
@@ -189,6 +190,12 @@
                 <x-dashboard-panel-1 href="{{ route('additional_time_requests') }}" title="Hrs adicionales por autorizar"
                     :counter="$additional_time_for_authorize->count()" icon="fas fa-user-clock" />
             @endcan
+
+            <!-- marketing project for authorize -->
+            @can('autorizar_proyectos_mercadotecnia')
+                <x-dashboard-panel-1 href="{{ route('marketing-department') }}"
+                    title="Proyectos de mercadotecnia por autorizar" :counter="$marketing_projects_for_authorize->count()" icon="fas fa-lightbulb" />
+            @endcan
         </div>
 
         <h2 class="text-2xl text-gray-400 mb-3 mt-8 ml-6">Colaboradores (empleados)</h2>
@@ -225,9 +232,16 @@
                             </x-avatar-with-title-subtitle>
                         </div>
                     @empty
-                        <div class="my-3 lg:col-span-full text-center">
-                            Los resultados se muestran cada viernes
-                        </div>
+                        @if ($showing_weekly_performance)
+                            <div class="flex flex-col items-center my-3 lg:col-span-full">
+                                <span class="text-red-500 text-lg font-bold"> No hubieron ordenes terminadas esta semana</span>
+                                <i class="fas fa-sad-tear text-6xl text-red-300"></i>
+                            </div>
+                        @else
+                            <div class="my-3 lg:col-span-full text-center">
+                                Los resultados se muestran cada viernes
+                            </div>
+                        @endif
                     @endforelse
                 </div>
             </x-dashboard-panel-2>
