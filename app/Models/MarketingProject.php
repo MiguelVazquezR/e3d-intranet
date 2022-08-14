@@ -29,11 +29,6 @@ class MarketingProject extends Model
         return $this->hasMany(MarketingTask::class);
     }
 
-    public function results()
-    {
-        return $this->hasMany(MarketingResult::class);
-    }
-
     public function creator()
     {
         return $this->belongsTo(User::class, 'project_owner_id');

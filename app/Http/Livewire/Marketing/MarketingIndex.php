@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Marketing;
 
 use App\Models\MarketingProject;
+use App\Models\MarketingResult;
 use App\Models\MovementHistory;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -70,7 +71,16 @@ class MarketingIndex extends Component
 
     public function delete(MarketingProject $project)
     {
-        Storage::delete([$project->file]);
+        // tasks
+        $project->tasks->each(function ($task){
+            $task->users->each(function ($item) use ($task){
+                $result = MarketingResult::where('marketing_task_user_id', $item->pivot->id)->first();
+                Storage::delete([$result->file]);
+                $result->delete();
+                $item->marketingTasks()->detach($task->id);
+            });
+            $task->delete();
+        });
 
         // create movement history
         MovementHistory::create([

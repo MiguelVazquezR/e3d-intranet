@@ -96,7 +96,8 @@
                                                                 @php
                                                                     $_evidence = App\Models\MarketingResult::where('marketing_task_user_id', $user->pivot->id)->first();
                                                                 @endphp
-                                                                <a href="{{ Storage::url($_evidence->file) }}" target="_blank">
+                                                                <a href="{{ Storage::url($_evidence->file) }}"
+                                                                    target="_blank">
                                                                     <i title="Ver evidencia"
                                                                         class="fas fa-file cursor-pointer text-green-400 hover:text-green-600 ml-3"></i>
                                                                 </a>
@@ -178,16 +179,18 @@
                 Cancelar
             </x-jet-secondary-button>
             @if ($project)
-                @if (auth()->user()->can('autorizar_proyectos_mercadotecnia') && !$project->authorized_by_id)
-                    <x-jet-button wire:click="authorize" wire:loading.attr="disabled" wire:target="authorize"
-                        class="disabled:opacity-25">
-                        Autorizar
-                    </x-jet-button>
-                @else
-                    <x-jet-danger-button wire:click="cancel" wire:loading.attr="disabled" wire:target="cancel"
-                        class="disabled:opacity-25">
-                        Cancelar
-                    </x-jet-danger-button>
+                @if (auth()->user()->can('autorizar_proyectos_mercadotecnia'))
+                    @if (!$project->authorized_by_id)
+                        <x-jet-button wire:click="authorize" wire:loading.attr="disabled" wire:target="authorize"
+                            class="disabled:opacity-25">
+                            Autorizar
+                        </x-jet-button>
+                    @else
+                        <x-jet-danger-button wire:click="cancel" wire:loading.attr="disabled" wire:target="cancel"
+                            class="disabled:opacity-25">
+                            Cancelar
+                        </x-jet-danger-button>
+                    @endif
                 @endif
             @endif
         </x-slot>

@@ -121,7 +121,7 @@ class CreateProject extends Component
         // send email notification
         if (App::environment('production'))
             Mail::to('maribel@emblemas3d.com')
-                ->bcc('miguelvz26.mv@gmail.com')
+                // ->bcc('miguelvz26.mv@gmail.com')
                 ->queue(new ApproveMailable('Projecto de marketing', $project->id, MarketingProject::class));
 
         $this->reset();
