@@ -69,8 +69,10 @@
                                 <span> / </span>
                                 <span> {{ $item->tasks->count() }} </span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2" title="{{ $item->progressPercentage() }}% completado">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: {{ $item->progressPercentage() }}%"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2"
+                                title="{{ $item->progressPercentage() }}% completado">
+                                <div class="bg-blue-600 h-2 rounded-full"
+                                    style="width: {{ $item->progressPercentage() }}%"></div>
                             </div>
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
@@ -99,6 +101,11 @@
                         <td class="px-px py-3 border-b border-gray-200 bg-white">
                             <i wire:click="show( {{ $item }} )"
                                 class="far fa-eye bg-sky-400 text-white p-2 rounded-lg hover:cursor-pointer"></i>
+                            @if ($item->creator->id == auth()->user()->id ||
+                                auth()->user()->can('autorizar_proyectos_mercadotecnia'))
+                                <i wire:click="$emit('confirm', { 0:'marketing.marketing-index', 1:'delete' ,2:{{ $item->id }}, 3:'Este proceso no se puede revertir' })"
+                                    class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
+                            @endif
                         </td>
                         <td class="py-3 border-b border-gray-200 bg-white">
                         </td>

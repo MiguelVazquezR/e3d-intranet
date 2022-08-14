@@ -72,7 +72,7 @@ class ShowProject extends Component
 
         // add timestamp of finished
         $user = User::find($user_id);
-        $user->marketingTasks()->sync([$task_id => ['finished_at' => now()->toDateTimeString()]]);
+        $user->marketingTasks()->updateExistingPivot($task_id, ['finished_at' => now()->toDateTimeString()]);
         $this->refreshProject();
         $this->emitTo('marketing.marketing-index', 'render');
         $this->emit('success', 'Tarea marcada como completada');

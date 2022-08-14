@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Marketing;
 
 use App\Models\MarketingProject;
+use App\Models\MovementHistory;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -66,6 +68,22 @@ class MarketingIndex extends Component
     //     $this->emitTo('design-department.edit-design-department', 'openModal', $design_order);
     // }
 
+    public function delete(MarketingProject $project)
+    {
+        Storage::delete([$project->file]);
+
+        // create movement history
+        MovementHistory::create([
+            'movement_type' => 3,
+            'user_id' => auth()->user()->id,
+            'description' => "Se eliminó proyecto de marketing de nombre {$project->project_name}"
+        ]);
+
+        $project->delete();
+
+        $this->emit('success', 'Proyecto de marketing eliminado.');
+    }
+
     public function render()
     {
         $marketing_projects = MarketingProject::where(function ($q) {
@@ -75,12 +93,9 @@ class MarketingIndex extends Component
                     $query->where('name', 'like', "%$this->search%");
                 });
         })
-            ->with('tasks')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->elements);
-    
-        // dd(MarketingProject::find(1)->uncompletedTasks());
-        return view('livewire.marketing.marketing-index', compact('marketing_projects'));
 
+        return view('livewire.marketing.marketing-index', compact('marketing_projects'));
     }
 }
