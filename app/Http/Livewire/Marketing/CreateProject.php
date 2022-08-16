@@ -119,15 +119,17 @@ class CreateProject extends Component
         ]);
 
         // send email notification
-        if (App::environment('production'))
-            Mail::to('maribel@emblemas3d.com')
-                // ->bcc('miguelvz26.mv@gmail.com')
+        $emails = User::whereIn('id', [1,2])->get('email')->all();
+        if (App::environment('production')) {
+            Mail::to($emails[0])
+                ->bcc($emails[1])
                 ->queue(new ApproveMailable('Projecto de marketing', $project->id, MarketingProject::class));
+        }
 
         $this->reset();
 
         $this->emitTo('marketing.marketing-index', 'render');
-        $this->emit('success', 'Nuevo proyecto agregado y enviado a revisión, espere respuesta');
+        $this->emit('success', "Nuevo proyecto agregado y enviado a revisi贸n a {$emails[0]} y {$emails[1]}, espere respuesta");
     }
 
     public function render()

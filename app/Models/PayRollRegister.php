@@ -41,11 +41,6 @@ class PayRollRegister extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // public function getDayAttribute()
-    // {
-    //     return new Carbon($this->attributes["day"]);
-    // }
-
     public function late()
     {
         if (count($this->user->employee->checkInTimes) > 1) {
@@ -61,7 +56,7 @@ class PayRollRegister extends Model
         $checkin_time = Carbon::parse($check_in);
         $attendence_time = Carbon::parse($this->check_in);
         
-        $minutes_late = $checkin_time->diffInMinutes($attendence_time);
+        $minutes_late = $checkin_time->diffInMinutes($attendence_time, false);
 
         if ($minutes_late > 0) {
             $this->late = $minutes_late;
