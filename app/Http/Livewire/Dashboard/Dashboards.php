@@ -16,7 +16,9 @@ use App\Models\Quote;
 use App\Models\SellOrder;
 use App\Models\ShippingPackage;
 use App\Models\StockProduct;
+use App\Models\User;
 use App\Models\UserHasSellOrderedProduct;
+use App\Notifications\RequestApproved;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -145,6 +147,12 @@ class Dashboards extends Component
     public function showDetails($view)
     {
         $this->emitTo('common.detail-modal', 'openModal', $view);
+    }
+
+    public function notif()
+    {
+        $user = User::find(3);
+        $user->notify(new RequestApproved('solicitud de cotización', 3, 'quotes'));
     }
 
     public function render()

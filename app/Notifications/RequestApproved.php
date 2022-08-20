@@ -11,18 +11,20 @@ class RequestApproved extends Notification
 {
     use Queueable;
 
-    public $model_name,
-        $model_id;
+    public $request_name,
+        $request_id,
+        $url_name;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($model_name, $model_id)
+    public function __construct($request_name, $request_id, $url_name)
     {
-        $this->model_name = $model_name;
-        $this->model_id = $model_id;
+        $this->request_name = $request_name;
+        $this->request_id = $request_id;
+        $this->url_name = $url_name;
     }
 
     /**
@@ -59,8 +61,8 @@ class RequestApproved extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'url' => route('quotes'),
-            'message' => "Se ha aprobado tu $this->model_name con id $this->model_id",
+            'url_name' => $this->url_name,
+            'message' => "Se ha aprobado tu <b>$this->request_name</b> con id <b>$this->request_id</b>",
         ];
     }
 }

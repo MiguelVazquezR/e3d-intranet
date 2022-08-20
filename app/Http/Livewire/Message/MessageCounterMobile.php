@@ -23,7 +23,7 @@ class MessageCounterMobile extends Component
     public function resetCounter()
     {
         $this->emitTo('message.show-messages-mobile', 'messages-counter-refresh');
-        $this->unreaded = Auth::user()->unreadNotifications->count();
+        $this->unreaded = auth()->user()->unreadNotifications()->where('type', 'App\Notifications\MessageSent')->get('id')->count();
     }
 
     public function render()

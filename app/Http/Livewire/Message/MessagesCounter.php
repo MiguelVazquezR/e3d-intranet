@@ -26,7 +26,7 @@ class MessagesCounter extends Component
     {
         $this->notifications = Auth::user()->notifications()->where('type', 'App\Notifications\MessageSent')->get();
         $this->sent_messages = Message::where('from_user_id', Auth::user()->id)->latest()->get();
-        $this->unreaded = Auth::user()->unreadNotifications->count();
+        $this->unreaded = auth()->user()->unreadNotifications()->where('type', 'App\Notifications\MessageSent')->get('id')->count();
     }
 
     public function updatedReceived()

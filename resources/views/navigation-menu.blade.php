@@ -1,4 +1,4 @@
-<nav x-data="{ open: false, open_messages: false, open_reminders: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false, open_messages: false, open_reminders: false, open_notifications: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex justify-between h-16">
@@ -199,9 +199,12 @@
             </div>
 
             <div class="hidden md:flex sm:items-center">
+                <!-- notifications -->
+                @livewire('notification.notifications-counter')
+                
                 <!-- message notifications -->
                 @livewire('message.messages-counter')
-                
+
                 <!-- reminder -->
                 @livewire('reminder.drop-down')
                
@@ -350,13 +353,20 @@
         </div>
     </div>
 
+    {{-- Notifications view --}}
+    <div :class="{ 'block': open_notifications, 'hidden': !open_notifications }" class="hidden md:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            @livewire('notification.show-notifications-mobile')
+        </div>
+    </div>
+    
     {{-- messages view --}}
     <div :class="{ 'block': open_messages, 'hidden': !open_messages }" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @livewire('message.show-messages-mobile')
         </div>
     </div>
-    
+
     {{-- reminders view --}}
     <div :class="{ 'block': open_reminders, 'hidden': !open_reminders }" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
