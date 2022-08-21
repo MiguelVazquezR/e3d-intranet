@@ -149,12 +149,6 @@ class Dashboards extends Component
         $this->emitTo('common.detail-modal', 'openModal', $view);
     }
 
-    public function notif()
-    {
-        $user = User::find(3);
-        $user->notify(new RequestApproved('solicitud de cotización', 3, 'quotes'));
-    }
-
     public function render()
     {
         return view('livewire.dashboard.dashboards');

@@ -8,6 +8,7 @@ use App\Models\MovementHistory;
 use App\Models\PurchaseOrder;
 use App\Models\StockMovement;
 use App\Models\StockProduct;
+use App\Notifications\FinishedOrderNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -98,6 +99,9 @@ class PurchaseOrders extends Component
         $purchase_order->received_at = date('Y-m-d');
         $purchase_order->status = 'Recibido';
         $purchase_order->save();
+
+        // notify to request's creator
+        $this->design_order->creator->notify(new FinishedOrderNotification('compra', $this->purchase_order->id, 'Se ha recibido la mercancía','purchase-orders'));
 
         // create stock movements
         $products = $purchase_order->purchaseOrderedProducts;

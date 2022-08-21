@@ -4,6 +4,7 @@ namespace App\Http\Livewire\ProductionDepartment;
 
 use App\Models\SellOrder;
 use App\Models\UserHasSellOrderedProduct;
+use App\Notifications\FinishedOrderNotification;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -126,6 +127,11 @@ class ShowProductionDepartment extends Component
         $activity->sellOrderedProduct->sellOrder->update([
             'status' => $this->getStatus($finished_activities, $all_activities)
         ]);
+
+        if ($activity->sellOrderedProduct->sellOrder->status == 'Terminado') {
+            // notify to request's creator
+            $activity->sellOrderedProduct->sellOrder->creator->notify(new FinishedOrderNotification('venta', $activity->sellOrderedProduct->sellOrder->id, 'Se ha terminado', 'sell-orders'));
+        }
 
         $this->emit('success', 'Se ha marcado el final de tus actividades');
         $this->emitTo('production-department.home-production', 'render');

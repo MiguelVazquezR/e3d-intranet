@@ -328,10 +328,13 @@
                 </div>
             </div>
 
-            <div class="flex items-center">
+            <div class="flex items-center space-x-2">
+                {{-- Notification mobile --}}
+                @livewire('notification.notification-counter-mobile')
+                
                 {{-- messages mobile --}}
                 @livewire('message.message-counter-mobile')
-                
+
                 {{-- reminders mobile --}}
                 @livewire('reminder.drop-down-mobile')
 

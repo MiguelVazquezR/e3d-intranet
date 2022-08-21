@@ -6,6 +6,7 @@ use App\Models\MovementHistory;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderedProduct;
 use App\Models\Supplier;
+use App\Notifications\RequestApproved;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -83,6 +84,9 @@ class EditPurchaseOrder extends Component
         $this->purchase_order->authorized_user_id = Auth::user()->id;
         $this->purchase_order->status = 'Autorizado. Enviar a proveedor';
         $this->purchase_order->save();
+
+        // notify to request's creator
+        $this->purchase_order->creator->notify(new RequestApproved('orden de compra', $this->purchase_order->id, 'purchase-orders'));
 
         $this->resetExcept([
             'purchase_order',

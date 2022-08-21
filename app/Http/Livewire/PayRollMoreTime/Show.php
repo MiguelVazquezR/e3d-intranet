@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\PayRollMoreTime;
 
 use App\Models\PayRollMoreTime;
+use App\Notifications\RequestApproved;
 use Livewire\Component;
 
 class Show extends Component
@@ -30,6 +31,9 @@ class Show extends Component
         $this->request->authorized_by = auth()->user()->id;
         $this->request->authorized_at = now();
         $this->request->save();
+
+        // notify to request's creator
+        $this->request->creator->notify(new RequestApproved('solicitud de tiempo adicional', $this->request->id, 'pay-rolls'));
 
         $this->emit('success', 'Se ha autorizado la solicitud');
         $this->emitTo('pay-roll-more-time.index', 'render');

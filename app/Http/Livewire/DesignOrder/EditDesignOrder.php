@@ -8,6 +8,7 @@ use App\Models\DesignType;
 use App\Models\MeasurementUnit;
 use App\Models\MovementHistory;
 use App\Models\User;
+use App\Notifications\RequestApproved;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -92,6 +93,9 @@ class EditDesignOrder extends Component
         $this->design_order->authorized_at = Carbon::now()->isoFormat('YYYY-MM-D hh:mm:ss');
         $this->design_order->status = 'Autorizado. Sin iniciar';
         $this->design_order->save();
+
+        // notify to request's creator
+        $this->design_order->creator->notify(new RequestApproved('solicitud de diseño', $this->design_order->id, 'design-orders'));
 
         $this->resetExcept([
             'design_order',

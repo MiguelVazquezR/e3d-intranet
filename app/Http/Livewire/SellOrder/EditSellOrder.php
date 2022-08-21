@@ -13,6 +13,7 @@ use App\Models\SellOrderedProduct;
 use App\Models\StockMovement;
 use App\Models\StockProduct;
 use App\Models\UserHasSellOrderedProduct;
+use App\Notifications\RequestApproved;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -111,6 +112,9 @@ class EditSellOrder extends Component
         $this->sell_order->authorized_user_id = Auth::user()->id;
         $this->sell_order->status = 'Sin iniciar';
         $this->sell_order->save();
+
+        // notify to request's creator
+        $this->sell_order->creator->notify(new RequestApproved('orden de venta', $this->sell_order->id, 'sell-orders'));
 
         /// create stock movements
         foreach ($this->sell_order->sellOrderedProducts as $sop) {

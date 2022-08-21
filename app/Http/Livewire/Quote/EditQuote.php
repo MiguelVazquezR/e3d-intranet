@@ -117,7 +117,8 @@ class EditQuote extends Component
         $this->quote->authorized_user_id = Auth::user()->id;
         $this->quote->save();
 
-        // User::findOrFail($this->quote->user_id)->notify( new RequestApproved('cotización',$this->quote->id) );
+        // notify to request's creator
+        $this->quote->creator->notify(new RequestApproved('cotización', $this->quote->id, 'quotes'));
 
         $this->resetExcept([
             'quote',

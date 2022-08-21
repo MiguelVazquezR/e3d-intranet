@@ -21,8 +21,6 @@
         <h2 class="text-2xl text-gray-400 mb-3 ml-6">Mios</h2>
         <div class="lg:grid lg:grid-cols-4 lg:gap-3 mb-2">
 
-            <button wire:click="notif" class="bg-gray-200" >Notificar</button>
-
             <!-- Reminders -->
             <x-dashboard-panel-2 class="lg:col-span-2 mb-4" title="Recordatorios"
                 icon='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm-fill inline-block" viewBox="0 0 16 16">
@@ -236,7 +234,8 @@
                     @empty
                         @if ($showing_weekly_performance)
                             <div class="flex flex-col items-center my-3 lg:col-span-full">
-                                <span class="text-red-500 text-lg font-bold"> No hubieron ordenes terminadas esta semana</span>
+                                <span class="text-red-500 text-lg font-bold"> No hubieron ordenes terminadas esta
+                                    semana</span>
                                 <i class="fas fa-sad-tear text-6xl text-red-300"></i>
                             </div>
                         @else

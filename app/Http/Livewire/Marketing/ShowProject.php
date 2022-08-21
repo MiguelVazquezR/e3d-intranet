@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Marketing;
 use App\Models\MarketingProject;
 use App\Models\MarketingResult;
 use App\Models\User;
+use App\Notifications\RequestApproved;
 use App\ServiceClasses\ImageHandler;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -89,6 +90,10 @@ class ShowProject extends Component
         $this->project->authorized_by_id = auth()->user()->id;
         $this->project->authorized_at = now()->toDateTimeString();
         $this->project->save();
+
+        // notify to request's creator
+        $this->project->creator->notify(new RequestApproved('nuevo proyecto de mercadotecnia', $this->project->id, 'marketing-department'));
+
         $this->refreshProject();
         $this->emitTo('marketing.marketing-index', 'render');
         $this->emit('success', 'Proyecto autorizado');

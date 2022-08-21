@@ -4,6 +4,7 @@ namespace App\Http\Livewire\DesignResult;
 
 use App\Models\DesignOrder;
 use App\Models\DesignResult;
+use App\Notifications\FinishedOrderNotification;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Intervention\Image\Facades\Image;
@@ -72,6 +73,9 @@ class CreateDesignResult extends Component
         $this->design_order->update([
             'status' => 'Terminado',
         ]);
+
+        // notify to request's creator
+        $this->design_order->creator->notify(new FinishedOrderNotification('diseño', $this->design_order->id, 'Se agregó un nuevo resultado','design-orders'));
 
         $this->reset();
 
