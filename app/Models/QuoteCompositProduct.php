@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class QuoteCompositProduct extends Model
+class QuoteCompositProduct extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'id',
@@ -38,5 +41,13 @@ class QuoteCompositProduct extends Model
         return $formated
             ? number_format($total, $decimals)
             : $total;
+    }
+
+    // optimizing upload images (media library package)
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(600)
+            ->height(360);
     }
 }

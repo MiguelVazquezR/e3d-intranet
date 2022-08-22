@@ -175,6 +175,12 @@
                                 class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                             <x-jet-input-error for="product_notes" class="mt-3" />
                         </div>
+                        <div class="mt-3">
+                            <x-jet-label value="Imagenes adicionales" />
+                            <input type="file" id="images" wire:model.defer="images"
+                                placeholder="Choose images" multiple>
+                        </div>
+
                     </div>
 
                 </div>
@@ -183,10 +189,10 @@
 
             @foreach ($products_list as $i => $product)
                 @php
-                    if (array_key_exists('product_id', $product)) {
-                        $current_product = App\Models\Product::find($product['product_id']);
+                    if (array_key_exists('product_id', $product['product'])) {
+                        $current_product = App\Models\Product::find($product['product']['product_id']);
                     } else {
-                        $current_product = App\Models\CompositProduct::find($product['composit_product_id']);
+                        $current_product = App\Models\CompositProduct::find($product['product']['composit_product_id']);
                     }
                 @endphp
                 <x-item-list :index="$i" active="true" :objectId="null">
@@ -195,14 +201,18 @@
                         : $current_product->alias">
                         @if ($current_product instanceof App\Models\Product)
                             <span
-                                class="text-blue-500">{{ $product['quantity'] . ' ' . $current_product->unit->name }}</span>&nbsp;
+                                class="text-blue-500">{{ $product['product']['quantity'] . ' ' . $current_product->unit->name }}</span>&nbsp;
                             a &nbsp;
                         @else
-                            <span class="text-blue-500">{{ $product['quantity'] }} Piezas</span>&nbsp; a &nbsp;
+                            <span class="text-blue-500">{{ $product['product']['quantity'] }} Piezas</span>&nbsp; a
+                            &nbsp;
                         @endif
                         <span
-                            class="text-blue-500">{{ $product['price'] . App\Models\Currency::findOrFail($currency_id)->name }}</span>&nbsp;
+                            class="text-blue-500">{{ $product['product']['price'] . App\Models\Currency::findOrFail($currency_id)->name }}</span>&nbsp;
                         por unidad
+                        @if ($product['aditional_images'])
+                            <span class="text-blue-500 ml-1"> + {{ count($product['aditional_images']) }} imagenes </span>
+                        @endif
                     </x-product-quick-view>
                 </x-item-list>
             @endforeach
