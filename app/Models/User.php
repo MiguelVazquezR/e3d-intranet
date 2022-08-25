@@ -72,7 +72,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(MarketingTask::class)->withPivot('id', 'finished_at');
     }
-    
+
     public function marketingProjects()
     {
         return $this->hasMany(MarketingProject::class);
@@ -292,9 +292,9 @@ class User extends Authenticatable
     public function totalSalary($pay_roll = null, $formated = true)
     {
         $discount_by_late = $this->discountByDelay($pay_roll)
-        ? $this->employee->salaryPerDay()
-        : 0;
-        
+            ? $this->employee->salaryPerDay()
+            : 0;
+
         $total_salary = $this->normalSalary($pay_roll, false) +
             array_sum($this->getBonuses($pay_roll)) -
             $this->employee->discounts -
@@ -327,11 +327,15 @@ class User extends Authenticatable
                 //calculate total time
                 $break_time = Carbon::parse($register->start_break)->floatDiffInHours($register->end_break);
                 $hours = Carbon::parse($register->check_in)->floatDiffInHours($register->check_out) - $break_time;
+                // substract 30 minutes to all roles except aulxiliar de producción
+                if (!$this->hasRole(['Auxiliar_producción', 'Empleado_remoto'])) $hours -= 0.33;
             } else {
                 if ($register->check_out) {
                     //calculate total time
                     $break_time = Carbon::parse($register->start_break)->floatDiffInHours($register->end_break);
                     $hours = Carbon::parse($register->check_in)->floatDiffInHours($register->check_out) - $break_time;
+                    // substract 30 minutes to all roles except aulxiliar de producción
+                    if (!$this->hasRole(['Auxiliar_producción', 'Empleado_remoto'])) $hours -= 0.33;
                 } else {
                     $hours = 0;
                 }
@@ -510,7 +514,7 @@ class User extends Authenticatable
     public function delayTime($pay_roll)
     {
         $delay_time = array_reduce($this->currentWeekRegisters($pay_roll), function ($carry, $item) {
-            if ( !is_null($item) && !is_string($item) ) {
+            if (!is_null($item) && !is_string($item)) {
                 // dd($item->late);
                 $carry += $item->late;
             }
@@ -524,7 +528,6 @@ class User extends Authenticatable
     public function discountByDelay($pay_roll_id = null)
     {
         $time_late = $this->delayTime($pay_roll_id);
-       return (!$this->hasRole('Auxiliar_producción') &&  $time_late >= 15);
-       
+        return (!$this->hasRole('Auxiliar_producción') &&  $time_late >= 15);
     }
 }
