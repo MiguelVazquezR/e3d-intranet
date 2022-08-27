@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\DesignDepartment;
 
 use App\Models\DesignOrder;
+use App\Notifications\StartedOrderNotification;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
@@ -64,6 +65,9 @@ class ShowDesignDepartment extends Component
             'tentative_end' => $this->tentative_end,
             'status' => 'En proceso',
         ]);
+
+        // notify to request's creator
+        $this->design_order->creator->notify(new StartedOrderNotification('orden de diseño', $this->design_order->id, 'design-orders'));
 
         $this->resetExcept('design_order');
 

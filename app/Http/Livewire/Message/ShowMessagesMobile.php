@@ -14,6 +14,7 @@ class ShowMessagesMobile extends Component
 
     protected $listeners = [
         'messages-counter-refresh' => 'resetCounter',
+        'show-message-from-notification' => 'showMessageFromNotification',
     ];
 
     public function mount()
@@ -47,6 +48,12 @@ class ShowMessagesMobile extends Component
         }
 
         $this->resetCounter();
+        $this->emitTo('message.show-message', 'openModal', $message);
+    }
+
+    public function showMessageFromNotification($message_id)
+    {
+        $message = Message::findOrFail($message_id);
         $this->emitTo('message.show-message', 'openModal', $message);
     }
 

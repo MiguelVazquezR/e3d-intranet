@@ -328,14 +328,14 @@ class User extends Authenticatable
                 $break_time = Carbon::parse($register->start_break)->floatDiffInHours($register->end_break);
                 $hours = Carbon::parse($register->check_in)->floatDiffInHours($register->check_out) - $break_time;
                 // substract 30 minutes to all roles except aulxiliar de producción
-                if (!$this->hasRole(['Auxiliar_producción', 'Empleado_remoto'])) $hours -= 0.33;
+                // if (!$this->hasRole(['Auxiliar_producción', 'Empleado_remoto'])) $hours -= 0.33;
             } else {
                 if ($register->check_out) {
                     //calculate total time
                     $break_time = Carbon::parse($register->start_break)->floatDiffInHours($register->end_break);
                     $hours = Carbon::parse($register->check_in)->floatDiffInHours($register->check_out) - $break_time;
                     // substract 30 minutes to all roles except aulxiliar de producción
-                    if (!$this->hasRole(['Auxiliar_producción', 'Empleado_remoto'])) $hours -= 0.33;
+                    // if (!$this->hasRole(['Auxiliar_producción', 'Empleado_remoto'])) $hours -= 0.33;
                 } else {
                     $hours = 0;
                 }

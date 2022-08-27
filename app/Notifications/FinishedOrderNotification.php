@@ -37,7 +37,7 @@
          */
         public function via($notifiable)
         {
-            return ['mail'];
+            return ['database'];
         }
 
         /**
@@ -64,7 +64,7 @@
         {
             return [
                 'url_name' => $this->url_name,
-                'message' => "Tu orden de <b>$this->request_name</b> con id <b>$this->request_id</b> tuvo el siguiente movimiento: <b>$this->request_action</b>",
+                'message' => "Tu orden de <b>{$this->request_name}</b> con id <b>{$this->request_id}</b> tuvo el siguiente movimiento: <b>$this->request_action</b>",
             ];
         }
     }

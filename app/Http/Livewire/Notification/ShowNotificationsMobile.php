@@ -19,14 +19,22 @@ class ShowNotificationsMobile extends Component
 
     public function resetCounter()
     {
-        $this->notifications = auth()->user()->notifications()->where('type', 'App\Notifications\RequestApproved')->get();
+        $this->notifications = auth()->user()->notifications()->where('type', '!=','App\Notifications\MessageSent')->get();
     }
 
     public function goToNotificationUrl($notification_id)
     {
         $notification = auth()->user()->notifications()->findOrFail($notification_id);
         $notification->markAsRead();
-        redirect()->route($notification->data['url_name']);
+        
+        if($notification->data['url_name']) {
+            redirect()->route($notification->data['url_name']);
+        }else {
+            $this->emit('show-message-from-notification', $notification->data['message_id']);
+        }
+
+        $this->emitTo('notification.notification-counter-mobile', 'notification-counter-refresh');
+        $this->resetCounter();
     }
 
     public function render()

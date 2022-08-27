@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Message;
 
 use App\Models\Comment;
 use App\Models\Message;
+use App\Notifications\NewCommentNotification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -41,6 +42,11 @@ class ShowMessage extends Component
         $receivers = $this->message->pivot;
         foreach ($receivers as $receiver) {
             $receiver->markAsUnread();
+        }
+
+        // notify message's creator 
+        if( $this->message->creator->id != auth()->user()->id ) {
+            $this->message->creator->notify( new NewCommentNotification(auth()->user()->name, $this->message->id, $this->message->subject) );
         }
 
         $this->updateView();

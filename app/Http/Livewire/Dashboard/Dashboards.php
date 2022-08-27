@@ -95,7 +95,10 @@ class Dashboards extends Component
             ->get();
 
         // employees
-        $items = Employee::all();
+        $items = Employee::whereHas('user', function($q){
+            $q->where('active', 1);
+
+        })->get();
         foreach ($items as $employee) {
             // birthdays
             if ($employee->HasBirthdaySoon())

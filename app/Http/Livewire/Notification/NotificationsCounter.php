@@ -20,7 +20,7 @@ class NotificationsCounter extends Component
 
     public function resetCounter()
     {
-        $this->notifications = auth()->user()->notifications()->where('type', 'App\Notifications\RequestApproved')->get();
+        $this->notifications = auth()->user()->notifications()->where('type', '!=','App\Notifications\MessageSent')->get();
         $this->unread = auth()->user()->unreadNotifications()->where('type', '!=','App\Notifications\MessageSent')->get('id')->count();
     }
 
@@ -28,7 +28,14 @@ class NotificationsCounter extends Component
     {
         $notification = auth()->user()->notifications()->findOrFail($notification_id);
         $notification->markAsRead();
-        redirect()->route($notification->data['url_name']);
+
+        if($notification->data['url_name']) {
+            redirect()->route($notification->data['url_name']);
+        }else {
+            $this->emit('show-message-from-notification', $notification->data['message_id']);
+        }
+
+        $this->resetCounter();
     }
 
     public function render()
