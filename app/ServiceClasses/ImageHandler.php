@@ -39,5 +39,7 @@ class ImageHandler
         $image_path = storage_path() . "/app/public/$folder/$image_name";
         Image::make($image)
             ->save($image_path, 40);
+
+        return $image_name;
     }
 }

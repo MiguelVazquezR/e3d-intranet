@@ -23,6 +23,10 @@ class ShowDesignDepartment extends Component
         'load-design-result' => 'loadDesignResults',
     ];
 
+    public $image_extensions = [
+        'png', 'jpg', 'jpeg', 'bmp'
+    ];
+
     public function mount()
     {
         $this->design_order = new DesignOrder();

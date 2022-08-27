@@ -80,6 +80,29 @@ class Quotes extends Component
         $this->emitTo('quote.turn-into-sell-order', 'openModal', $quote);
     }
 
+    public function clone(Quote $quote)
+    {
+        $clone = $quote->replicate(['authorized_user_id', 'user_id']);
+        $clone->user_id = auth()->user()->id;
+        $clone->authorized_user_id = null;
+        $clone->save();
+
+        // cloning relations
+        $quote->quotedCompositProducts()->each(function ($item) use ($clone) {
+            $relation = $item->replicate(['quote_id']);
+            $relation->quote_id = $clone->id;
+            $relation->save();
+        });
+
+        $quote->quotedProducts()->each(function ($item) use ($clone) {
+            $relation = $item->replicate(['quote_id']);
+            $relation->quote_id = $clone->id;
+            $relation->save();
+        });
+
+        $this->emit('success', 'Cotización clonada');
+    }
+
     public function render()
     {
         $quotes = Quote::where('id', 'like', "%$this->search%")

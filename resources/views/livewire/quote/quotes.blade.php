@@ -111,10 +111,14 @@
                                                 Convertir en orden de venta
                                             </x-jet-dropdown-link>
                                         @else
-                                            <x-jet-dropdown-link href="{{route('sell-orders')}}" class="text-blue-400">
-                                                Cotización relacionada con OV: {{$item->sell_order_id}} 
+                                            <x-jet-dropdown-link href="{{ route('sell-orders') }}" class="text-blue-400">
+                                                Cotización relacionada con OV: {{ $item->sell_order_id }}
                                             </x-jet-dropdown-link>
                                         @endif
+                                        <x-jet-dropdown-link wire:click="clone( {{ $item }} )"
+                                            :link="false">
+                                            Clonar
+                                        </x-jet-dropdown-link>
                                     </x-slot>
                                 </x-jet-dropdown>
                             @endcan

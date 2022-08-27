@@ -101,9 +101,13 @@
                     <h2 class="text-center font-bold text-lg text-sky-600 mt-3 mb-2 flex items-center">Resultados</h2>
                 @endif
                 @foreach ($design_results_list as $i => $design_result)
-                    <x-product-quick-view :image="$design_result->image" class="mt-2">
+                <div class="py-2 border-b">
+                    <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
+                        ? Storage::url($design_result->image)
+                        : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
                         <span class="text-gray-500">{{ $design_result->notes }}</span>
-                    </x-product-quick-view>
+                    </x-item-quick-view>
+                </div>
                 @endforeach
             @endif
 

@@ -20,4 +20,10 @@ class DesignResult extends Model
         return $this->belongsTo(DesignOrder::class);
     }
 
+    public function getFileExtensionAttribute()
+    {
+        $exploded = explode('.', $this->image); 
+        return end($exploded);
+    }
+
 }

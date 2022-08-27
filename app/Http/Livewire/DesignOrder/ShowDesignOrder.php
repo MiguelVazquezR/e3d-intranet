@@ -15,6 +15,10 @@ class ShowDesignOrder extends Component
         'openModal',
     ];
 
+    public $image_extensions = [
+        'png', 'jpg', 'jpeg', 'bmp'
+    ];
+
     public function mount()
     {
         $this->design_order = new DesignOrder();

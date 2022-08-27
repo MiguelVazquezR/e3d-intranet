@@ -5,6 +5,7 @@ namespace App\Http\Livewire\DesignResult;
 use App\Models\DesignOrder;
 use App\Models\DesignResult;
 use App\Notifications\FinishedOrderNotification;
+use App\ServiceClasses\ImageHandler;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Intervention\Image\Facades\Image;
@@ -26,7 +27,7 @@ class CreateDesignResult extends Component
     ];
 
     protected $rules = [
-        'image' => 'required|image',
+        'image' => 'required',
         'notes' => 'max:300',
     ];
 
@@ -56,13 +57,14 @@ class CreateDesignResult extends Component
     {
         $this->validate();
 
-        //storage optimized image
-        $image_name = time() . Str::random(10) . '.' . $this->image->extension();
-        $image_path = storage_path() . "/app/public/design-results/$image_name";
-        Image::make($this->image)
-            ->save($image_path, 40);
-
-        $image_url = "public/design-results/$image_name";
+        if( in_array($this->image->extension(), $this->image_extensions) ) {
+            //storage optimized image
+            $image_name = ImageHandler::optimize( $this->image, 'design-results' );
+            $image_url = "public/design-results/$image_name";
+        }else {
+            // store file
+            $image_url = $this->image->store('design-results', 'public');
+        }
 
         DesignResult::create([
             'image' => $image_url,

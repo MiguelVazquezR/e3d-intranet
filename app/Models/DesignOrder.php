@@ -83,4 +83,5 @@ class DesignOrder extends Model
     {
         return new Carbon($this->attributes['authorized_at']);
     }
+
 }

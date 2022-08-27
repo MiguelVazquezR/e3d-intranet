@@ -106,9 +106,11 @@
                     <x-jet-input-error for="design_results_list" class="text-xs" />
                     @foreach ($design_results_list as $i => $design_result)
                         <x-item-list :index="$i" :active="true" :edit="false" :objectId="null">
-                            <x-product-quick-view :image="$design_result->image">
+                            <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
+                                ? Storage::url($design_result->image)
+                                : asset('images/file-extensions/'.$design_result->file_extension.'.png')" :src="Storage::url($design_result->image)">
                                 <span class="text-gray-500">{{ $design_result->notes }}</span>
-                            </x-product-quick-view>
+                            </x-item-quick-view>
                         </x-item-list>
                     @endforeach
                 @else

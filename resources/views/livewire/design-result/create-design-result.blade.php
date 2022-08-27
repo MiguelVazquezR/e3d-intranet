@@ -10,7 +10,7 @@
         </x-slot>
 
         <x-slot name="content">
-            <x-image-uploader :image="$image" :imageExtensions="$image_extensions" :imageId="$image_id" />
+            <input wire:model="image" type="file" class="text-sm mt-2" id="{{$image_id}}" />
             <div class="mt-3">
                 <x-jet-label value="Notas" />
                 <textarea wire:model.defer="notes" rows="3" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
