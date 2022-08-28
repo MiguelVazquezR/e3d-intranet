@@ -148,7 +148,11 @@
                     @php
                         $bonus = App\Models\Bonus::find($bonus_id);
                     @endphp
-                    <span>{{ $bonus->name }}</span>
+                    <span>{{ $bonus->name }}
+                        @if (($bonus->id == 2 || $bonus->id == 5) && count($user->lateDays($pay_roll->id)))
+                           <span class="text-red-500"> ({{ count($user->lateDays($pay_roll->id)) }})</span>
+                        @endif
+                    </span>
                     <span>${{ $earned }}</span>
                 @endforeach
                 <span>sueldo sin bonos</span>

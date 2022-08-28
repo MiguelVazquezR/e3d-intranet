@@ -410,14 +410,15 @@ class User extends Authenticatable
     public function getBonuses($pay_roll = null)
     {
         $bonuses = [];
+        $all_bonuses = Bonus::all();
 
         if (empty($this->employee->bonuses)) {
-            foreach (Bonus::all() as $bonus) {
+            foreach ($all_bonuses as $bonus) {
                 $bonuses[$bonus->id] = 0;
             }
             return $bonuses;
         } else {
-            foreach (Bonus::all() as $bonus) {
+            foreach ($all_bonuses as $bonus) {
                 $bonuses[$bonus->id] = $this->earnedByBonus($bonus, $pay_roll);
             }
             return $bonuses;
@@ -442,9 +443,11 @@ class User extends Authenticatable
                 break;
             case 2:
             case 5:
-                $earned = $this->lateDays($pay_roll->id)
-                    ? 0
-                    : $bonus->amount($this->employee->hours_per_week);
+                $earned = ($bonus->amount($this->employee->hours_per_week)/$this->_workeableDays()) * 
+                ($this->_workeableDays() - count($this->lateDays($pay_roll->id)));
+                // $earned = $this->lateDays($pay_roll->id)
+                //     ? 0
+                //     : $bonus->amount($this->employee->hours_per_week);
                 break;
             case 3:
                 $earned = $this->totalTime($pay_roll->id, false) < $this->employee->hours_per_week
@@ -477,12 +480,13 @@ class User extends Authenticatable
     public function lateDays($week)
     {
         $late_days = [];
-
         foreach ($this->currentWeekRegisters($week) as $i => $register) {
             if ($register instanceof PayRollRegister) {
                 if ($register->late) {
                     $late_days[] = $i;
                 }
+            }elseif(is_null($register)) {
+                $late_days[] = $i;
             }
         }
 
