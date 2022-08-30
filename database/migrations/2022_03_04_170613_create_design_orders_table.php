@@ -62,6 +62,9 @@ class CreateDesignOrdersTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
+            $table->unsignedBigInteger('original_id')->nullable();
+            $table->unsignedBigInteger('modified_id')->nullable();
+          
             $table->timestamp('tentative_end')->nullable();
             $table->timestamp('authorized_at')->nullable();
 

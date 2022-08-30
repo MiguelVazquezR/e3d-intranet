@@ -13,6 +13,7 @@ class ShowDesignOrder extends Component
 
     protected $listeners = [
         'openModal',
+        'createModificationRequest',
     ];
 
     public $image_extensions = [
@@ -30,6 +31,32 @@ class ShowDesignOrder extends Component
         $this->open = true;
         $this->design_results_list = $design_order->results;
     }
+
+    public function requestModifications()
+    {
+        $this->emitTo('design-order.request-modifications', 'openModal');
+    }
+    
+    // method called by RequestModification by event
+    public function createModificationRequest($especifications)
+    {
+        $clone = $this->clone($especifications);
+        $this->design_order->modified_id = $clone->id;
+        $this->emit('design-order.design-orders', 'render');
+        $this->emit('success', 'Se ha mandado la solicitud de modificaciones al diseñador');
+    }
+
+    public function clone($especifications)
+    {
+        $clone = $this->design_order->replicate(['especifications', 'original_id', 'status']);
+        $clone->especifications = $especifications;
+        $clone->original_id = $this->design_order->id;
+        $clone->status = 'Autorizado. Sin iniciar';
+        $clone->save();
+
+        return $clone;
+    }
+
 
     public function render()
     {

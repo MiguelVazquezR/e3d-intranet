@@ -8,6 +8,20 @@
         <x-slot name="content">
 
             @if ($design_order->id)
+                <div class="flex justify-between text-lg">
+                    @if ($design_order->original_id)
+                        <div class="flex items-center text-blue-500 cursor-pointer">
+                            <i class="fas fa-long-arrow-alt-left mr-2"></i>
+                            <span>Ver orden original</span>
+                        </div>
+                    @endif
+                    @if ($design_order->modified_id)
+                        <div class="flex items-center text-blue-500 cursor-pointer">
+                            <span>Ver orden con modificaciones</span>
+                            <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                        </div>
+                    @endif
+                </div>
                 <div class="grid grid-cols-3 gap-2">
                     <div>
                         <x-jet-label value="Solicitante" class="mt-3" />
@@ -108,7 +122,7 @@
                         <x-item-list :index="$i" :active="true" :edit="false" :objectId="null">
                             <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
                                 ? Storage::url($design_result->image)
-                                : asset('images/file-extensions/'.$design_result->file_extension.'.png')" :src="Storage::url($design_result->image)">
+                                : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
                                 <span class="text-gray-500">{{ $design_result->notes }}</span>
                             </x-item-quick-view>
                         </x-item-list>

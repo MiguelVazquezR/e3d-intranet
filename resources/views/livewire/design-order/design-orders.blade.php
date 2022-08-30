@@ -93,10 +93,9 @@
 
         <!-- edit modal -->
         @livewire('design-order.edit-design-order')
-
+        
         <!-- aditional modals -->
-
-
+        @livewire('design-order.request-modifications')
 
     </div>
 

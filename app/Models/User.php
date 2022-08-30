@@ -487,6 +487,8 @@ class User extends Authenticatable
                 }
             }elseif(is_null($register)) {
                 $late_days[] = $i;
+            }elseif($register == 'Falta'){
+                $late_days[] = $i;
             }
         }
 

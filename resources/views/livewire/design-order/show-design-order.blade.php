@@ -8,6 +8,20 @@
         <x-slot name="content">
 
             @if ($design_order->id)
+                <div class="flex justify-between text-lg">
+                    @if ($design_order->original_id)
+                        <div class="flex items-center text-blue-500 cursor-pointer">
+                            <i class="fas fa-long-arrow-alt-left mr-2"></i>
+                            <span>Ver orden original</span>
+                        </div>
+                    @endif
+                    @if ($design_order->modified_id)
+                        <div class="flex items-center text-blue-500 cursor-pointer">
+                            <span>Ver orden con modificaciones</span>
+                            <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                        </div>
+                    @endif
+                </div>
                 <div class="grid grid-cols-3 gap-2">
                     <div>
                         <x-jet-label value="Solicitante" class="mt-3" />
@@ -101,22 +115,29 @@
                     <h2 class="text-center font-bold text-lg text-sky-600 mt-3 mb-2 flex items-center">Resultados</h2>
                 @endif
                 @foreach ($design_results_list as $i => $design_result)
-                <div class="py-2 border-b">
-                    <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
-                        ? Storage::url($design_result->image)
-                        : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
-                        <span class="text-gray-500">{{ $design_result->notes }}</span>
-                    </x-item-quick-view>
-                </div>
+                    <div class="py-2 border-b">
+                        <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
+                            ? Storage::url($design_result->image)
+                            : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
+                            <span class="text-gray-500">{{ $design_result->notes }}</span>
+                        </x-item-quick-view>
+                    </div>
                 @endforeach
             @endif
 
         </x-slot>
 
         <x-slot name="footer">
+
             <x-jet-secondary-button class="mr-2" wire:click="$set('open', false)">
                 Cerrar
             </x-jet-secondary-button>
+            @if (!$design_order->modified_id)
+                <x-jet-button wire:click="requestModifications" wire:loading.attr="disabled"
+                    wire:target="requestModifications, plans_image, logo_image" class="disabled:opacity-25">
+                    Solicitar modificaciones
+                </x-jet-button>
+            @endif
         </x-slot>
 
     </x-jet-dialog-modal>
