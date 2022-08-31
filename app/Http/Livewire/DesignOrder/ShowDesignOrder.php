@@ -32,6 +32,11 @@ class ShowDesignOrder extends Component
         $this->design_results_list = $design_order->results;
     }
 
+    public function seeOrder($order_id)
+    {
+        $this->design_order = DesignOrder::findOrFail($order_id);
+    }
+
     public function requestModifications()
     {
         $this->emitTo('design-order.request-modifications', 'openModal');
@@ -42,6 +47,7 @@ class ShowDesignOrder extends Component
     {
         $clone = $this->clone($especifications);
         $this->design_order->modified_id = $clone->id;
+        $this->design_order->save();
         $this->emit('design-order.design-orders', 'render');
         $this->emit('success', 'Se ha mandado la solicitud de modificaciones al diseñador');
     }

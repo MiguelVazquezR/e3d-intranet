@@ -8,132 +8,137 @@
         <x-slot name="content">
 
             @if ($design_order->id)
-                <div class="flex justify-between text-lg">
-                    @if ($design_order->original_id)
-                        <div class="flex items-center text-blue-500 cursor-pointer">
-                            <i class="fas fa-long-arrow-alt-left mr-2"></i>
-                            <span>Ver orden original</span>
-                        </div>
-                    @endif
-                    @if ($design_order->modified_id)
-                        <div class="flex items-center text-blue-500 cursor-pointer">
-                            <span>Ver orden con modificaciones</span>
-                            <i class="fas fa-long-arrow-alt-right ml-2"></i>
-                        </div>
-                    @endif
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <x-jet-label value="Solicitante" class="mt-3" />
-                        <p>{{ $design_order->creator->name }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="solicitado el" class="mt-3" />
-                        <p>{{ $design_order->created_at->isoFormat('DD MMMM YYYY') }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Cliente" class="mt-3" />
-                        @if ($design_order->customer)
-                            <p>{{ $design_order->customer->name }}</p>
-                        @else
-                            <p>{{ $design_order->customer_name }}</p>
+                <div wire:loading.remove wire:target="seeOrder">
+                    <div class="flex justify-between text-lg">
+                        @if ($design_order->original_id)
+                            <div class="flex items-center text-blue-500 cursor-pointer"
+                                wire:click="seeOrder({{ $design_order->original_id }})">
+                                <i class="fas fa-long-arrow-alt-left mr-2"></i>
+                                <span>Ver orden original</span>
+                            </div>
+                        @endif
+                        @if ($design_order->modified_id)
+                            <div class="flex items-center text-blue-500 cursor-pointer"
+                                wire:click="seeOrder({{ $design_order->modified_id }})">
+                                <span>Ver orden con modificaciones</span>
+                                <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                            </div>
                         @endif
                     </div>
-                    <div>
-                        <x-jet-label value="Contacto" class="mt-3" />
-                        @if ($design_order->contact)
-                            <p>{{ $design_order->contact->name }}</p>
-                        @else
-                            <p>{{ $design_order->contact_name }}</p>
-                        @endif
-                    </div>
-                    <div>
-                        <x-jet-label value="Nombre de diseño" class="mt-3" />
-                        <p>{{ $design_order->design_name }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Clasificación" class="mt-3" />
-                        <p>{{ $design_order->designType->name }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Datos" class="mt-3" />
-                        <p>{{ $design_order->design_data }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Especificaciones" class="mt-3" />
-                        <p>{{ $design_order->especifications }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Dimensiones" class="mt-3" />
-                        <p>{{ $design_order->dimentions . ' ' . $design_order->unit->name }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Pantones" class="mt-3" />
-                        <p>{{ $design_order->pantones }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Diseñador" class="mt-3" />
-                        <p>{{ $design_order->designer->name }}</p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Estimado de entrega" class="mt-3" />
-                        <p>
-                            @if ($design_order->tentative_end)
-                                {{ $design_order->tentative_end->isoFormat('DD MMMM hh:mm a') }}
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <x-jet-label value="Solicitante" class="mt-3" />
+                            <p>{{ $design_order->creator->name }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="solicitado el" class="mt-3" />
+                            <p>{{ $design_order->created_at->isoFormat('DD MMMM YYYY') }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Cliente" class="mt-3" />
+                            @if ($design_order->customer)
+                                <p>{{ $design_order->customer->name }}</p>
                             @else
-                                --
+                                <p>{{ $design_order->customer_name }}</p>
                             @endif
-                        </p>
-                    </div>
-                    <div>
-                        <x-jet-label value="Imágenes" class="mt-3" />
-                        @if ($design_order->plans_image)
-                            <a href="{{ Storage::url($design_order->plans_image) }}" target="_blank"
-                                class="text-blue-500 hover:underline">Planos</a>
-                        @endif
-                        @if ($design_order->logo_image)
-                            <a href="{{ Storage::url($design_order->logo_image) }}" target="_blank"
-                                class="ml-3 text-blue-500 hover:underline">Logo</a>
-                        @endif
-                    </div>
-                    <div>
-                        <x-jet-label value="Autorizado" class="mt-3" />
-                        @if ($design_order->authorizedBy)
-                            <p class="text-green-600">
-                                {{ $design_order->authorizedBy->name . ' el ' . $design_order->authorized_at->isoFormat('DD MMMM hh:mm a') }}
+                        </div>
+                        <div>
+                            <x-jet-label value="Contacto" class="mt-3" />
+                            @if ($design_order->contact)
+                                <p>{{ $design_order->contact->name }}</p>
+                            @else
+                                <p>{{ $design_order->contact_name }}</p>
+                            @endif
+                        </div>
+                        <div>
+                            <x-jet-label value="Nombre de diseño" class="mt-3" />
+                            <p>{{ $design_order->design_name }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Clasificación" class="mt-3" />
+                            <p>{{ $design_order->designType->name }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Datos" class="mt-3" />
+                            <p>{{ $design_order->design_data }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Especificaciones" class="mt-3" />
+                            <p>{{ $design_order->especifications }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Dimensiones" class="mt-3" />
+                            <p>{{ $design_order->dimentions . ' ' . $design_order->unit->name }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Pantones" class="mt-3" />
+                            <p>{{ $design_order->pantones }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Diseñador" class="mt-3" />
+                            <p>{{ $design_order->designer->name }}</p>
+                        </div>
+                        <div>
+                            <x-jet-label value="Estimado de entrega" class="mt-3" />
+                            <p>
+                                @if ($design_order->tentative_end)
+                                    {{ $design_order->tentative_end->isoFormat('DD MMMM hh:mm a') }}
+                                @else
+                                    --
+                                @endif
                             </p>
-                        @else
-                            <p class="text-red-600">Sin autorización</p>
-                        @endif
+                        </div>
+                        <div>
+                            <x-jet-label value="Imágenes" class="mt-3" />
+                            @if ($design_order->plans_image)
+                                <a href="{{ Storage::url($design_order->plans_image) }}" target="_blank"
+                                    class="text-blue-500 hover:underline">Planos</a>
+                            @endif
+                            @if ($design_order->logo_image)
+                                <a href="{{ Storage::url($design_order->logo_image) }}" target="_blank"
+                                    class="ml-3 text-blue-500 hover:underline">Logo</a>
+                            @endif
+                        </div>
+                        <div>
+                            <x-jet-label value="Autorizado" class="mt-3" />
+                            @if ($design_order->authorizedBy)
+                                <p class="text-green-600">
+                                    {{ $design_order->authorizedBy->name . ' el ' . $design_order->authorized_at->isoFormat('DD MMMM hh:mm a') }}
+                                </p>
+                            @else
+                                <p class="text-red-600">Sin autorización</p>
+                            @endif
+                        </div>
+                        <div>
+                            <x-jet-label value="Status" class="mt-3" />
+                            <p>{{ $design_order->status }}</p>
+                        </div>
                     </div>
-                    <div>
-                        <x-jet-label value="Status" class="mt-3" />
-                        <p>{{ $design_order->status }}</p>
-                    </div>
+                    @if ($design_order->tentative_end)
+                        <h2 class="text-center font-bold text-lg text-sky-600 mt-3 flex items-center justify-center">
+                            Resultados
+                            <i wire:click="addDesignResult"
+                                class="fas fa-plus-circle text-green-600 hover:cursor-pointer ml-3"></i>
+                        </h2>
+                        <x-jet-input-error for="design_results_list" class="text-xs" />
+                        @foreach ($design_results_list as $i => $design_result)
+                            <x-item-list :index="$i" :active="true" :edit="false" :objectId="null">
+                                <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
+                                    ? Storage::url($design_result->image)
+                                    : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
+                                    <span class="text-gray-500">{{ $design_result->notes }}</span>
+                                </x-item-quick-view>
+                            </x-item-list>
+                        @endforeach
+                    @else
+                        <div class="col-span-2">
+                            <x-jet-label value="Entrega estimada" class="mt-3" />
+                            <x-jet-input wire:model.defer="tentative_end" type="datetime-local" class="w-full mt-2" />
+                            <x-jet-input-error for="tentative_end" class="text-xs" />
+                        </div>
+                    @endif
                 </div>
-                @if ($design_order->tentative_end)
-                    <h2 class="text-center font-bold text-lg text-sky-600 mt-3 flex items-center justify-center">
-                        Resultados
-                        <i wire:click="addDesignResult"
-                            class="fas fa-plus-circle text-green-600 hover:cursor-pointer ml-3"></i>
-                    </h2>
-                    <x-jet-input-error for="design_results_list" class="text-xs" />
-                    @foreach ($design_results_list as $i => $design_result)
-                        <x-item-list :index="$i" :active="true" :edit="false" :objectId="null">
-                            <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
-                                ? Storage::url($design_result->image)
-                                : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
-                                <span class="text-gray-500">{{ $design_result->notes }}</span>
-                            </x-item-quick-view>
-                        </x-item-list>
-                    @endforeach
-                @else
-                    <div class="col-span-2">
-                        <x-jet-label value="Entrega estimada" class="mt-3" />
-                        <x-jet-input wire:model.defer="tentative_end" type="datetime-local" class="w-full mt-2" />
-                        <x-jet-input-error for="tentative_end" class="text-xs" />
-                    </div>
-                @endif
+                <div wire:loading wire:target="seeOrder" class="text-gray-500 py-6">Cargando ...</div>
             @endif
         </x-slot>
 

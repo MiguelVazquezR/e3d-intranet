@@ -39,6 +39,11 @@ class ShowDesignDepartment extends Component
         $this->design_results_list = $design_order->results;
     }
 
+    public function seeOrder($order_id)
+    {
+        $this->design_order = DesignOrder::findOrFail($order_id);
+    }
+
     public function loadDesignResults()
     {
         $this->design_results_list = $this->design_order->results;
