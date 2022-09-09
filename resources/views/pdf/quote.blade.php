@@ -188,13 +188,13 @@
         <div class="grid grid-cols-2 gap-0 text-xs mt-1 font-semibold" style="font-size: 10px;">
             <div class="bg-sky-600 text-white p-1 flex justify-between rounded-l-xl">
                 <span>BANORTE M.N.</span>
-                <span>CUENTA: 0212348273</span>
-                <span>CLABE: 072 320 002123482732</span>
+                <span>CUENTA:  1180403344</span>
+                <span>CLABE: 072 320 011804033446</span>
             </div>
             <div class="bg-red-600 text-white p-1 flex justify-between rounded-r-xl">
                 <span>BANORTE USD</span>
-                <span>CUENTA: 0284289636</span>
-                <span>CLABE: 072 320 002842896366</span>
+                <span>CUENTA: 1181103856</span>
+                <span>CLABE: 072 320 011811038560</span>
             </div>
         </div>
 
