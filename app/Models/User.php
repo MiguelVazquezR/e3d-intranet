@@ -443,17 +443,20 @@ class User extends Authenticatable
                 break;
             case 2:
             case 5:
-                $earned = ($bonus->amount($this->employee->hours_per_week)/$this->_workeableDays()) * 
-                ($this->_workeableDays() - count($this->lateDays($pay_roll->id)));
+                $earned = ($bonus->amount($this->employee->hours_per_week) / $this->_workeableDays()) *
+                    ($this->_workeableDays() - count($this->lateDays($pay_roll->id)));
                 break;
             case 3:
-                $earned = 0;
-                if($this->totalTime($pay_roll->id, false) >= $this->employee->hours_per_week) {//complete total time
-                    $productive_time = $this->employee->hours_per_week * 0.8; ////productive time at week is at least 80% total time working
-                    $earned = $this->getProductiveTime($pay_roll->start_period, $pay_roll->end_period) * $bonus->amount($this->employee->hours_per_week) / $productive_time;
-                    if($earned > $bonus->amount($this->employee->hours_per_week)) $earned = $bonus->amount($this->employee->hours_per_week);
-                    $earned = round($earned, 2);
-                }
+                $earned = $this->totalTime($pay_roll->id, false) < $this->employee->hours_per_week
+                    ? 0
+                    : $bonus->amount($this->employee->hours_per_week);
+                // $earned = 0;
+                // if($this->totalTime($pay_roll->id, false) >= $this->employee->hours_per_week) {//complete total time
+                //     $productive_time = $this->employee->hours_per_week * 0.8; ////productive time at week is at least 80% total time working
+                //     $earned = $this->getProductiveTime($pay_roll->start_period, $pay_roll->end_period) * $bonus->amount($this->employee->hours_per_week) / $productive_time;
+                //     if($earned > $bonus->amount($this->employee->hours_per_week)) $earned = $bonus->amount($this->employee->hours_per_week);
+                //     $earned = round($earned, 2);
+                // }
                 break;
             case 4:
                 $earned = ($this->currentWeekRegisters($pay_roll->id)[2] == 'Falta' || $this->currentWeekRegisters($pay_roll->id)[2] == null)
@@ -486,9 +489,9 @@ class User extends Authenticatable
                 if ($register->late) {
                     $late_days[] = $i;
                 }
-            }elseif(is_null($register)) {
+            } elseif (is_null($register)) {
                 $late_days[] = $i;
-            }elseif($register == 'Falta'){
+            } elseif ($register == 'Falta') {
                 $late_days[] = $i;
             }
         }
@@ -500,13 +503,13 @@ class User extends Authenticatable
     {
         return $this->activities->sum('estimated_time');
     }
-    
+
     public function getProductiveTime($from, $to)
     {
         $finished_activities = $this->activities()->whereBetween('start', [$from, $to->addDays(1)])
-        ->whereNotNull('finish')
-        ->get('estimated_time');
-        $result = round($finished_activities->sum('estimated_time')/60, 2);
+            ->whereNotNull('finish')
+            ->get('estimated_time');
+        $result = round($finished_activities->sum('estimated_time') / 60, 2);
         return $result;
     }
 

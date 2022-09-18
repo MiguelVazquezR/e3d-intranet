@@ -33,9 +33,9 @@
                     <x-jet-input-error for="employee.job_position" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Salario por hora" class="mt-3" />
-                    <x-jet-input wire:model.defer="employee.salary" type="number" class="w-full mt-2" />
-                    <x-jet-input-error for="employee.salary" class="text-xs" />
+                    <x-jet-label value="Salario por semana" class="mt-3" />
+                    <x-jet-input wire:model.defer="salary" type="number" class="w-full mt-2" />
+                    <x-jet-input-error for="salary" class="text-xs" />
                 </div>
                 <div>
                     <x-jet-label value="Retenciones" class="mt-3" />

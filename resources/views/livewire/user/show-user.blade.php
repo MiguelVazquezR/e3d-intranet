@@ -37,10 +37,10 @@
                             <p>{{ $user->employee->job_position }}</p>
                         </div>
                         <div>
-                            <x-jet-label value="Salario por hora" class="mt-3" />
+                            <x-jet-label value="Salario semamal" class="mt-3" />
                             <p>
                                 @if (Auth::user()->can('crear_usuarios'))
-                                    ${{ $user->employee->salary }}
+                                    ${{ $user->weekSalary() }}
                                 @else
                                     *****
                                 @endif

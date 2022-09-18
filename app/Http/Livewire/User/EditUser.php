@@ -16,6 +16,7 @@ class EditUser extends Component
     public $open = false,
         $user,
         $employee,
+        $salary,
         $days_off = [],
         $day_off_selected,
         $check_in_times = [],
@@ -32,7 +33,7 @@ class EditUser extends Component
     protected $rules = [
         'user.name' => 'required',
         'user.email' => 'max:191',
-        'employee.salary' => 'required|numeric',
+        'salary' => 'required|numeric',
         'employee.discounts' => 'required|numeric',
         'employee.vacations' => 'required|numeric',
         'employee.hours_per_week' => 'required|numeric',
@@ -68,6 +69,7 @@ class EditUser extends Component
     {
         $this->open = true;
         $this->user = $user;
+        $this->salary = round($user->weekSalary(false));
         $this->roles_selected = $user->roles->pluck('id', 'name')->toArray();
         if ($user->employee) {
             $this->employee = $user->employee;
@@ -208,6 +210,7 @@ class EditUser extends Component
         $this->employee->bonuses = $this->bonuses ? implode('|', $this->bonuses) : null;
         $this->employee->birth_date = $this->birth_date;
         $this->employee->join_date = $this->join_date;
+        $this->employee->salary = round(($this->salary/$this->employee->hours_per_week), 3);
         
         $this->employee->save();    
 

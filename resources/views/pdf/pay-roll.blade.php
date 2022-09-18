@@ -142,8 +142,8 @@
                     @endif
                     {{ $user->totalTime($pay_roll->id, true, true) }}
                 </span>
-                <span>sueldo/hora</span>
-                <span>${{ $user->employee->salary }}</span>
+                {{-- <span>sueldo/hora</span> --}}
+                {{-- <span>${{ $user->employee->salary }}</span> --}}
                 @foreach ($user->getBonuses($pay_roll->id) as $bonus_id => $earned)
                     @php
                         $bonus = App\Models\Bonus::find($bonus_id);
@@ -153,12 +153,13 @@
                            <span class="text-red-500"> ({{ count($user->lateDays($pay_roll->id)) }})</span>
                         @endif
                     </span>
-                    <span>
+                    <span>${{ $earned }}</span>
+                    {{-- <span>
                         ${{ $earned }}
                         @if ($bonus->id == 3)
                            <span> ({{ $user->getProductiveTime($pay_roll->start_period, $pay_roll->end_period) }} hrs)</span>
                         @endif
-                    </span>
+                    </span> --}}
                 @endforeach
                 <span>sueldo sin bonos</span>
                 <span>${{ $user->normalSalary($pay_roll->id) }}</span>
