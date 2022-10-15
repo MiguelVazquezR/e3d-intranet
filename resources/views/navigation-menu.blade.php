@@ -191,6 +191,10 @@
                                         Reuniones
                                     </x-jet-dropdown-link>
                                 @endcan
+                                <x-jet-dropdown-link href="{{ route('media-library') }}">
+                                    <i class="fas fa-photo-video"></i>
+                                    Biblioteca de medios
+                                </x-jet-dropdown-link>
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
@@ -201,13 +205,13 @@
             <div class="hidden md:flex sm:items-center">
                 <!-- notifications -->
                 @livewire('notification.notifications-counter')
-                
+
                 <!-- message notifications -->
                 @livewire('message.messages-counter')
 
                 <!-- reminder -->
                 @livewire('reminder.drop-down')
-               
+
                 <!-- Settings -->
                 <div class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 mr-2">
                     <div class="relative">
@@ -318,7 +322,8 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     Cerrar sesión
                                 </x-jet-dropdown-link>
@@ -331,7 +336,7 @@
             <div class="flex items-center space-x-2">
                 {{-- Notification mobile --}}
                 @livewire('notification.notification-counter-mobile')
-                
+
                 {{-- messages mobile --}}
                 @livewire('message.message-counter-mobile')
 
@@ -362,7 +367,7 @@
             @livewire('notification.show-notifications-mobile')
         </div>
     </div>
-    
+
     {{-- messages view --}}
     <div :class="{ 'block': open_messages, 'hidden': !open_messages }" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -471,6 +476,9 @@
                     Reuniones
                 </x-jet-responsive-nav-link>
             @endcan
+            <x-jet-responsive-nav-link href="{{ route('media-library') }}" :active="request()->routeIs('media-library')">
+                Biblioteca de medios
+            </x-jet-responsive-nav-link>
             @can('configurar_organización')
                 <x-jet-responsive-nav-link href="{{ route('organization') }}" :active="request()->routeIs('organization')">
                     Organización
@@ -520,7 +528,8 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
+                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                                     this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>

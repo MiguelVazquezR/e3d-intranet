@@ -10,6 +10,7 @@ use App\Http\Livewire\DesignDepartment\HomeDesign;
 use App\Http\Livewire\DesignOrder\DesignOrders;
 use App\Http\Livewire\Holyday\Holydays;
 use App\Http\Livewire\Marketing\MarketingIndex;
+use App\Http\Livewire\MediaLibrary\Index as MediaLibraryIndex;
 use App\Http\Livewire\Meeting\Meetings;
 use App\Http\Livewire\NewUpdate\NewUpdates;
 use App\Http\Livewire\Organization\Organization;
@@ -147,6 +148,10 @@ Route::get('/tiempo-adicional', Index::class)
 Route::get('/mercadotecia', MarketingIndex::class)
     ->middleware('auth')
     ->name('marketing-department');
+
+Route::get('/biblioteca-medios', MediaLibraryIndex::class)
+    ->middleware('auth')
+    ->name('media-library');
 
 // // artisan commands
 Route::get('/clear-cache', function () {
