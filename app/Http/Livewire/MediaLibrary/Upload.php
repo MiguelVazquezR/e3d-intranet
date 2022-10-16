@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\MediaLibrary;
 
+use App\Models\E3dMedia;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -10,14 +11,16 @@ class Upload extends Component
     use WithFileUploads;
 
     public $open = false,
-        $files;
-        
+        $files = [],
+        $sub_folder = null,
+        $current_path = 'ML-index';
+
     protected $listeners = [
         'render',
     ];
 
     protected $rules = [
-        'files' => 'array|min:1',
+        'files' => 'array|min:1|max:5',
     ];
 
     public function updatingOpen()
@@ -36,22 +39,28 @@ class Upload extends Component
 
     public function store()
     {
-        // $this->validate(null, [
-        //     'tasks.required' => 'Agregue por lo menos 1 tarea para este proyecto'
-        // ]);
-        // }
+        $this->validate();
 
-        // // create movement history
-        // MovementHisto::create([
-        //     'movement_type' => 1,
-        //     'user_id' => auth()->user()->id,
-        //     'description' => "Se agregó nuevo proyecto al departamento de marketing con nombre: {$project->name}"
-        // ]);
+        $path = $this->sub_folder 
+        ? $this->current_path.'/'.$this->sub_folder
+        : $this->current_path;
 
-        // $this->reset();
+        $media = E3dMedia::create([
+            'user_id' => auth()->id(),
+            'num_files' => count($this->files),
+            'path' => $path,
+        ]);
 
-        // $this->emitTo('marketing.marketing-index', 'render');
-        // $this->emit('success', "Nuevo proyecto agregado y enviado a revisi贸n a {$emails[0]} y {$emails[1]}, espere respuesta");
+        foreach ($this->files as $file) {
+            $media->addMedia($file->getRealPath())
+                ->usingName($file->getClientOriginalName())
+                ->toMediaCollection($path);
+        }
+
+        $this->reset();
+
+        $this->emitTo('media-library.index', 'refresh-resources');
+        $this->emit('success', "Medios subidos correctamente");
     }
 
     public function render()

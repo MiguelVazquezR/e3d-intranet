@@ -14,9 +14,18 @@
         </x-slot>
 
         <x-slot name="content">
+            <p class="text-sm p-2 text-blue-800 bg-blue-200 my-2 rounded">
+                Si requieres que los archivos seleccionados queden dentro de una o
+                varias carpetas, ingresa el/los nombre(s) separadas por un "/". Si no, se subiran los archivos en la
+                carpeta donde te encuentras actualmente.
+            </p>
+            <div class="mt-3">
+                <x-jet-label value="Sub-carpeta" />
+                <x-jet-input wire:model.defer="sub_folder" type="text" class="w-full" />
+            </div>
             <div class="mt-3">
                 <x-jet-label value="Archivo(s)" />
-                <input wire:model.defer="files" type="file" class="w-1/2" multiple />
+                <input wire:model.defer="files" type="file" class="text-sm" multiple />
                 <x-jet-input-error for="files" class="text-xs" />
             </div>
         </x-slot>

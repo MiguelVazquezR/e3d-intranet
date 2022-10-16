@@ -1060,13 +1060,13 @@ select {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
+}
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .mx-2 {
   margin-left: 0.5rem;
@@ -1079,6 +1079,10 @@ select {
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .my-px {
   margin-top: 1px;
@@ -1095,10 +1099,6 @@ select {
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-}
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 .my-10 {
   margin-top: 2.5rem;
@@ -2198,10 +2198,6 @@ select {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-.px-10 {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-}
 .px-12 {
   padding-left: 3rem;
   padding-right: 3rem;
@@ -2524,6 +2520,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(7 89 133 / var(--tw-text-opacity));
 }
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
+}
 .text-amber-700 {
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity));
@@ -2531,10 +2531,6 @@ select {
 .text-sky-500 {
   --tw-text-opacity: 1;
   color: rgb(14 165 233 / var(--tw-text-opacity));
-}
-.text-blue-200 {
-  --tw-text-opacity: 1;
-  color: rgb(191 219 254 / var(--tw-text-opacity));
 }
 .text-opacity-100 {
   --tw-text-opacity: 1;

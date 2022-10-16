@@ -11,6 +11,8 @@ class CreateE3dMediaTable extends Migration
         Schema::create('e3d_media', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedTinyInteger('num_files');
+            $table->string('path', 255);
             $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
