@@ -1,12 +1,4 @@
 <div>
-    <div wire:loading wire:target="openModal">
-        <x-loading-indicator />
-    </div>
-
-    <x-jet-button wire:click="openModal">
-        + Subir
-    </x-jet-button>
-
     <x-jet-dialog-modal wire:model="open">
 
         <x-slot name="title">

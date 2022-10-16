@@ -5,35 +5,48 @@
                 <i class="fas fa-photo-video mr-2"></i>
                 Biblioteca de medios
             </div>
-            @livewire('media-library.upload')
         </h2>
     </x-slot>
 
-    <div class="py-4 px-12">
-        <div wire:loading wire:target="edit,show">
-            <x-loading-indicator />
-        </div>
 
-        <div class="mb-5">
+    <div class="flex justify-between px-5 py-2">
+        <div>
             @if ($current_path !== 'ML-index')
-                <button wire:click="back" class="text-blue-500 flex items-center">
-                    <i class="fas fa-long-arrow-alt-left text-lg mr-3"></i>
+                <button wire:click="back" class="text-blue-500 ">
+                    <i class="fas fa-long-arrow-alt-left text-lg mr-2"></i>
                     atrás
-                </button>                
+                </button>
             @endif
+            <span class="ml-6 font-semibold">{{ $this->currentPath }}</span>
+        </div>
+        <div>
+            <x-jet-button wire:click="openUploadModal">
+                + Subir
+            </x-jet-button>
+        </div>
+    </div>
+    <div class="py-4 px-12">
+        <div wire:loading wire:target="edit,show,openUploadModal">
+            <x-loading-indicator />
         </div>
 
         <div class="lg:grid grid-cols-4 gap-3">
             @foreach ($resources as $resource)
                 @php
                     $next_folder = $resource->nextFolder($current_path);
+                    $all_media = $next_folder ? $resource->getFirstMedia($current_path . '/' . $next_folder) : $resource->getMedia($current_path);
                 @endphp
-                @foreach ($resource->getMedia($current_path) as $media)
-                    <x-media-file :next-folder="$next_folder" :media="$media" />
-                @endforeach
+                @if ($next_folder)
+                    <x-media-file :next-folder="$next_folder" :media="$all_media" />
+                @else
+                    @foreach ($all_media as $media)
+                        <x-media-file :next-folder="$next_folder" :media="$media" />
+                    @endforeach
+                @endif
             @endforeach
         </div>
     </div>
 
+    {{-- components --}}
+    @livewire('media-library.upload')
 </div>
-

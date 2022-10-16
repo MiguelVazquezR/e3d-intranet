@@ -12,15 +12,17 @@ class Index extends Component
 
     protected $listeners = [
         'refresh-resources' => 'refresh',
-        'change-current-path' => 'changeCurrentPath',
+        'open-folder' => 'openFolder',
     ];
 
     public function refresh()
     {
         $this->resources = E3dMedia::where('path', $this->current_path)
-            ->orWhere('path', 'LIKE',  $this->current_path.'/%')
+            ->orWhere(function($query) {
+                $query->where('path', 'LIKE',  $this->current_path.'/%')
+                    ->where('path', 'NOT LIKE',  $this->current_path.'/%\/%');
+            })
             ->get();
-            // dd($this->resources->first()->getMedia($this->current_path));
     }
     
     public function back()
@@ -31,16 +33,28 @@ class Index extends Component
         
         $this->current_path = $splitted_path->implode('/');
 
-        $this->resources = E3dMedia::where('path', $this->current_path)
-            ->orWhere('path', 'LIKE',  $this->current_path.'/%')
-            ->get();
+        $this->refresh();
     }
 
-    public function changeCurrentPath($folder)
+    public function openFolder($folder_name)
     {
-        $this->current_path .= '/'.$folder; 
+        $this->current_path .= '/'.$folder_name; 
         $this->refresh();
-        dd($this->current_path);
+    }
+
+    public function openUploadModal()
+    {
+        $this->emitTo('media-library.upload', 'openModal', $this->current_path);
+    }
+
+    public function getCurrentPathProperty()
+    {
+        $splitted_current_path = collect(explode('/', $this->current_path));
+
+        if($splitted_current_path->count() > 1) {
+            $splitted_current_path->shift();
+            return '/'.$splitted_current_path->implode('/');
+        }
     }
 
     public function mount()

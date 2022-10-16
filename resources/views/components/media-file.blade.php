@@ -2,9 +2,9 @@
 
 <div class="flex items-center">
     @if ($nextFolder)
-        <i onclick="Livewire.emitTo('media-library.index', 'change-current-path', '{{ $nextFolder }}')"
+        <i onclick="Livewire.emitTo('media-library.index', 'open-folder', '{{ $nextFolder }}')"
             class="fas fa-folder mr-2 text-3xl text-blue-300 cursor-pointer"></i>
-        <span onclick="Livewire.emitTo('media-library.index', 'change-current-path', '{{ $nextFolder }}')"
+        <span onclick="Livewire.emitTo('media-library.index', 'open-folder', '{{ $nextFolder }}')"
             class="text-gray-700 text-sm cursor-pointer">{{ $nextFolder }}</span>
     @else
         <a href="{{ $media->getUrl() }}" target="_blank" class="cursor-pointer">
@@ -13,9 +13,3 @@
         </a>
     @endif
 </div>
-
-<script>
-    function changeCurrentPath(param) {
-        Livewire.emitTo('media-library.index', 'change-current-path');
-    }
-</script>

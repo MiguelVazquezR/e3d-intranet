@@ -22,7 +22,9 @@ class E3dMedia extends Model implements HasMedia
     public function nextFolder($current_path)
     {
         $splitted_path = explode('/', $this->path);
-        return end($splitted_path) !== $current_path 
+        $splitted_current_path = explode('/', $current_path);
+        
+        return end($splitted_path) !== end($splitted_current_path) 
             ? end($splitted_path)
             : null;
     }
