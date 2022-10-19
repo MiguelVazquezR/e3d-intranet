@@ -13,6 +13,8 @@ class Index extends Component
     protected $listeners = [
         'refresh-resources' => 'refresh',
         'open-folder' => 'openFolder',
+        'deleteFile',
+        'deleteFolder',
     ];
 
     public function refresh()
@@ -40,6 +42,31 @@ class Index extends Component
     {
         $this->current_path .= '/'.$folder_name; 
         $this->refresh();
+    }
+
+    public function deleteFile(array $data)
+    {
+        $e3d_media = E3dMedia::find($data[0]['id']);
+        $e3d_media->deleteMedia($data[1]);
+
+        if(!($e3d_media->getMedia($e3d_media->path)->count() - 1))
+            $e3d_media->delete();
+
+        $this->emitTo('media-library.index', 'refresh-resources');
+        $this->emit('success', "Removido exitosamente");
+    }
+    
+    public function deleteFolder($folder)
+    {
+        $path = $this->current_path.'/'.$folder;
+        $resources_to_delete = E3dMedia::where('path', 'LIKE',  $path.'%')
+        ->get();
+
+        $resources_to_delete->each(fn ($resource) => $resource->getMedia($resource->path)
+        ->each(fn ($media) => $this->deleteFile([$resource, $media->id])));
+        
+        $this->emitTo('media-library.index', 'refresh-resources');
+        $this->emit('success', "Removido exitosamente");
     }
 
     public function openUploadModal()

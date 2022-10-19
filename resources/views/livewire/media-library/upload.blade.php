@@ -18,7 +18,7 @@
             </div>
             <div class="mt-3">
                 <x-jet-label value="Archivo(s)" />
-                <input wire:model.defer="files" type="file" class="text-sm" multiple />
+                <input wire:model.defer="files" id="{{$files_id}}" type="file" class="text-sm" multiple />
                 <div wire:loading wire:target="files" class="p-8 flex justify-center items-center">
                     <i class="fas fa-circle-notch animate-spin text-sm text-gray-400"></i>
                     <span class="text-gray-400">cargando archivo(s)...</span>

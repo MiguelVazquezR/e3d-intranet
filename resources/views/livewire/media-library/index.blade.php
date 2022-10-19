@@ -41,8 +41,8 @@
                         <i wire:click="openFolder('{{ $next_folder }}')"
                             class="fas fa-folder mr-2 text-3xl text-blue-300 cursor-pointer"></i>
                         <span wire:click="openFolder('{{ $next_folder }}')"
-                            class="text-gray-700 text-sm cursor-pointer">{{ $next_folder }}</span>
-                        <i wire:click="$emit('confirm', {0:'media-library', 1:'delete' ,2:'{{ $next_folder }}', 3:'Se eliminará todo el contenido de la carpeta. Este proceso no se puede revertir'})"
+                            class="text-gray-700 text-xs cursor-pointer">{{ $next_folder }}</span>
+                        <i wire:click="$emit('confirm', {0:'media-library.index', 1:'deleteFolder' ,2:'{{ $next_folder }}', 3:'Se eliminará todo el contenido de la carpeta. Este proceso no se puede revertir'})"
                             class="fas fa-trash-alt ml-1 text-gray-400 hover:text-red-400 text-[11px] cursor-pointer"></i>
                     </div>
                 @else
@@ -51,15 +51,18 @@
                         <div>
                             <a href="{{ $media->getUrl() }}" target="_blank" class="cursor-pointer">
                                 <i class="fas fa-file text-gray-400 text-2xl mr-2"></i>
-                                <span class="text-gray-700 text-sm">{{ $media->name }}</span>
+                                <span class="text-gray-700 text-xs">{{ $media->name }}</span>
                             </a>
-                            <i wire:click="$emit('confirm', {0:'media-library', 1:'delete' ,2:{{ $media->id }}, 3:'Este proceso no se puede revertir'})"
+                            <i wire:click="$emit('confirm', {0:'media-library.index', 1:'deleteFile' ,2:[{{ $resource }},{{ $media->id }}], 3:'Este proceso no se puede revertir'})"
                                 class="fas fa-trash-alt ml-1 text-gray-400 hover:text-red-400 text-[11px] cursor-pointer"></i>
                         </div>
                     @endforeach
                 @endif
             @endforeach
-        </div>
+            @if (!$resources->count())
+              <div class="text-sm text-gray-500 text-center p-8 col-span-full">No hay recursos para mostrar</div>
+            @endif
+          </div>
         <div wire:loading wire:target="back,openFolder" class="p-8 flex justify-center items-center"><i
                 class="fas fa-circle-notch animate-spin text-4xl text-gray-500"></i></div>
     </div>

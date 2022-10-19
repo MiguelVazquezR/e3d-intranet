@@ -2127,11 +2127,11 @@ select {
 .p-px {
   padding: 1px;
 }
-.p-10 {
-  padding: 2.5rem;
-}
 .p-8 {
   padding: 2rem;
+}
+.p-10 {
+  padding: 2.5rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -2304,9 +2304,6 @@ select {
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
-}
-.text-\[10px\] {
-  font-size: 10px;
 }
 .text-\[11px\] {
   font-size: 11px;

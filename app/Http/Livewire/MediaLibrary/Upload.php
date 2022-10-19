@@ -12,6 +12,7 @@ class Upload extends Component
 
     public $open = false,
         $files = [],
+        $files_id,
         $sub_folder = null,
         $current_path = 'ML-index';
 
@@ -21,15 +22,14 @@ class Upload extends Component
     ];
 
     protected $rules = [
-        'files' => 'array|min:1|max:5',
+        'files' => 'required',
     ];
 
     public function updatingOpen()
     {
         if ($this->open == true) {
-            $this->resetExcept([
-                'open',
-            ]);
+            $this->resetExcept(['open']);
+            $this->files_id = rand();
         }
     }
 
@@ -43,9 +43,9 @@ class Upload extends Component
     {
         $this->validate();
 
-        $path = $this->sub_folder 
-        ? $this->current_path.'/'.$this->sub_folder
-        : $this->current_path;
+        $path = $this->sub_folder
+            ? $this->current_path . '/' . $this->sub_folder
+            : $this->current_path;
 
         $media = E3dMedia::create([
             'user_id' => auth()->id(),
@@ -59,6 +59,7 @@ class Upload extends Component
                 ->toMediaCollection($path);
         }
 
+        $this->files_id = rand();
         $this->reset();
 
         $this->emitTo('media-library.index', 'refresh-resources');
