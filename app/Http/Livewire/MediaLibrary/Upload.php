@@ -17,7 +17,7 @@ class Upload extends Component
 
     protected $listeners = [
         'render',
-        'open-modal' => 'openModal',
+        'openModal',
     ];
 
     protected $rules = [
@@ -41,7 +41,6 @@ class Upload extends Component
 
     public function store()
     {
-        dd($this->current_path);
         $this->validate();
 
         $path = $this->sub_folder 

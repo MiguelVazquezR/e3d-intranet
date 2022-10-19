@@ -156,6 +156,9 @@ class CreateCustomer extends Component
     {
         $this->validate($this->contact_rules);
 
+        if(!$this->month) $this->month = 1;
+        if(!$this->day) $this->day = 1;
+
         $contact = new Contact([
             'name' => $this->contact_name,
             'phone' => $this->contact_phone,
