@@ -46,10 +46,11 @@ class Index extends Component
 
     public function deleteFile(array $data)
     {
+        // [E3dMedia Object, media id, Bool delete folder (delete E3dMedia object)]
         $e3d_media = E3dMedia::find($data[0]['id']);
         $e3d_media->deleteMedia($data[1]);
 
-        if(!($e3d_media->getMedia($e3d_media->path)->count() - 1))
+        if(!($e3d_media->getMedia($e3d_media->path)->count() - 1) && $data[2])
             $e3d_media->delete();
 
         $this->emitTo('media-library.index', 'refresh-resources');
@@ -63,7 +64,7 @@ class Index extends Component
         ->get();
 
         $resources_to_delete->each(fn ($resource) => $resource->getMedia($resource->path)
-        ->each(fn ($media) => $this->deleteFile([$resource, $media->id])));
+        ->each(fn ($media) => $this->deleteFile([$resource, $media->id, true])));
         
         $this->emitTo('media-library.index', 'refresh-resources');
         $this->emit('success', "Removido exitosamente");

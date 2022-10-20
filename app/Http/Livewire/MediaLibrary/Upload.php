@@ -47,11 +47,15 @@ class Upload extends Component
             ? $this->current_path . '/' . $this->sub_folder
             : $this->current_path;
 
-        $media = E3dMedia::create([
-            'user_id' => auth()->id(),
-            'num_files' => count($this->files),
-            'path' => $path,
-        ]);
+        if (E3dMedia::where('path', $path)->get()->count()) {
+            $media = E3dMedia::where('path', $path)->first();
+        }
+        else
+            $media = E3dMedia::create([
+                'user_id' => auth()->id(),
+                'num_files' => count($this->files),
+                'path' => $path,
+            ]);
 
         foreach ($this->files as $file) {
             $media->addMedia($file->getRealPath())
