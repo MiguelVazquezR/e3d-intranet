@@ -83,7 +83,7 @@ class Meetings extends Component
 
     public function render()
     {
-        $meetings = meeting::where('id', 'like', "%$this->search%")
+        $meetings = Meeting::where('id', 'like', "%$this->search%")
             ->orWhere('title', 'like', "%$this->search%")
             ->orWhereHas('creator', function ($query) {
                 $query->where('name', 'like', "%$this->search%");
