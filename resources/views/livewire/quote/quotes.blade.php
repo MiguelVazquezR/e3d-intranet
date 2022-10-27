@@ -84,7 +84,10 @@
                         </td>
                         <td class="w-28 px-px py-3 border-b border-gray-200 bg-white">
                             @can('ver_cotizaciones')
-                                <a href="{{ route('quote-pdf', ['item' => $item->id]) }}" target="_blank"><i
+                                @php
+                                   $hash = ($item->id + 990) * 480 + 880; 
+                                @endphp
+                                <a href="{{ route('quote-pdf', ['item' => $hash]) }}" target="_blank"><i
                                         class="far fa-eye bg-sky-400 text-white p-2 rounded-lg hover:cursor-pointer"></i></a>
                             @endcan
                             @can('editar_cotizaciones')

@@ -7,16 +7,14 @@ use App\Models\Organization;
 use App\Models\PayRoll;
 use App\Models\Quote;
 use App\Models\User;
-use PDF;
 
 class PdfController extends Controller
 {
-    public function quote($quote)
+    public function quote($hash)
     {
-        $quote = Quote::find($quote);
+        $quote_id = ($hash - 880) / 480 - 990;
+        $quote = Quote::findOrFail($quote_id);
 
-        // $pdf = PDF::loadView('pdf.quote', compact('quote'));
-        // return $pdf->stream();
         return view('pdf.quote', compact('quote'));
     }
 

@@ -106,7 +106,7 @@
                                         class="fas fa-pen ml-1 text-gray-400 hover:text-blue-400 text-[11px] cursor-pointer"></i>
                                 @endcan
                                 @can('eliminar_medios')
-                                    <i wire:click="$emit('confirm', {0:'media-library.index', 1:'deleteFile' ,2:[{{ $resource }},{{ $media->id }}, false], 3:'Este proceso no se puede revertir'})"
+                                    <i wire:click="$emit('confirm', {0:'media-library.index', 1:'deleteFile' ,2:[{{ $resource }},{{ $media->id }}], 3:'Este proceso no se puede revertir'})"
                                         class="fas fa-trash-alt ml-1 text-gray-400 hover:text-red-400 text-[11px] cursor-pointer"></i>
                                 @endcan
                             </div>

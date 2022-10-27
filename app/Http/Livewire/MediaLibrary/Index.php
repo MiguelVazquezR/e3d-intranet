@@ -23,7 +23,9 @@ class Index extends Component
 
     public function updatedSearch()
     {
-        $this->found_items = Media::where('name', 'like', "%$this->search%")->get();
+        $this->found_items = Media::where('name', 'like', "%$this->search%")
+            ->where('collection_name', '!=', 'default')
+            ->get();
     }
     
     public function openRenameModal($resource)
@@ -60,12 +62,9 @@ class Index extends Component
 
     public function deleteFile(array $data)
     {
-        // [E3dMedia Object, media id, Bool delete folder (delete E3dMedia object)]
+        // [E3dMedia Object, media id]
         $e3d_media = E3dMedia::find($data[0]['id']);
         $e3d_media->deleteMedia($data[1]);
-
-        if (!($e3d_media->getMedia($e3d_media->path)->count() - 1) && $data[2])
-            $e3d_media->delete();
 
         $this->emitTo('media-library.index', 'refresh-resources');
         $this->emit('success', "Removido exitosamente");
@@ -77,8 +76,13 @@ class Index extends Component
         $resources_to_delete = E3dMedia::where('path', 'LIKE',  $path . '%')
             ->get();
 
-        $resources_to_delete->each(fn ($resource) => $resource->getMedia($resource->path)
-            ->each(fn ($media) => $this->deleteFile([$resource, $media->id, true])));
+        $resources_to_delete->each(function ($resource){
+            $resource->getMedia($resource->path)
+            ->each(fn ($media) => $this->deleteFile([$resource, $media->id]));
+
+            $resource->delete();
+        });
+        
 
         $this->emitTo('media-library.index', 'refresh-resources');
         $this->emit('success', "Removido exitosamente");
