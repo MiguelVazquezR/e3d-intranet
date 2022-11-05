@@ -20,6 +20,7 @@ class DesignOrder extends Model
         'design_name',
         'design_type_id',
         'tentative_end',
+        'is_complex',
         'design_data',
         'measurement_unit_id',
         'especifications',

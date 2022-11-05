@@ -64,6 +64,8 @@ class CreateDesignOrdersTable extends Migration
 
             $table->unsignedBigInteger('original_id')->nullable();
             $table->unsignedBigInteger('modified_id')->nullable();
+
+            $table->boolean('is_complex')->default(1);
           
             $table->timestamp('tentative_end')->nullable();
             $table->timestamp('authorized_at')->nullable();

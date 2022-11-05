@@ -136,6 +136,11 @@
                             <x-jet-input wire:model.defer="tentative_end" type="datetime-local" class="w-full mt-2" />
                             <x-jet-input-error for="tentative_end" class="text-xs" />
                         </div>
+                        <label class="inline-flex items-center mt-3 text-xs">
+                            <input wire:model.defer="is_complex" type="checkbox" value="1"
+                                class="rounded">
+                            <span class="ml-1 text-gray-700">Es un diseño complicado</span>
+                        </label>
                     @endif
                 </div>
                 <div wire:loading wire:target="seeOrder" class="text-gray-500 py-6">Cargando ...</div>

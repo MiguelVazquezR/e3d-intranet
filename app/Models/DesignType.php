@@ -11,6 +11,8 @@ class DesignType extends Model
 
     protected $fillable = [
         'name',
+        'min_time',
+        'max_time',
     ];
 
 }

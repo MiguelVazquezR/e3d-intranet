@@ -12,10 +12,11 @@ class ShowDesignDepartment extends Component
     public $design_order,
         $open = false,
         $tentative_end,
+        $is_complex = 0,
         $design_results_list = [];
 
     protected $rules = [
-        'tentative_end' => 'required'
+        'tentative_end' => 'required|date|after:today',
     ];
 
     protected $listeners = [
@@ -72,6 +73,7 @@ class ShowDesignDepartment extends Component
 
         $this->design_order->update([
             'tentative_end' => $this->tentative_end,
+            'is_complex' => $this->is_complex,
             'status' => 'En proceso',
         ]);
 

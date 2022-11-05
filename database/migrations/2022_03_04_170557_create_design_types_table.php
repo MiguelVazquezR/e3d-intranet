@@ -17,6 +17,7 @@ class CreateDesignTypesTable extends Migration
             $table->id();
 
             $table->string('name');
+            $table->unsignedFloat('max_time')->nullable();
 
             $table->timestamps();
         });
