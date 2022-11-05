@@ -2,11 +2,27 @@
     <x-jet-dialog-modal wire:model="open">
 
         <x-slot name="title">
-            Orden de diseño {{ $design_order->id }}
+            Orden de diseño {{ $design_order->id }} 
+            @if ($design_order->isLate())
+                <span class="text-red-500 ml-2">(Pedido con retraso)</span>
+            @endif
         </x-slot>
 
         <x-slot name="content">
-
+            @if ($design_order->isLate())
+                <div class="w-full flex justify-between mx-auto bg-red-100 rounded-lg p-4 my-6 text-sm font-medium text-red-700"
+                    role="alert">
+                    <div class="w-full flex">
+                        <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
+                        <div>
+                            El pedido tiene retraso cuando se rebasa la fecha tentativa de entrega establecida o cuando
+                            se excede
+                            en un 10% el tiempo promedio por actividad (tiempos calculados con base a muchas ordenes de
+                            diseño).
+                        </div>
+                    </div>
+                </div>
+            @endif
             @if ($design_order->id)
                 <div wire:loading.remove wire:target="seeOrder">
                     <div class="flex justify-between text-lg">

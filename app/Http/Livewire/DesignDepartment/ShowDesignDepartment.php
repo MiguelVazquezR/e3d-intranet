@@ -74,6 +74,7 @@ class ShowDesignDepartment extends Component
         $this->design_order->update([
             'tentative_end' => $this->tentative_end,
             'is_complex' => $this->is_complex,
+            'started_at' => now(),
             'status' => 'En proceso',
         ]);
 

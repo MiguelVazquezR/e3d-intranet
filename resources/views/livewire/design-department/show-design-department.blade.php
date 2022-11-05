@@ -3,10 +3,26 @@
 
         <x-slot name="title">
             Orden de diseño {{ $design_order->id }}
+            @if ($design_order->isLate())
+                <span class="text-red-500 ml-2">(Pedido con retraso)</span>
+            @endif
         </x-slot>
 
         <x-slot name="content">
-
+            @if ($design_order->isLate())
+                <div class="w-full flex justify-between mx-auto bg-red-100 rounded-lg p-4 my-6 text-sm font-medium text-red-700"
+                    role="alert">
+                    <div class="w-full flex">
+                        <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
+                        <div>
+                            El pedido tiene retraso cuando se rebasa la fecha tentativa de entrega establecida o cuando
+                            se excede
+                            en un 10% el tiempo promedio por actividad (tiempos calculados con base a muchas ordenes de
+                            diseño).
+                        </div>
+                    </div>
+                </div>
+            @endif
             @if ($design_order->id)
                 <div wire:loading.remove wire:target="seeOrder">
                     <div class="flex justify-between text-lg">
@@ -131,14 +147,26 @@
                             </x-item-list>
                         @endforeach
                     @else
+                        <div x-data="{ open: true }" x-show="open"
+                            class="w-11/12 flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                            role="alert">
+                            <div class="w-11/12 flex">
+                                <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
+                                <div>
+                                    Al establecer fecha estimada de entrega, se entenderá que ya se comenzará a trabajar
+                                    en el pedido.
+                                </div>
+                            </div>
+
+                            <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
+                        </div>
                         <div class="col-span-2">
                             <x-jet-label value="Entrega estimada" class="mt-3" />
                             <x-jet-input wire:model.defer="tentative_end" type="datetime-local" class="w-full mt-2" />
                             <x-jet-input-error for="tentative_end" class="text-xs" />
                         </div>
                         <label class="inline-flex items-center mt-3 text-xs">
-                            <input wire:model.defer="is_complex" type="checkbox" value="1"
-                                class="rounded">
+                            <input wire:model.defer="is_complex" type="checkbox" value="1" class="rounded">
                             <span class="ml-1 text-gray-700">Es un diseño complicado</span>
                         </label>
                     @endif

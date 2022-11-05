@@ -31,6 +31,13 @@ class DesignOrder extends Model
         'status',
         'authorized_user_id',
         'authorized_at',
+        'started_at',
+    ];
+
+    protected $dates = [
+        'tentative_end',
+        'authorized_at',
+        'started_at',
     ];
 
     public function designer()
@@ -73,16 +80,37 @@ class DesignOrder extends Model
         return $this->hasMany(DesignResult::class);
     }
 
-    public function getTentativeEndAttribute()
+    public function isLate()
     {
-        return $this->attributes['tentative_end']
-        ? new Carbon($this->attributes['tentative_end'])
-        : null;
+        if ($this->results->count() && $this->started_at) {
+            return $this->results->contains(function ($result) {
+                $limit_reached = $this->started_at->floatDiffInHours($result->created_at) > ($this->limitTime() * 1.10);
+                $tentative_reached = $result->created_at->greaterThan($this->tentative_end);
+
+                return $limit_reached || $tentative_reached;
+            });
+        }
+        
+        return false;
     }
 
-    public function getAuthorizedAtAttribute()
+    public function limitTime()
     {
-        return new Carbon($this->attributes['authorized_at']);
+        return $this->is_complex
+        ? $this->designType->max_time
+        : $this->designType->min_time;
     }
+
+    // public function getTentativeEndAttribute()
+    // {
+    //     return $this->attributes['tentative_end']
+    //     ? new Carbon($this->attributes['tentative_end'])
+    //     : null;
+    // }
+
+    // public function getAuthorizedAtAttribute()
+    // {
+    //     return new Carbon($this->attributes['authorized_at']);
+    // }
 
 }
