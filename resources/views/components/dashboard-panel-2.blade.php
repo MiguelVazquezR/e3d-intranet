@@ -1,7 +1,7 @@
 @props(['title', 'icon', 'modalParam' => null])
 
-<div {{ $attributes->merge(['class' => 'bg-white shadow-xl sm:rounded-lg mb-4 px-3']) }}>
-    <div class="bg-white border-b lg:border-b-0 lg:border-gray-300 sm:rounded-lg">
+<div {{ $attributes->merge(['class' => 'bg-white dark:bg-slate-700 shadow-xl sm:rounded-lg mb-4 px-3']) }}>
+    <div class="bg-white dark:bg-slate-700 border-b lg:border-b-0 lg:border-gray-300 sm:rounded-lg">
         <div class="{{ $modalParam ? 'flex justify-between' : 'text-center' }} py-1 sm:rounded-t-lg">
             <span>{{ $title }} {!! $icon !!}</span>
             @if ($modalParam)

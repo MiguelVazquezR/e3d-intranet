@@ -13,6 +13,7 @@ class ShowDesignDepartment extends Component
         $open = false,
         $tentative_end,
         $is_complex = 0,
+        $reuse = 0,
         $design_results_list = [];
 
     protected $rules = [
@@ -74,6 +75,7 @@ class ShowDesignDepartment extends Component
         $this->design_order->update([
             'tentative_end' => $this->tentative_end,
             'is_complex' => $this->is_complex,
+            'reuse' => $this->reuse,
             'started_at' => now(),
             'status' => 'En proceso',
         ]);

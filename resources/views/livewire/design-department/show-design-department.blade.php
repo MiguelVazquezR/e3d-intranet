@@ -169,6 +169,14 @@
                             <input wire:model.defer="is_complex" type="checkbox" value="1" class="rounded">
                             <span class="ml-1 text-gray-700">Es un diseño complicado</span>
                         </label>
+                        <div class="mt-1">
+                            <x-jet-label value="Si tienes archivos que puedas reutilizar, ¿qué porcentaje tienes de la orden?" />
+                            <div class="flex items-center space-x-2">
+                                <input wire:model="reuse" class="outline-none" type="range" step="5" min="0" max="100">
+                                <span wire:loading wire:target="reuse" class="text-xs text-blue-400">calculando...</span>
+                                <span wire:loading.remove wire:target="reuse" class="text-xs text-blue-400 font-bold">{{ $reuse }}%</span>
+                            </div>
+                        </div>
                     @endif
                 </div>
                 <div wire:loading wire:target="seeOrder" class="text-gray-500 py-6">Cargando ...</div>

@@ -1,4 +1,4 @@
-<nav x-data="{ open: false, open_messages: false, open_reminders: false, open_notifications: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false, open_messages: false, open_reminders: false, open_notifications: false }" class="bg-white dark:bg-slate-700 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex justify-between h-16">
@@ -18,7 +18,7 @@
                 </div>
 
                 <div
-                    class="hidden md:flex sm:items-center sm:-my-px pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">
+                    class="hidden md:flex sm:items-center sm:-my-px pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-200 focus:outline-none focus:text-gray-700 focus:border-gray-300 dark:focus:text-gray-200 dark:focus:border-gray-200 transition">
 
                     <!-- Items -->
                     <div class="relative">
@@ -203,6 +203,9 @@
             </div>
 
             <div class="hidden md:flex sm:items-center">
+                {{-- theme button --}}
+                <x-theme-button />
+
                 <!-- notifications -->
                 @livewire('notification.notifications-counter')
 

@@ -84,7 +84,8 @@ class DesignOrder extends Model
     {
         if ($this->results->count() && $this->started_at) {
             return $this->results->contains(function ($result) {
-                $limit_reached = $this->started_at->floatDiffInHours($result->created_at) > ($this->limitTime() * 1.10);
+                $time_for_reuse = $this->limitTime() * ($this->reuse / 100);
+                $limit_reached = $this->started_at->floatDiffInHours($result->created_at) > ($this->limitTime() * 1.10 - $time_for_reuse);
                 $tentative_reached = $result->created_at->greaterThan($this->tentative_end);
 
                 return $limit_reached || $tentative_reached;

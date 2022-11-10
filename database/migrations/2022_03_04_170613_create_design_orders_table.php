@@ -66,6 +66,7 @@ class CreateDesignOrdersTable extends Migration
             $table->unsignedBigInteger('modified_id')->nullable();
 
             $table->boolean('is_complex')->nullable();
+            $table->unsignedTinyInteger('reuse')->nullable();
             
             $table->timestamp('tentative_end')->nullable();
             $table->timestamp('started_at')->nullable();
