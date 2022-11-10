@@ -7,12 +7,12 @@
 
         <!-- inputs -->
         <div class="w-11/12 lg:w-3/4 mx-auto">
-            <x-jet-input class="w-full placeholder:text-xs" wire:model="search" type="text" name="search"
+            <x-jet-input class="w-full placeholder:text-xs input" wire:model="search" type="text" name="search"
                 placeholder="Escribe el nombre del producto" />
         </div>
         <div class="w-3/4 mx-auto flex justify-between pt-8">
             <div>
-                <span class="mr-2 text-sm">Mostrar</span>
+                <span class="mr-2 text-sm dark:text-gray-400">Mostrar</span>
                 <select class="input mt-2" wire:model="elements">
                     <option value="10" selected>10</option>
                     <option value="25">25</option>
@@ -27,17 +27,17 @@
             <x-slot name="body">
                 @foreach ($stock_products as $item)
                     <tr>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wra dark:text-gray-400">
                                 {{ $item->id }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                                 {{ $item->product->name . ' - ' . $item->product->material->name }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
+                        <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                             @if ($item->product->min_stock >= $item->quantity)
                                 <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
                                     <span aria-hidden
@@ -46,15 +46,15 @@
                                         class="relative">{{ $item->quantity . ' ' . $item->product->unit->name }}</span>
                                 </span>
                             @else
-                                <p class="text-gray-900 whitespace-no-wrap">
+                                <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                                     {{ $item->quantity . ' ' . $item->product->unit->name }}
                                 </p>
                             @endif
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">{{ $item->location }}</p>
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white dark:bg-slate-700 dark:text-gray-400">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">{{ $item->location }}</p>
                         </td>
-                        <td class="w-28 px-px py-3 border-b border-gray-200 bg-white">
+                        <td class="w-28 px-px py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                             @can('ver_inventarios')
                                 <i wire:click="show({{ $item }})"
                                     class="far fa-eye bg-sky-400 text-white p-2 rounded-lg hover:cursor-pointer"></i>
@@ -68,7 +68,7 @@
                                     class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
                             @endcan
                         </td>
-                        <td class="py-3 border-b border-gray-200 bg-white">
+                        <td class="py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                         </td>
                     </tr>
                 @endforeach

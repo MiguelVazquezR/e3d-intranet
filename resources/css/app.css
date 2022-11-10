@@ -6,6 +6,7 @@
     @apply p-1 hover:cursor-pointer text-gray-500 transition-colors;
 }
 
-.input {
-    @apply text-gray-600 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 disabled:text-gray-500;
+.input{
+    @apply h-[2.5rem] border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-sm
+    dark:bg-slate-700 dark:border-slate-500 dark:text-gray-300 dark:focus:border-indigo-700 dark:focus:ring-opacity-70;
 }

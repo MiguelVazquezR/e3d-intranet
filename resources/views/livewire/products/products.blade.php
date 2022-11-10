@@ -1,8 +1,8 @@
 <div>
    <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
-         <div class="flex items-center">
-            <i class="fab fa-product-hunt mr-2"></i>
+         <div class="flex items-center dark:text-gray-400">
+            <i class="fab fa-product-hunt mr-2 dark:text-gray-400"></i>
             Productos simples
          </div>
          @livewire('products.create-product')
@@ -17,16 +17,16 @@
 
       <!-- inputs -->
       <div class="w-11/12 lg:w-3/4 mx-auto">
-         <x-jet-input class="w-full placeholder:text-xs" wire:model="search" type="text" name="search" placeholder="Escribe el nombre del producto" />
+         <x-jet-input class="w-full placeholder:text-xs input" wire:model="search" type="text" name="search" placeholder="Escribe el nombre del producto" />
       </div>
       <div class="w-3/4 mx-auto flex justify-between pt-8">
          <div>
-            <span class="mr-2 text-sm">Ver</span>
-            <x-select class="mt-2 w-3/4" wire:model="filter_family" :options="$families"
+            <span class="mr-2 text-sm dark:text-gray-400">Ver</span>
+            <x-select class="mt-2 w-3/4 input" wire:model="filter_family" :options="$families"
                 default="Todas las familias" />
         </div>
         <div>
-            <span class="mr-2 text-sm">Mostrar</span>
+            <span class="mr-2 text-sm dark:text-gray-400">Mostrar</span>
             <select class="mt-2 input" wire:model="elements">
                 <option value="10" selected>10</option>
                 <option value="25">25</option>
@@ -55,23 +55,23 @@
          <x-slot name="body">
             @foreach( $products as $item )
             <tr>
-               <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                  <p class="text-gray-900 whitespace-no-wrap">
+               <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
+                  <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                      {{$item->id}}
                   </p>
                </td>
-               <td class="px-3 py-3 border-b border-gray-200 bg-white">
+               <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                   <x-product-quick-view :image="$item->image" :name="$item->name" :nameBolded="false" />
                </td>
-               <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                  <p class="text-gray-900 whitespace-no-wrap">{{$item->material->name}}</p>
+               <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
+                  <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">{{$item->material->name}}</p>
                </td>
-               <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                  <p class="text-gray-900 whitespace-no-wrap">
+               <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
+                  <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                      {{$item->family->name}}
                   </p>
                </td>
-               <td class="px-3 py-3 border-b border-gray-200 bg-white">
+               <td class="px-3 py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                   @if($item->product_status_id == 1)
                   <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                      <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
@@ -89,7 +89,7 @@
                   </span>
                   @endif
                </td>
-               <td class="w-28 px-px py-3 border-b border-gray-200 bg-white">
+               <td class="w-28 px-px py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                   @can('ver_productos')
                   <i wire:click="show({{ $item }})" class="far fa-eye table-btn hover:text-sky-400"></i>
                   @endcan
@@ -100,7 +100,7 @@
                   <i wire:click="$emit('confirm', { 0:'products.products', 1:'delete' ,2:{{$item->id}}, 3:'Este proceso no se puede revertir' })" class="fas fa-trash table-btn hover:text-red-500"></i>
                   @endcan
                </td>
-               <td class="py-3 border-b border-gray-200 bg-white">
+               <td class="py-3 border-b dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-white">
                </td>
             </tr>
             @endforeach

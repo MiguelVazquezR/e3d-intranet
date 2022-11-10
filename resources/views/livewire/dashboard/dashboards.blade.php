@@ -22,8 +22,8 @@
         <div class="lg:grid lg:grid-cols-4 lg:gap-3 mb-2">
 
             <!-- Reminders -->
-            <x-dashboard-panel-2 class="lg:col-span-2 mb-4" title="Recordatorios"
-                icon='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm-fill inline-block" viewBox="0 0 16 16">
+            <x-dashboard-panel-2 class="lg:col-span-2 mb-4 dark:text-gray-300" title="Recordatorios"
+                icon='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm-fill inline-block dark:text-gray-300" viewBox="0 0 16 16">
                 <path d="M6 .5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H9v1.07a7.001 7.001 0 0 1 3.274 12.474l.601.602a.5.5 0 0 1-.707.708l-.746-.746A6.97 6.97 0 0 1 8 16a6.97 6.97 0 0 1-3.422-.892l-.746.746a.5.5 0 0 1-.707-.708l.602-.602A7.001 7.001 0 0 1 7 2.07V1h-.5A.5.5 0 0 1 6 .5zm2.5 5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
               </svg>'>
                 <div class="flex justify-center items-center text-sm text-gray-500 p-4">
@@ -34,7 +34,7 @@
             </x-dashboard-panel-2>
 
             <!-- meetings -->
-            <x-dashboard-panel-2 class="lg:col-span-2" title="Reuniones" icon="<i class='fas fa-handshake'></i>">
+            <x-dashboard-panel-2 class="lg:col-span-2 dark:text-gray-300" title="Reuniones" icon="<i class='fas fa-handshake dark:text-gray-300'></i>">
                 <!-- as creator -->
                 @foreach ($meetings_as_creator as $meeting)
                     <div class="my-3 ml-4 text-sm border-b pb-2 mr-3">
@@ -203,8 +203,8 @@
         <div class="lg:grid lg:grid-cols-4 lg:gap-3 mb-2">
 
             <!-- weekly performance -->
-            <x-dashboard-panel-2 class="lg:col-span-2" title="Desempeño semanal producción"
-                icon="<i class='fas fa-medal'></i>">
+            <x-dashboard-panel-2 class="lg:col-span-2 dark:text-gray-300" title="Desempeño semanal producción"
+                icon="<i class='fas fa-medal dark:text-gray-300'></i>">
                 @if ($employee_performance)
                     <p class="text-center my-2 text-sm text-green-500 font-bold">
                         Agradecemos su esfuerzo
@@ -248,8 +248,8 @@
             </x-dashboard-panel-2>
 
             <!-- employees Birthdays -->
-            <x-dashboard-panel-2 class="lg:col-span-2" title="Próximos cumpleaños"
-                icon="<i class='fas fa-birthday-cake'></i>">
+            <x-dashboard-panel-2 class="lg:col-span-2 dark:text-gray-300" title="Próximos cumpleaños"
+                icon="<i class='fas fa-birthday-cake dark:text-gray-300'></i>">
                 @if ($soon_birthdays)
                     <p class="text-center my-2 text-sm text-green-500 font-bold">
                         ¡Muchas felicidades te desea la familia Emblemas 3d!
@@ -289,8 +289,8 @@
             </x-dashboard-panel-2>
 
             <!-- new employees -->
-            <x-dashboard-panel-2 class="lg:col-span-2" title="Agregados recientemente"
-                icon="<i class='fas fa-user-plus'></i>">
+            <x-dashboard-panel-2 class="lg:col-span-2 dark:text-gray-300" title="Agregados recientemente"
+                icon="<i class='fas fa-user-plus dark:text-gray-300'></i>">
                 @if ($new_employees)
                     <p class="text-center my-2 text-sm text-green-500 font-bold">
                         Ciertamente viviremos grandes momentos y todos juntos lograremos mucho éxito.
@@ -320,8 +320,8 @@
             </x-dashboard-panel-2>
 
             <!-- Anniversaries -->
-            <x-dashboard-panel-2 class="lg:col-span-2" title="Aniversarios"
-                icon="<i class='fas fa-glass-cheers'></i>">
+            <x-dashboard-panel-2 class="lg:col-span-2 dark:text-gray-300" title="Aniversarios"
+                icon="<i class='fas fa-glass-cheers dark:text-gray-300'></i>">
                 @if ($anniversaries)
                     <p class="text-center my-2 text-sm text-green-500 font-bold">
                         Te tenemos un gran agradecimiento por continuar a nuestro lado, por tu esfuerzo día a día y
@@ -358,8 +358,8 @@
         <div class="lg:grid lg:grid-cols-4 lg:gap-3 mb-2">
 
             <!-- customer contacts Birthdays -->
-            <x-dashboard-panel-2 class="lg:col-span-2" title="Próximos cumpleaños"
-                icon="<i class='fas fa-birthday-cake'></i>">
+            <x-dashboard-panel-2 class="lg:col-span-2 dark:text-gray-300" title="Próximos cumpleaños"
+                icon="<i class='fas fa-birthday-cake dark:text-gray-300'></i>">
                 @if ($soon_customers_birthdays)
                     <p class="text-center my-2 text-sm text-green-500 font-bold">
                         ¡Enviar felicitaciones de parte de Emblemas 3d!
@@ -401,34 +401,34 @@
 
             <div class="lg:grid lg:grid-cols-3 lg:gap-3 mb-2">
                 <!-- Created -->
-                <x-dashboard-panel-2 title="Creaciones" icon="<i class='fas fa-plus-square'></i>" :modalParam="1">
+                <x-dashboard-panel-2 class="dark:text-gray-300" title="Creaciones" icon="<i class='fas fa-plus-square dark:text-gray-300'></i>" :modalParam="1">
                     <ol class="ml-2 relative border-l border-gray-200 text-xs mt-3">
                         @forelse ($created_histories as $c_h)
                             <x-time-line :event="$c_h" />
                         @empty
-                            <p class="text-xs text-center text-gray-600">No hay registros para mostrar</p>
+                            <p class="text-xs text-center text-gray-600 dark:text-gray-500">No hay registros para mostrar</p>
                         @endforelse
                     </ol>
                 </x-dashboard-panel-2>
 
                 <!-- Edited -->
-                <x-dashboard-panel-2 title="Ediciones" icon="<i class='fas fa-edit'></i>" :modalParam="2">
+                <x-dashboard-panel-2 class="dark:text-gray-300" title="Ediciones" icon="<i class='fas fa-edit dark:text-gray-300'></i>" :modalParam="2">
                     <ol class="ml-2 relative border-l border-gray-200 text-xs mt-3">
                         @forelse ($edited_histories as $e_h)
                             <x-time-line :event="$e_h" />
                         @empty
-                            <p class="text-xs text-center text-gray-600">No hay registros para mostrar</p>
+                            <p class="text-xs text-center text-gray-600 dark:text-gray-500">No hay registros para mostrar</p>
                         @endforelse
                     </ol>
                 </x-dashboard-panel-2>
 
                 <!-- Deleted -->
-                <x-dashboard-panel-2 title="Eliminaciones" icon="<i class='fas fa-trash'></i>" :modalParam="3">
+                <x-dashboard-panel-2 class="dark:text-gray-300" title="Eliminaciones" icon="<i class='fas fa-trash dark:text-gray-300'></i>" :modalParam="3">
                     <ol class="ml-2 relative border-l border-gray-200 text-xs mt-3">
                         @forelse ($deleted_histories as $d_h)
                             <x-time-line :event="$d_h" />
                         @empty
-                            <p class="text-xs text-center text-gray-600">No hay registros para mostrar</p>
+                            <p class="text-xs text-center text-gray-600 dark:text-gray-500">No hay registros para mostrar</p>
                         @endforelse
                     </ol>
                 </x-dashboard-panel-2>

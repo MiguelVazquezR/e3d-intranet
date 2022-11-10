@@ -6,11 +6,11 @@
             {{ $title }}
         </div>
         <div class="flex justify-center items-center text-5xl text-gray-400 dark:text-gray-300 p-4">
-            <div class="mr-3 {{ $counter ? 'text-black dark:text-gray-300' : ''  }}">
+            <div class="mr-3 {{ $counter ? 'text-black dark:text-gray-300 ' : 'dark:text-gray-500'  }}">
                 {{ $counter }}
             </div>
             <div>
-                <i class="{{ $counter ? 'text-black dark:text-gray-300 '.$icon : $icon  }}"></i>
+                <i class="{{ $counter ? 'text-black dark:text-gray-300 '.$icon : $icon.' dark:text-gray-500'  }}"></i>
             </div>
         </div>
     </div>
