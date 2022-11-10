@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\DesignOrder;
+namespace App\Http\Livewire\MarketingOrder;
 
-use App\Models\DesignOrder;
+use App\Models\MarketingOrder;
 use App\Models\MovementHistory;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class DesignOrders extends Component
+class MarketingOrders extends Component
 {
     use WithPagination;
 
@@ -20,8 +19,7 @@ class DesignOrders extends Component
     public $table_columns = [
         'id' => 'id',
         'user_id' => 'solicitante',
-        'design_name' => 'diseño',
-        'designer_id' => 'diseñador(a)',
+        'order_name' => 'Nombre de pedido',
         'created_at' => 'solicitado el',
         'status' => 'status',
     ];
@@ -57,44 +55,41 @@ class DesignOrders extends Component
         }
     }
 
-    public function show(DesignOrder $design_order)
+    public function show(MarketingOrder $marketing_order)
     {
-        $this->emitTo('design-order.show-design-order', 'openModal', $design_order);
+        $this->emitTo('marketing-order.show-marketing-order', 'openModal', $marketing_order);
     }
 
-    public function edit(DesignOrder $design_order)
+    public function edit(MarketingOrder $marketing_order)
     {
-        $this->emitTo('design-order.edit-design-order', 'openModal', $design_order);
+        $this->emitTo('marketing-order.edit-marketing-order', 'openModal', $marketing_order);
     }
 
-    public function delete(DesignOrder $design_order)
+    public function delete(MarketingOrder $marketing_order)
     {
         // create movement history
         MovementHistory::create([
             'movement_type' => 3,
-            'user_id' => Auth::user()->id,
-            'description' => "Se eliminó orden de diseño con ID: {$design_order->id}"
+            'user_id' => auth()->user()->id,
+            'description' => "Se eliminó orden de mercadotecnia con ID: {$marketing_order->id}"
         ]);
 
-        $design_order->delete();
+        $marketing_order->delete();
 
-        $this->emit('success', 'Orden de diseño eliminada');
+        $this->emit('success', 'Orden de mercadotecnia eliminada');
     }
 
     public function render()
     {
-        $design_orders = DesignOrder::where('id', 'like', "%$this->search%")
-            ->orWhere('design_name', 'like', "%$this->search%")
+        $marketing_orders = MarketingOrder::where('id', 'like', "%$this->search%")
+            ->orWhere('order_name', 'like', "%$this->search%")
             ->orWhereHas('creator', function ($query) {
-                $query->where('name', 'like', "%$this->search%");
-            })
-            ->orWhereHas('designer', function ($query) {
                 $query->where('name', 'like', "%$this->search%");
             })
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->elements);
-        return view('livewire.design-order.design-orders', [
-            'design_orders' => $design_orders,
+        return view('livewire.marketing-order.marketing-orders', [
+            'marketing_orders' => $marketing_orders,
         ]);
     }
 }

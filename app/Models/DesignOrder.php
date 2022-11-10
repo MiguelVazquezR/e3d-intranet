@@ -102,16 +102,4 @@ class DesignOrder extends Model
         : $this->designType->min_time;
     }
 
-    // public function getTentativeEndAttribute()
-    // {
-    //     return $this->attributes['tentative_end']
-    //     ? new Carbon($this->attributes['tentative_end'])
-    //     : null;
-    // }
-
-    // public function getAuthorizedAtAttribute()
-    // {
-    //     return new Carbon($this->attributes['authorized_at']);
-    // }
-
 }

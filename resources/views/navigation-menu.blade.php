@@ -149,12 +149,25 @@
                             </x-slot>
 
                             <x-slot name="content">
+                                <div class="block px-4 py-px text-[11px] text-gray-400">
+                                    Generar órdenes
+                                </div>
                                 @can('tabla_ordenes_diseño')
                                     <x-jet-dropdown-link href="{{ route('design-orders') }}">
                                         <i class="fas fa-ruler-combined"></i>
                                         Órdenes de diseño
                                     </x-jet-dropdown-link>
                                 @endcan
+                                @can('ver_ordenes_mercadotecnia')
+                                    <x-jet-dropdown-link href="{{ route('marketing-orders') }}">
+                                        <i class="fas fa-thumbtack"></i>
+                                        Órdenes de mercadotecnia
+                                    </x-jet-dropdown-link>
+                                @endcan
+                                <div class="border-t border-gray-200"></div>
+                                <div class="block px-4 py-px text-[11px] text-gray-400">
+                                    Departamentos
+                                </div>
                                 @can('tabla_departamento_diseño')
                                     <x-jet-dropdown-link href="{{ route('design-department') }}">
                                         <i class="fas fa-drafting-compass"></i>
@@ -173,6 +186,10 @@
                                         Departamento de mercadotecnia
                                     </x-jet-dropdown-link>
                                 @endcan
+                                <div class="border-t border-gray-200"></div>
+                                <div class="block px-4 py-px text-[11px] text-gray-400">
+                                    Otros
+                                </div>
                                 @can('tabla_nóminas')
                                     <x-jet-dropdown-link href="{{ route('pay-rolls') }}">
                                         <i class="fas fa-money-check-alt"></i>
@@ -364,6 +381,11 @@
         </div>
     </div>
 
+    {{-- theme button --}}
+    <div class="md:hidden">
+        <x-theme-button />
+    </div>
+
     {{-- Notifications view --}}
     <div :class="{ 'block': open_notifications, 'hidden': !open_notifications }" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -432,6 +454,11 @@
             @can('tabla_ordenes_diseño')
                 <x-jet-responsive-nav-link href="{{ route('design-orders') }}" :active="request()->routeIs('design-orders')">
                     Órdenes de diseño
+                </x-jet-responsive-nav-link>
+            @endcan
+            @can('ver_ordenes_mercadotecnia')
+                <x-jet-responsive-nav-link href="{{ route('marketing-orders') }}" :active="request()->routeIs('marketing-orders')">
+                    Órdenes de mercadotecnia
                 </x-jet-responsive-nav-link>
             @endcan
             @can('tabla_usuarios')
