@@ -63,7 +63,6 @@ class ShowDesignOrder extends Component
         return $clone;
     }
 
-
     public function render()
     {
         return view('livewire.design-order.show-design-order');

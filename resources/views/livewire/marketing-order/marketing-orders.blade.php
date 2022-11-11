@@ -37,7 +37,7 @@
             <x-slot name="body">
                 @foreach ($marketing_orders as $item)
                     <tr>
-                        <td class="px-3 py-3 border-b border-gray-200">
+                        <td class="bg-white px-3 py-3 border-b border-gray-200">
                             <p class="text-gray-900 whitespace-no-wrap">
                                 {{ $item->id }}
                             </p>
@@ -88,6 +88,9 @@
 
         <!-- edit modal -->
         @livewire('marketing-order.edit-marketing-order')
+
+         <!-- aditional modals -->
+         @livewire('marketing-order.request-modifications')
 
     </div>
 

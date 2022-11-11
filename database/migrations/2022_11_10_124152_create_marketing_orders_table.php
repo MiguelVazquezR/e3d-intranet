@@ -17,6 +17,7 @@ class CreateMarketingOrdersTable extends Migration
             $table->id();
 
             $table->string('order_name');
+            $table->string('order_type');
             $table->string('customer_name')->nullable();
             $table->string('status', 30)->default('Esperando autorización');
 
@@ -36,6 +37,9 @@ class CreateMarketingOrdersTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
+            $table->unsignedBigInteger('original_id')->nullable();
+            $table->unsignedBigInteger('modified_id')->nullable();
 
             $table->timestamp('tentative_end')->nullable();
             $table->timestamp('started_at')->nullable();
