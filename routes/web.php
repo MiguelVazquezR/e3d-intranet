@@ -146,7 +146,7 @@ Route::get('/tiempo-adicional', Index::class)
     ->middleware('auth')
     ->name('additional_time_requests');
 
-Route::get('/mercadotecia', MarketingIndex::class)
+Route::get('/mercadotecnia', MarketingIndex::class)
     ->middleware('auth')
     ->name('marketing-department');
 
