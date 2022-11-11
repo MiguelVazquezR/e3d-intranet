@@ -22,7 +22,7 @@
                 }">
                     <template x-for="(tab, index) in tabs" :key="index">
                         <li class="cursor-pointer text-sm py-2 px-6 text-gray-500 border-b-2"
-                            :class="activeTab === index ? 'text-black border-black' : ''"
+                            :class="activeTab === index ? 'text-black border-black dark:text-gray-400 dark:border-gray-500' : ''"
                             @click="activeTab = index; changeAction(); $dispatch('change-tab-show', index);"
                             x-text="tab"></li>
                     </template>
@@ -36,7 +36,7 @@
                     <!-- Detalles -->
                     <div x-show="activeTab==0">
                         <h2 class="mb-4 text-gray-500">
-                            Producto de inventario <span class="text-black">{{ $stock_product->id }}</span>
+                            Producto de inventario <span class="text-black dark:text-gray-200">{{ $stock_product->id }}</span>
                         </h2>
 
                         <div class="grid grid-cols-3 gap-4">
@@ -70,7 +70,7 @@
                             @if ($stock_product->product)
                                 <h2>
                                     Entradas de <span
-                                        class="text-black font-extrabold">{{ $stock_product->product->name }}</span>
+                                        class="text-black font-extrabold dark:text-gray-200">{{ $stock_product->product->name }}</span>
                                 </h2>
                             @endif
                         </div>
@@ -84,7 +84,7 @@
                                 class="w-full mt-3 max-h-72 overflow-auto hover:overflow-y-scroll lg:overflow-hidden">
                                 <table>
                                     <thead>
-                                        <tr class="text-xs uppercase text-gray-700">
+                                        <tr class="text-xs uppercase text-gray-700 dark:text-gray-500">
                                             <td class="w-1/5 p-2">Creado por</td>
                                             <td class="w-1/5 p-2">Movimiento</td>
                                             <td class="w-1/5 p-2">Cantidad</td>
@@ -96,7 +96,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($stock_movements as $movement)
-                                            <tr class="text-xs my-2 bg-green-100 border-b border-green-300">
+                                            <tr class="text-xs my-2 bg-green-100 border-b border-green-300 dark:bg-green-300 dark:border-green-500">
                                                 <td class="w-1/5 p-1"> {{ $movement->user->name }} </td>
                                                 <td class="w-1/5 p-1"> {{ $movement->action->name }} </td>
                                                 <td class="w-1/5 p-1">
@@ -133,7 +133,7 @@
                             @if ($stock_product->product)
                                 <h2>
                                     Salidas de <span
-                                        class="text-black font-extrabold">{{ $stock_product->product->name }}</span>
+                                        class="text-black font-extrabold dark:text-gray-200">{{ $stock_product->product->name }}</span>
                                 </h2>
                         </div>
     @endif
@@ -146,7 +146,7 @@
         <div x-show="action == 0" class="w-full mt-3 max-h-72 overflow-auto hover:overflow-y-scroll lg:overflow-hidden">
             <table>
                 <thead>
-                    <tr class="text-xs uppercase text-gray-700">
+                    <tr class="text-xs uppercase text-gray-700 dark:text-gray-500">
                         <td class="w-1/5 p-2">Creado por</td>
                         <td class="w-1/5 p-2">Movimiento</td>
                         <td class="w-1/5 p-2">Cantidad</td>
@@ -157,7 +157,7 @@
                 </thead>
                 <tbody>
                     @foreach ($stock_movements as $movement)
-                        <tr class="text-xs my-2 bg-red-100 border-b border-red-300">
+                        <tr class="text-xs my-2 bg-red-100 border-b border-red-300 dark:bg-red-400 dark:border-red-600">
                             <td class="w-1/5 p-1"> {{ $movement->user->name }} </td>
                             <td class="w-1/5 p-1"> {{ $movement->action->name }} </td>
                             <td class="w-1/5 p-1 flex justify-between">

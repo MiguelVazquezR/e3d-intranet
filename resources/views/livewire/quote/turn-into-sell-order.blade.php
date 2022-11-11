@@ -30,7 +30,7 @@
                         <p class="col-span-2">Dirección: <span class="font-normal">{{ $_customer->address }} -
                                 C.P.{{ $_customer->post_code }}</span></p>
                         <div class="col-span-2 flex flex-col">
-                            <x-jet-label value="Contacto" class="mt-3" />
+                            <x-jet-label value="Contacto" class="mt-3 dark:text-gray-400" />
                             @foreach ($_customer->contacts as $contact)
                                 <label class="flex items-center radio cursor-pointer">
                                     <input wire:model="contact_id" value="{{ $contact->id }}" type="radio"
@@ -60,11 +60,11 @@
                 @else
                     <div class="grid grid-cols-2 gap-x-2">
                         <div>
-                            <x-jet-label value="Cliente" class="mt-3" />
+                            <x-jet-label value="Cliente" class="mt-3 dark:text-gray-500" />
                             <p class="text-sm">{{ $quote->customer_name }}</p>
                         </div>
                         <div>
-                            <x-jet-label value="Contacto" class="mt-3" />
+                            <x-jet-label value="Contacto" class="mt-3 dark:text-gray-500" />
                             <p class="text-sm">{{ $quote->receiver }}</p>
                         </div>
                     </div>
@@ -73,22 +73,22 @@
             <h2 class="font-bold text-lg text-sky-600 mt-2">Logística</h2>
             <div class="lg:grid lg:grid-cols-3 lg:gap-3">
                 <div>
-                    <x-jet-label value="Paquetería" class="mt-3" />
-                    <x-jet-input wire:model.defer="shipping_company" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Paquetería" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="shipping_company" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="shipping_company" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Costo logística" class="mt-3" />
-                    <x-jet-input wire:model.defer="freight_cost" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Costo logística" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="freight_cost" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="freight_cost" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Moneda" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="freight_currency" :options="$currencies" default="No colocar moneda" id="id" />
+                    <x-jet-label value="Moneda" class="mt-3 dark:text-gray-400" />
+                    <x-select class="mt-2 w-full input" wire:model.defer="freight_currency" :options="$currencies" default="No colocar moneda" id="id" />
                 </div>
                 <div>
-                    <x-jet-label value="Guía" class="mt-3" />
-                    <x-jet-input wire:model.defer="tracking_guide" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Guía" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="tracking_guide" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="tracking_guide" class="text-xs" />
                 </div>
             </div>
@@ -97,8 +97,8 @@
             <h2 class="font-bold text-lg text-sky-600 mt-3">Datos de la orden</h2>
             <div class="lg:grid lg:grid-cols-3 lg:gap-3">
                 <div>
-                    <x-jet-label value="Prioridad" class="mt-3" />
-                    <select class="input mt-2 w-full" wire:model.defer="priority">
+                    <x-jet-label value="Prioridad" class="mt-3 dark:text-gray-400" />
+                    <select class="input mt-2 w-full input" wire:model.defer="priority">
                         <option value="Normal" selected>Normal</option>
                         <option value="Urgente">Urgente</option>
                         <option value="Especial">Especial</option>
@@ -106,13 +106,13 @@
                 </div>
             </div>
             <div>
-                <x-jet-label value="Nombre/folio OCE" class="mt-3" />
-                <x-jet-input wire:model.defer="oce_name" type="text" class="w-full mt-2" />
+                <x-jet-label value="Nombre/folio OCE" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="oce_name" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="oce_name" class="text-xs" />
             </div>
             <div>
-                <x-jet-label value="Archivo OCE" class="mt-3" />
-                <input wire:model.defer="oce" type="file" class="text-sm mt-2" id="{{ $oce_id }}">
+                <x-jet-label value="Archivo OCE" class="mt-3 dark:text-gray-400" />
+                <input wire:model.defer="oce" type="file" class="text-sm mt-2 input" id="{{ $oce_id }}">
                 <x-jet-input-error for="oce" class="text-xs" />
             </div>
 
@@ -137,9 +137,9 @@
                 </x-item-list>
             @endforeach
             <div class="mt-2">
-                <x-jet-label value="Notas" />
+                <x-jet-label class="dark:text-gray-400" value="Notas" />
                 <textarea wire:model.defer="notes" rows="3"
-                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    class="dark:bg-slate-700 dark:border-slate-500 dark:text-gray-300 dark:focus:border-indigo-700 dark:focus:ring-opacity-70 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                 <x-jet-input-error for="notes" class="text-xs" />
             </div>
         </x-slot>

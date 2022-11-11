@@ -8,7 +8,7 @@
                         <thead>
                             <tr>
                                 @foreach($columns as $key => $name)
-                                <th wire:click="order( '{{$key}}' )" class="cursor-pointer px-3 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-slate-700 dark:text-gray-400 text-left text-xs font-semibold text-gray-600 tracking-wider">
+                                <th wire:click="order( '{{$key}}' )" class="cursor-pointer px-3 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-slate-800 dark:text-gray-400 text-left text-xs font-semibold text-gray-600 tracking-wider">
                                     <span class="uppercase">{{ $name }}</span>
                                     @if($sort == $key)
                                     @if($direction == 'asc')
@@ -21,10 +21,10 @@
                                     @endif
                                 </th>
                                 @endforeach
-                                <th class="w-28 px-px py-3 border-b-2 dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="w-28 px-px py-3 border-b-2 dark:bg-slate-800 dark:text-gray-400 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     &nbsp;
                                 </th>
-                                <th class="py-3 border-b-2 dark:bg-slate-700 dark:text-gray-400 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="py-3 border-b-2 dark:bg-slate-800 dark:text-gray-400 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     &nbsp;
                                 </th>
                             </tr>
