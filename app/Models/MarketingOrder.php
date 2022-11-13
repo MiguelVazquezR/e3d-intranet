@@ -14,6 +14,7 @@ class MarketingOrder extends Model
         'customer_name',
         'user_id',
         'order_name',
+        'order_type',
         'tentative_end',
         'especifications',
         'status',

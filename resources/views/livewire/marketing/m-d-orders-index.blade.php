@@ -1,14 +1,4 @@
 <div>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
-            <div class="flex items-center">
-                <i class="fas fa-thumbtack mr-2"></i>
-                Órdenes de mercadotecnia
-            </div>
-            @livewire('marketing-order.create-marketing-order')
-        </h2>
-    </x-slot>
-
     <div class="py-6">
 
         <div wire:loading wire:target="edit,show">
@@ -18,7 +8,7 @@
         <!-- inputs -->
         <div class="w-11/12 lg:w-3/4 mx-auto">
             <x-jet-input class="w-full placeholder:text-xs" wire:model="search" type="text" name="search"
-                placeholder="Escribe el ID, solicitante, nombre de órden" />
+                placeholder="Escribe el ID, nombre de orden o nombre del solicitante" />
         </div>
         <div class="w-3/4 mx-auto flex justify-between pt-8">
             <div>
@@ -37,7 +27,7 @@
             <x-slot name="body">
                 @foreach ($marketing_orders as $item)
                     <tr>
-                        <td class="bg-white px-3 py-3 border-b border-gray-200">
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
                             <p class="text-gray-900 whitespace-no-wrap">
                                 {{ $item->id }}
                             </p>
@@ -49,12 +39,35 @@
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
                             <p class="text-gray-900 whitespace-no-wrap">
+                                {{ $item->created_at->isoFormat('D MMMM YYYY, hh:mm a') }}
+                            </p>
+                        </td>
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wrap">
                                 {{ $item->order_name }}
                             </p>
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
                             <p class="text-gray-900 whitespace-no-wrap">
-                                {{ $item->created_at->isoFormat('D MMMM YYYY') }}
+                                @if ($item->authorizedBy)
+                                    <x-avatar-with-title-subtitle :user="$item->authorizedBy">
+                                        <x-slot name="title">
+                                            {{ $item->authorizedBy->name }}
+                                        </x-slot>
+                                        <x-slot name="subtitle">
+                                            <span class="text-xs text-gray-400">
+                                                {{ $item->authorized_at->isoFormat('D MMMM YYYY, hh:mm a') }}
+                                            </span>
+                                        </x-slot>
+                                    </x-avatar-with-title-subtitle>
+                                @else
+                                    <span
+                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                        <span aria-hidden
+                                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">Sin autorizar</span>
+                                    </span>
+                                @endif
                             </p>
                         </td>
                         <td class="px-3 py-3 border-b border-gray-200 bg-white">
@@ -62,19 +75,9 @@
                                 {{ $item->status }}
                             </p>
                         </td>
-                        <td class="w-28 px-px py-3 border-b border-gray-200 bg-white">
-                            @can('ver_ordenes_mercadotecnia')
-                                <i wire:click="show( {{ $item }} )"
-                                    class="far fa-eye bg-sky-400 text-white p-2 rounded-lg hover:cursor-pointer"></i>
-                            @endcan
-                            @can('editar_ordenes_mercadotecnia')
-                                <i wire:click="edit( {{ $item }} )"
-                                    class="far fa-edit bg-blue-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
-                            @endcan
-                            @can('eliminar_ordenes_mercadotecnia')
-                                <i wire:click="$emit('confirm', {0:'marketing-order.marketing-orders', 1:'delete' ,2:{{ $item->id }}, 3:'Este proceso no se puede revertir'})"
-                                    class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
-                            @endcan
+                        <td class="px-px py-3 border-b border-gray-200 bg-white">
+                            <i wire:click="show( {{ $item }} )"
+                                class="far fa-eye bg-sky-400 text-white p-2 rounded-lg hover:cursor-pointer"></i>
                         </td>
                         <td class="py-3 border-b border-gray-200 bg-white">
                         </td>
@@ -84,13 +87,10 @@
         </x-table>
 
         <!-- show modal -->
-        @livewire('marketing-order.show-marketing-order')
-
-        <!-- edit modal -->
-        @livewire('marketing-order.edit-marketing-order')
-
-         <!-- aditional modals -->
-         @livewire('marketing-order.request-modifications')
+        @livewire('marketing.m-d-orders-show')
+        
+        <!-- aditional modales -->
+        @livewire('marketing-results.create-marketing-results')
 
     </div>
 

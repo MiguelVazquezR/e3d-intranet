@@ -35,7 +35,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     <div x-bind:class="{ 'dark': darkMode === true }" class="min-h-screen bg-gray-100">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 dark:bg-slate-900">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
