@@ -5,7 +5,7 @@
             <ul class="flex justify-center items-center pb-4" x-data="setup()">
                 <template x-for="(tab, index) in tabs" :key="index">
                     <li class="cursor-pointer text-sm py-2 px-6 text-gray-500 border-b-2"
-                        :class="activeTab === index ? 'text-black border-black' : ''"
+                        :class="activeTab === index ? 'text-black border-black dark:text-blue-600 dark:border-blue-600' : ''"
                         @click="activeTab = index; $dispatch('change-tab', index);" x-text="tab"></li>
                 </template>
             </ul>

@@ -1,6 +1,6 @@
 @props(['customer'])
 
-<div class="grid grid-cols-2 gap-2 text-xs mt-2 font-bold">
+<div class="grid grid-cols-2 gap-2 text-xs mt-2 font-bold dark:text-gray-400">
     <p>Razón social: <span class="font-normal">{{ $customer->company->bussiness_name }}</span></p>
     <p>RFC: <span class="font-normal">{{ $customer->company->rfc }}</span></p>
     <p>Sucursal: <span class="font-normal">{{ $customer->name }}</span></p>

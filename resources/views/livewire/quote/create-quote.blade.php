@@ -28,41 +28,41 @@
                 </div>
             @else
                 <div>
-                    <x-jet-label value="Cliente" class="mt-3" />
-                    <x-jet-input wire:model.defer="customer_name" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Cliente" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="customer_name" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="customer_name" class="text-xs" />
                 </div>
             @endif
             <div class="lg:grid lg:grid-cols-2 lg:gap-2">
                 <div>
-                    <x-jet-label value="¿A quien va dirigido?" class="mt-3" />
-                    <x-jet-input wire:model.defer="receiver" type="text" class="w-full mt-2" />
+                    <x-jet-label value="¿A quien va dirigido?" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="receiver" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="receiver" class="text-xs" />
                 </div>
 
                 <div>
-                    <x-jet-label value="Departamento o puesto" class="mt-3" />
-                    <x-jet-input wire:model.defer="department" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Departamento o puesto" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="department" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="department" class="text-xs" />
                 </div>
             </div>
 
             <div>
-                <x-jet-label value="Días de primera producción" class="mt-3" />
-                <x-jet-input wire:model.defer="first_production_days" type="text" class="w-full mt-2" />
+                <x-jet-label value="Días de primera producción" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="first_production_days" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="first_production_days" class="text-xs" />
             </div>
 
             <div class="grid grid-cols-3 gap-4">
                 <div>
-                    <x-jet-label value="Costo de herramental" class="mt-3" />
-                    <x-jet-input wire:model="tooling_cost" type="text" min="1" class="w-full mt-2" />
+                    <x-jet-label value="Costo de herramental" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model="tooling_cost" type="text" min="1" class="w-full mt-2 input" />
                     <x-jet-input-error for="tooling_cost" class="text-xs" />
                 </div>
 
                 <div>
-                    <x-jet-label value="Moneda" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model="tooling_currency" :options="$currencies"
+                    <x-jet-label value="Moneda" class="mt-3 dark:text-gray-400" />
+                    <x-select class="mt-2 w-full input" wire:model="tooling_currency" :options="$currencies"
                         default="No colocar moneda" id="name" />
                 </div>
                 <!-- strikethrough tolling cost -->
@@ -73,7 +73,7 @@
                             class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
                     </div>
                     <div class="text-sm ml-3">
-                        <label for="strikethrough" class="font-medium text-gray-800">Tachar costo</label>
+                        <label for="strikethrough" class="font-medium text-gray-800 dark:text-gray-400">Tachar costo</label>
                         @if ($strikethrough_tooling_cost)
                             <div class="text-gray-500">
                                 <span class="font-normal text-xs line-through">{{ $tooling_cost }}
@@ -87,20 +87,20 @@
                     </div>
                 </div>
                 <div class="col-span-2">
-                    <x-jet-label value="Costo de logística" class="mt-3" />
-                    <x-jet-input wire:model.defer="freight_cost" type="text" min="1" class="w-full mt-2" />
+                    <x-jet-label value="Costo de logística" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="freight_cost" type="text" min="1" class="w-full mt-2 input" />
                     <x-jet-input-error for="freight_cost" class="text-xs" />
                 </div>
 
                 <div>
-                    <x-jet-label value="Moneda" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="freight_currency" :options="$currencies"
+                    <x-jet-label value="Moneda" class="mt-3 dark:text-gray-400" />
+                    <x-select class="mt-2 w-full input" wire:model.defer="freight_currency" :options="$currencies"
                         default="No colocar moneda" id="name" />
                 </div>
             </div>
 
-            <x-jet-label value="Productos cotizados en" class="mt-3" />
-            <x-select class="mt-2 w-1/2" wire:model.defer="currency_id" :options="$currencies" />
+            <x-jet-label value="Productos cotizados en" class="mt-3 dark:text-gray-400" />
+            <x-select class="mt-2 w-1/2 input" wire:model.defer="currency_id" :options="$currencies" />
 
             <x-jet-secondary-button class="ml-2 rounded-full"
                 wire:click="$emitTo('currency.create-currency', 'openModal')">
@@ -122,7 +122,7 @@
                         <img class="rounded-2xl" src="{{ Storage::url($selected_product->image) }}">
 
                         <div class="mt-4 text-sm" x-data="{ toggle: @entangle('show_image') }">
-                            <x-jet-label value="Mostrar imagen" class="my-2" />
+                            <x-jet-label value="Mostrar imagen" class="my-2 dark:text-gray-400" />
                             <div @click="toggle == 0 ? toggle = 1 : toggle = 0"
                                 class="relative rounded-full w-10 h-5 transition duration-300 ease-linear"
                                 :class="[toggle == 1 ? 'bg-green-400' : 'bg-gray-300']">
@@ -158,25 +158,25 @@
                             </div>
                         </div>
                         <div class="md:w-5/12 md:inline-block">
-                            <x-jet-label value="Cantidad a cotizar" class="mt-3" />
+                            <x-jet-label value="Cantidad a cotizar" class="mt-3 dark:text-gray-400" />
                             <x-jet-input wire:model.defer="quantity" type="number" min="1"
-                                class="w-full mt-2" />
+                                class="w-full mt-2 input" />
                             <x-jet-input-error for="quantity" class="text-xs" />
                         </div>
                         <div class="md:w-5/12 md:inline-block">
-                            <x-jet-label value="Precio por unidad" class="mt-3" />
+                            <x-jet-label value="Precio por unidad" class="mt-3 dark:text-gray-400" />
                             <x-jet-input wire:model.defer="price" type="number" min="1"
-                                class="w-full mt-2" />
+                                class="w-full mt-2 input" />
                             <x-jet-input-error for="price" class="text-xs" />
                         </div>
                         <div>
-                            <x-jet-label value="Notas" class="mt-3" />
+                            <x-jet-label value="Notas" class="mt-3 dark:text-gray-400" />
                             <textarea wire:model.defer="product_notes" rows="2"
-                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                                class="dark:bg-slate-700 dark:border-slate-500 dark:text-gray-300 dark:focus:border-indigo-700 dark:focus:ring-opacity-70 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                             <x-jet-input-error for="product_notes" class="mt-3" />
                         </div>
                         <div class="mt-3">
-                            <x-jet-label value="Imagenes adicionales" />
+                            <x-jet-label value="Imagenes adicionales" class="dark:text-gray-400" />
                             <input type="file" id="images" wire:model.defer="images"
                                 placeholder="Choose images" multiple>
                         </div>
@@ -217,9 +217,9 @@
                 </x-item-list>
             @endforeach
             <div>
-                <x-jet-label value="Notas" class="mt-3" />
+                <x-jet-label value="Notas" class="mt-3 dark:text-gray-400" />
                 <textarea wire:model.defer="notes" rows="5"
-                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    class="dark:bg-slate-700 dark:border-slate-500 dark:text-gray-300 dark:focus:border-indigo-700 dark:focus:ring-opacity-70 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                 <x-jet-input-error for="notes" class="text-xs" />
             </div>
 

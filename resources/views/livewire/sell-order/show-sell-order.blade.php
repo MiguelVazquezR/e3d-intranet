@@ -5,7 +5,7 @@
             <ul class="flex justify-center items-center pb-4" x-data="setup()">
                 <template x-for="(tab, index) in tabs" :key="index">
                     <li class="cursor-pointer text-sm py-2 px-6 text-gray-500 border-b-2"
-                        :class="activeTab === index ? 'text-black border-black' : ''"
+                        :class="activeTab === index ? 'text-black border-black dark:text-blue-700 dark:border-blue-700' : ''"
                         @click="activeTab = index; $dispatch('change-tab', index);" x-text="tab"></li>
                 </template>
             </ul>
@@ -102,7 +102,7 @@
 
                     <!-- Products -->
                     <div x-show="activeTab == 1">
-                        <h2 class="text-lg text-gray-800"> {{ $sell_order->sellOrderedProducts->count() }} productos
+                        <h2 class="text-lg text-gray-800 dark:text-gray-300"> {{ $sell_order->sellOrderedProducts->count() }} productos
                         </h2>
                         <div class="grid-cols-1 md:grid md:grid-cols-2 md:gap-3 mt-2 text-sm">
                             @foreach ($sell_order->sellOrderedProducts as $s_o_p)
@@ -112,7 +112,7 @@
                                     @endphp
                                     <x-simple-product-card :simpleProduct="$product">
                                         {{-- operators --}}
-                                        <div class="mt-1 text-gray-700 border-t-2 pt-2">Operadores asignados:
+                                        <div class="mt-1 text-gray-700 dark:text-gray-400 border-t-2 pt-2">Operadores asignados:
                                             <ul>
                                                 @forelse($s_o_p->activityDetails as $activity_details)
                                                     <li class="text-gray-500 flex justify-between items-center">
@@ -172,10 +172,10 @@
                                             </p>
                                         </div>
 
-                                        <div class="flex justify-between mt-1 text-gray-700">
+                                        <div class="flex justify-between mt-1 text-gray-700 dark:text-gray-600">
                                             <span>{{ $s_o_p->quantity }} unidades ordenadas</span>
                                             <span
-                                                class="text-xs p-1 bg-blue-100 rounded-full">{{ $s_o_p->status }}</span>
+                                                class="text-xs p-1 bg-blue-100 dark:bg-blue-300 rounded-full">{{ $s_o_p->status }}</span>
                                         </div>
                                     </x-simple-product-card>
                                 @else

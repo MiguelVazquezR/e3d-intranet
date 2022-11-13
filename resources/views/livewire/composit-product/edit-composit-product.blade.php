@@ -6,23 +6,23 @@
 
         <x-slot name="content">
             <div>
-                <x-jet-label value="Nombre" class="mt-1" />
-                <x-jet-input wire:model.defer="composit_product.alias" type="text" class="w-full mt-2" />
+                <x-jet-label value="Nombre" class="mt-1 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="composit_product.alias" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="composit_product.alias" class="text-xs" />
             </div>
 
             <div class="mb-4">
-                <x-jet-label value="Estado" class="mt-3" />
-                <x-select class="mt-2 w-3/4" wire:model.defer="composit_product.product_status_id" :options="$statuses" />
-                <x-jet-secondary-button class="ml-2 rounded-full" wire:click="$emitTo('product-status.create-product-status', 'openModal')">
+                <x-jet-label value="Estado" class="mt-3 dark:text-gray-400" />
+                <x-select class="mt-2 w-3/4 input" wire:model.defer="composit_product.product_status_id" :options="$statuses" />
+                <x-jet-secondary-button class="ml-2 rounded-full input" wire:click="$emitTo('product-status.create-product-status', 'openModal')">
                     <i class="fas fa-plus"></i>
                 </x-jet-secondary-button>
                 <x-jet-input-error for="composit_product.product_status_id" class="text-xs" />
             </div>
 
             <div class="mb-4">
-                <x-jet-label value="Familia" class="mt-3" />
-                <x-select class="mt-2 w-full" wire:model.defer="composit_product.product_family_id" :options="$families" />
+                <x-jet-label value="Familia" class="mt-3 dark:text-gray-400" />
+                <x-select class="mt-2 w-full input" wire:model.defer="composit_product.product_family_id" :options="$families" />
                 <x-jet-input-error for="composit_product.product_family_id" class="text-xs" />
             </div>
 
@@ -58,15 +58,15 @@
                         </div>
                     </div>
                     <div>
-                        <x-jet-label value="Cantidad para armar producto" class="mt-3" />
+                        <x-jet-label value="Cantidad para armar producto" class="mt-3 dark:text-gray-400" />
                         <div class="flex items-center">
-                            <x-jet-input wire:model.defer="quantity" type="number" min="1" class="w-1/2 mt-2" />
+                            <x-jet-input wire:model.defer="quantity" type="number" min="1" class="w-1/2 mt-2 input" />
                             <span class="w-1/2 ml-2 text-gray-600 text-sm">{{ $selected_product->unit->name }}</span>
                         </div>
                         <x-jet-input-error for="quantity" class="text-xs" />
                     </div>
                     <div>
-                        <x-jet-label value="Características adicionales o personalización" class="mt-3" />
+                        <x-jet-label value="Características adicionales o personalización" class="mt-3 dark:text-gray-400" />
                         <textarea wire:model.defer="notes" rows="2" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                         <x-jet-input-error for="notes" class="text-xs" />
                     </div>

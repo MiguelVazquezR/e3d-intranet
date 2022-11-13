@@ -1,4 +1,4 @@
-<div class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+<div class="dark:text-gray-400 dark:hover:text-gray-300 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
     <div wire:loading wire:target="createReminder">
         <x-loading-indicator />
     </div>
