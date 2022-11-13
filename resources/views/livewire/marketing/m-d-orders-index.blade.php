@@ -88,8 +88,9 @@
 
         <!-- show modal -->
         @livewire('marketing.m-d-orders-show')
-
+        
         <!-- aditional modales -->
+        @livewire('marketing-results.create-marketing-results')
 
     </div>
 
