@@ -25,9 +25,9 @@
                         <p class="col-span-2">Dirección: <span class="font-normal">{{ $supplier->address }} -
                                 C.P.{{ $supplier->post_code }}</span></p>
                         <div class="col-span-2 flex flex-col">
-                            <x-jet-label value="Contacto" class="mt-3" />
+                            <x-jet-label value="Contacto" class="mt-3 dark:text-gray-400" />
                             @foreach ($supplier->contacts as $contact)
-                                <label class="flex items-center radio cursor-pointer">
+                                <label class="flex items-center radio cursor-pointer dark:text-gray-400">
                                     <input wire:model="contact_id" value="{{ $contact->id }}" type="radio"
                                         name="for" />
                                     <div class="px-2">
@@ -58,13 +58,13 @@
             <h2 class="text-center font-bold text-lg text-sky-600 mt-2">Logística</h2>
             <div class="lg:grid lg:grid-cols-2 lg:gap-2">
                 <div>
-                    <x-jet-label value="Paquetería" class="mt-3" />
-                    <x-jet-input wire:model.defer="shipping_company" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Paquetería" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="shipping_company" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="shipping_company" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Guía" class="mt-3" />
-                    <x-jet-input wire:model.defer="tracking_guide" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Guía" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="tracking_guide" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="tracking_guide" class="text-xs" />
                 </div>
             </div>
@@ -72,8 +72,8 @@
             <!-- order data -->
             <h2 class="text-center font-bold text-lg text-sky-600 mt-3">Datos de la orden</h2>
             <div>
-                <x-jet-label value="Fecha esperada de entrega" class="mt-3" />
-                <x-jet-input wire:model.defer="expected_delivery_at" type="date" class="w-full mt-2" />
+                <x-jet-label value="Fecha esperada de entrega" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="expected_delivery_at" type="date" class="w-full mt-2 input" />
                 <x-jet-input-error for="expected_delivery_at" class="text-xs" />
             </div>
 
@@ -96,9 +96,9 @@
                 </x-item-list>
             @endforeach
             <div class="mt-2">
-                <x-jet-label value="Notas" />
+                <x-jet-label value="Notas" class="dark:text-gray-400" />
                 <textarea wire:model.defer="notes" rows="3"
-                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    class="dark:bg-slate-700 dark:border-slate-500 dark:text-gray-300 dark:focus:border-indigo-700 dark:focus:ring-opacity-70 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                 <x-jet-input-error for="notes" class="text-xs" />
             </div>
             {{-- <label class="inline-flex items-center mt-3 text-xs">

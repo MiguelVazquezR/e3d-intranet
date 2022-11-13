@@ -28,59 +28,59 @@
             @else
                 <div class="lg:grid lg:grid-cols-2 lg:gap-3">
                     <div>
-                        <x-jet-label value="Cliente" class="mt-3" />
-                        <x-jet-input wire:model.defer="customer_name" type="text" class="w-full mt-2" />
+                        <x-jet-label value="Cliente" class="mt-3 dark:text-gray-400" />
+                        <x-jet-input wire:model.defer="customer_name" type="text" class="w-full mt-2 input" />
                         <x-jet-input-error for="customer_name" class="text-xs" />
                     </div>
                     <div>
-                        <x-jet-label value="Contacto" class="mt-3" />
-                        <x-jet-input wire:model.defer="contact_name" type="text" class="w-full mt-2" />
+                        <x-jet-label value="Contacto" class="mt-3 dark:text-gray-400" />
+                        <x-jet-input wire:model.defer="contact_name" type="text" class="w-full mt-2 input" />
                         <x-jet-input-error for="contact_name" class="text-xs" />
                     </div>
                 </div>
             @endif
             <div>
-                <x-jet-label value="Diseñador(a)" class="mt-3" />
-                <x-select class="mt-2 w-full" wire:model.defer="designer_id" :options="$designers" />
+                <x-jet-label value="Diseñador(a)" class="mt-3 dark:text-gray-400" />
+                <x-select class="mt-2 w-full input" wire:model.defer="designer_id" :options="$designers" />
                 <x-jet-input-error for="designer_id" class="text-xs" />
             </div>
             <div class="lg:grid lg:grid-cols-2 lg:gap-3">
                 <div>
-                    <x-jet-label value="Nombre del diseño" class="mt-3" />
-                    <x-jet-input wire:model.defer="design_name" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Nombre del diseño" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="design_name" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="design_name" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Clasificación" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="design_type_id" :options="$design_types" />
+                    <x-jet-label value="Clasificación" class="mt-3 dark:text-gray-400" />
+                    <x-select class="mt-2 w-full input" wire:model.defer="design_type_id" :options="$design_types" />
                     <x-jet-input-error for="design_type_id" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Medidas" class="mt-3" />
+                    <x-jet-label value="Medidas" class="mt-3 dark:text-gray-400" />
                     <x-jet-input wire:model.defer="dimentions" placeholder="ancho X largo X alto" type="text"
-                        class="w-full mt-2 placeholder:text-xs" />
+                        class="w-full mt-2 placeholder:text-xs input" />
                     <x-jet-input-error for="dimentions" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Unidad" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="measurement_unit_id" :options="$units" />
+                    <x-jet-label value="Unidad" class="mt-3 dark:text-gray-400" />
+                    <x-select class="mt-2 w-full input" wire:model.defer="measurement_unit_id" :options="$units" />
                     <x-jet-input-error for="measurement_unit_id" class="text-xs" />
                 </div>
                 <div class="col-span-2">
-                    <x-jet-label value="Pantones" class="mt-3" />
-                    <x-jet-input wire:model.defer="pantones" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Pantones" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="pantones" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="pantones" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Datos" class="mt-3" />
+                    <x-jet-label value="Datos" class="mt-3 dark:text-gray-400" />
                     <textarea wire:model.defer="design_data" rows="5"
-                        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                        class="input !h-[6rem] w-full"></textarea>
                     <x-jet-input-error for="design_data" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Requerimientos/especificaciones" class="mt-3" />
+                    <x-jet-label value="Requerimientos/especificaciones" class="mt-3 dark:text-gray-400" />
                     <textarea wire:model.defer="especifications" rows="5"
-                        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                        class="input !h-[6rem] w-full"></textarea>
                     <x-jet-input-error for="especifications" class="text-xs" />
                 </div>
                 <x-image-uploader :image="$plans_image" :imageExtensions="$image_extensions" :imageId="$plans_image_id" label="Imagen de plano"

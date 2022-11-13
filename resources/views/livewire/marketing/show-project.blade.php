@@ -15,7 +15,7 @@
             @if ($project)
                 <div>
                     <x-jet-label value="Objetivo(s)" />
-                    <div class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">{!! $project->objective !!}
+                    <div class="px-4 py-2 text-sm dark:bg-blue-300 dark:text-blue-700 bg-blue-100 text-gray-700 shadow-lg rounded-lg">{!! $project->objective !!}
                     </div>
                 </div>
                 <div class="lg:grid grid-cols-3 gap-x-2">
@@ -61,7 +61,7 @@
                     <div
                         class="overflow-auto max-h-72 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
                         <table class="min-w-full text-xs">
-                            <thead class="bg-white border">
+                            <thead class="bg-white border dark:bg-slate-700 dark:text-gray-400">
                                 <tr class="text-left">
                                     <th class="p-3">Tarea</th>
                                     <th class="p-3">Fecha estimada de término</th>
@@ -71,7 +71,7 @@
                             <tbody>
                                 @foreach ($tasks as $task)
                                     <tr x-data="{ tooltip_open: false }"
-                                        class="relative border border-opacity-20 border-gray-700 bg-white">
+                                        class="relative border border-opacity-20 border-gray-700 bg-white dark:bg-slate-700 dark:border-slate-500 dark:text-gray-400">
                                         <td class="p-3">
                                             <p>
                                                 {{ $task->description }}
@@ -83,7 +83,7 @@
                                         <td class="p-3">
                                             @foreach ($task->users as $user)
                                                 <div title="{{ $user->pivot->finished_at ? 'Tarea completada' : 'Tarea sin completar' }}"
-                                                    class="flex justify-between items-center text-xs rounded lg:rounded-full px-2 py-px {{ $user->pivot->finished_at ? 'bg-green-100' : 'bg-blue-100' }} text-gray-600 mt-1">
+                                                    class="flex justify-between items-center text-xs rounded lg:rounded-full px-2 py-px {{ $user->pivot->finished_at ? 'bg-green-100 dark:bg-green-300' : 'dark:bg-blue-300 bg-blue-100' }} text-gray-600 mt-1">
                                                     @if ($user->pivot->finished_at)
                                                         <i class="fas fa-check text-green-400 mr-2"></i>
                                                         <div class="flex flex-col">
@@ -108,7 +108,7 @@
                                                     @endif
                                                     @if ($project->authorizedBy && auth()->user()->id == $user->id && !$user->pivot->finished_at)
                                                         <span @click="tooltip_open = !tooltip_open"
-                                                            class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full text-blue-400 bg-blue-100 border-blue-400 border"
+                                                            class="flex items-center justify-center cursor-pointer w-4 h-4 rounded-full text-blue-400 dark:text-blue-900 dark:bg-blue-300 dark:border-blue-700 bg-blue-100 border-blue-400 border"
                                                             title="Marcar como terminada">
                                                             <i class="fas fa-angle-up" style="font-size: 10px;"></i>
                                                         </span>
@@ -154,8 +154,8 @@
                 {{-- feedback --}}
                 @if (auth()->user()->can('autorizar_proyectos_mercadotecnia'))
                     <div wire:ignore>
-                        <x-jet-label value="Dejar comentarios" class="mt-3" />
-                        <textarea wire:model="project.feedback" rows="3" class="w-full border-gray-300"></textarea>
+                        <x-jet-label value="Dejar comentarios" class="mt-3 dark:text-gray-400" />
+                        <textarea wire:model="project.feedback" rows="3" class="w-full border-gray-300 input !h-[6rem]"></textarea>
                     </div>
                     {{-- buttons --}}
                     <div>
@@ -165,9 +165,9 @@
                         </button>
                     </div>
                 @else
-                    <x-jet-label value="Comentarios" class="mt-3" />
+                    <x-jet-label value="Comentarios" class="mt-3 dark:text-gray-400" />
                     <div
-                        class="{{ $project->feedback ? 'px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg' : 'text-gray-400 text-xs' }} mb-2">
+                        class="{{ $project->feedback ? 'px-4 py-2 text-sm dark:bg-blue-300 bg-blue-100 text-gray-700 shadow-lg rounded-lg' : 'text-gray-400 text-xs' }} mb-2">
                         {{ $project->feedback ?? 'No hay comentarios de retroalimentación' }}</div>
                 @endif
             @endif

@@ -1,6 +1,6 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-400 leading-tight flex justify-between">
             <div class="flex items-center">
                 <i class="fas fa-photo-video mr-2"></i>
                 Biblioteca de medios
@@ -13,11 +13,11 @@
         <div>
             @if ($current_path !== 'ML-index')
                 <button wire:click="back" class="text-blue-500 ">
-                    <i class="fas fa-long-arrow-alt-left text-lg mr-2"></i>
+                    <i class="fas fa-long-arrow-alt-left text-lg mr-2 dark:text-gray-400"></i>
                     atrás
                 </button>
             @endif
-            <span class="ml-6 font-semibold"><i class="fas fa-home" title="Inicio"></i> {{ $this->currentPath }}</span>
+            <span class="ml-6 font-semibold dark:text-gray-400"><i class="fas fa-home" title="Inicio"></i> {{ $this->currentPath }}</span>
         </div>
         @can('crear_medios')
             <div>
@@ -28,7 +28,7 @@
         @endcan
     </div>
     <div class="w-11/12 lg:w-3/4 mx-auto">
-        <x-jet-input class="w-full placeholder:text-xs" wire:model="search" type="search" name="search"
+        <x-jet-input class="w-full placeholder:text-xs input" wire:model="search" type="search" name="search"
             placeholder="Escribe el nombre del archivo..." />
     </div>
     <div class="py-4 px-12">
@@ -51,10 +51,10 @@
                                         <img src="{{ $media->getUrl() }}" class="rounded-lg">
                                     </figure>
                                 @else
-                                    <i class="fas fa-file text-gray-400 text-2xl mr-2"></i>
+                                    <i class="fas fa-file dark:text-gray-200 text-gray-400 text-2xl mr-2"></i>
                                 @endif
-                                <span class="text-gray-700 text-xs">{{ $media->name }}</span> <br>
-                                <span class="text-gray-500 text-xs"><i
+                                <span class="text-gray-700 text-xs dark:text-gray-600">{{ $media->name }}</span> <br>
+                                <span class="text-gray-500 text-xs dark:text-gray-400"><i
                                         class="fas fa-home"></i>/{{ $path }}</span>
                             </a>
                         </div>
@@ -75,9 +75,9 @@
                         {{-- <x-media-file :next-folder="$next_folder" :media="$all_media" /> --}}
                         <div>
                             <i wire:click="openFolder('{{ $next_folder }}')"
-                                class="fas fa-folder mr-2 text-3xl text-blue-300 cursor-pointer"></i>
+                                class="fas fa-folder mr-2 text-3xl dark:text-blue-400 text-blue-300 cursor-pointer"></i>
                             <span wire:click="openFolder('{{ $next_folder }}')"
-                                class="text-gray-700 text-xs cursor-pointer">{{ $next_folder }}</span>
+                                class="text-gray-700 dark:text-gray-500 text-xs cursor-pointer">{{ $next_folder }}</span>
                             @can('editar_medios')
                                 <i wire:click="openRenameModal('{{  $current_path.'/'.$next_folder }}')"
                                     class="fas fa-pen ml-1 text-gray-400 hover:text-blue-400 text-[11px] cursor-pointer"></i>

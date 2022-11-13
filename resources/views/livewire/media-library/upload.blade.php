@@ -13,12 +13,12 @@
                 No uses el caracter "/" en el nombre o no se podrá mostrar la carpeta.
             </p>
             <div class="mt-3">
-                <x-jet-label value="Sub-carpeta" />
-                <x-jet-input wire:model.defer="sub_folder" type="text" class="w-full" />
+                <x-jet-label class="dark:text-gray-400" value="Sub-carpeta" />
+                <x-jet-input wire:model.defer="sub_folder" type="text" class="w-full input" />
             </div>
             <div class="mt-3">
-                <x-jet-label value="Archivo(s)" />
-                <input wire:model.defer="files" id="{{$files_id}}" type="file" class="text-sm" multiple />
+                <x-jet-label class="dark:text-gray-400" value="Archivo(s)" />
+                <input wire:model.defer="files" id="{{$files_id}}" type="file" class="text-sm input" multiple />
                 <div wire:loading wire:target="files" class="p-8 flex justify-center items-center">
                     <i class="fas fa-circle-notch animate-spin text-sm text-gray-400"></i>
                     <span class="text-gray-400">cargando archivo(s)...</span>

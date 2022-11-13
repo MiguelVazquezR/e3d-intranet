@@ -15,19 +15,19 @@
 
         <x-slot name="content">
             <div>
-                <x-jet-label value="Nombre del proyecto" class="mt-3" />
-                <x-jet-input wire:model.defer="project_name" type="text" class="w-full mt-2" />
+                <x-jet-label value="Nombre del proyecto" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="project_name" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="project_name" class="text-xs" />
             </div>
             <x-jet-input-error for="objective" class="text-xs" />
             <div>
-                <x-jet-label value="Costo de desarrollo ($MXN)" class="mt-3" />
-                <x-jet-input wire:model.defer="project_cost" type="number" class="w-full mt-2" />
+                <x-jet-label value="Costo de desarrollo ($MXN)" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="project_cost" type="number" class="w-full mt-2 input" />
                 <x-jet-input-error for="project_cost" class="text-xs" />
             </div>
             <div wire:ignore>
-                <x-jet-label value="Objetivos" class="mt-3" />
-                <textarea id="editor-cmp" wire:model.defer="objective" rows="3"></textarea>
+                <x-jet-label value="Objetivos" class="mt-3 dark:text-gray-400" />
+                <textarea class="input !h-[6rem]" id="editor-cmp" wire:model.defer="objective" rows="3"></textarea>
             </div>
             {{-- marketing tasks --}}
             <h2 class="mt-2 mb-1 text-gray-500 text-lg font-semibold">Tareas del proyecto</h2>
@@ -38,20 +38,20 @@
                    {{ explode('T',$task['estimated_finish'])[0] .' '. explode('T',$task['estimated_finish'])[1] }}
                 </li>
             @endforeach
-            <div class="lg:grid grid-cols-2 gap-x-2 bg-gray-100 shadow-lg px-2 py-1 rounded-md mt-2">
+            <div class="lg:grid grid-cols-2 gap-x-2 dark:bg-slate-800 bg-gray-100 shadow-lg px-2 py-1 rounded-md mt-2">
                 <div class="mt-2">
-                    <x-jet-label value="Tarea" />
-                    <x-jet-input wire:model.defer="description" type="text" class="w-full" />
+                    <x-jet-label class="dark:text-gray-400" value="Tarea" />
+                    <x-jet-input wire:model.defer="description" type="text" class="w-ful inputl input" />
                     <x-jet-input-error for="description" class="text-xs" />
                 </div>
                 <div class="mt-2">
-                    <x-jet-label value="Estimado de término" />
-                    <x-jet-input wire:model.defer="estimated_finish" type="datetime-local" class="w-full" />
+                    <x-jet-label class="dark:text-gray-400" value="Estimado de término" />
+                    <x-jet-input wire:model.defer="estimated_finish" type="datetime-local" class="w-full input" />
                     <x-jet-input-error for="estimated_finish" class="text-xs" />
                 </div>
                 <div class="mt-2">
-                    <x-jet-label value="Involucrados" />
-                    <select class="input w-full" wire:model="user_id">
+                    <x-jet-label class="dark:text-gray-400" value="Involucrados" />
+                    <select class="input w-full input" wire:model="user_id">
                         <option value="" selected>-- Seleccione --</option>
                         <option value="all">Todos</option>
                         @forelse($users as $user)

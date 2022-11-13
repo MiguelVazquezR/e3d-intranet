@@ -43,11 +43,11 @@
                 @endif
                 <div class="my-3">
                     <x-jet-label value="Lista de participantes" class="mt-3" />
-                    <span class="text-xs rounded-full px-2 py-px bg-green-100 text-gray-600 mr-2 mt-2">
+                    <span class="text-xs rounded-full px-2 py-px dark:bg-green-300 bg-green-100 text-gray-600 mr-2 mt-2">
                         {{ $meeting->creator->name }} (creador de la reunión)
                     </span><br>
                     @foreach ($meeting->participants as $participant)
-                        <span class="text-xs rounded-full px-2 py-px bg-blue-100 text-gray-600 mr-2 mt-2">
+                        <span class="text-xs rounded-full px-2 py-px dark:bg-blue-300 bg-blue-100 text-gray-600 mr-2 mt-2">
                             {{ $participant->user->name }}
                         </span>
                     @endforeach

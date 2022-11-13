@@ -7,8 +7,8 @@
 
         <x-slot name="content">
             <div class="mt-3">
-                <x-jet-label value="Nombre" />
-                <x-jet-input wire:model.defer="name" type="text" class="w-full" />
+                <x-jet-label class="dark:text-gray-400" value="Nombre" />
+                <x-jet-input wire:model.defer="name" type="text" class="w-full input" />
             </div>
             <x-jet-input-error for="name" class="text-xs" />
         </x-slot>

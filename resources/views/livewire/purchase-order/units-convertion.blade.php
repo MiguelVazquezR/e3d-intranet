@@ -7,7 +7,7 @@
         <x-slot name="content">
             <!-- banner -->
             <div x-data="{ open: true }" x-show="open"
-                class="w-full flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                class="w-full flex justify-between mx-auto dark:bg-blue-300 dark:text-blue-900 bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
                 role="alert">
                 <div class="flex">
                     <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
