@@ -1,6 +1,6 @@
 <div {{$attributes}}>
     @if($show_alerts)
-    <div x-data="{open: true}" x-show="open" class="flex justify-between bg-green-100 rounded-lg p-4 mb-4 text-sm font-medium text-green-700" role="alert">
+    <div x-data="{open: true}" x-show="open" class="flex justify-between dark:bg-green-300 bg-green-100 rounded-lg p-4 mb-4 text-sm font-medium text-green-700" role="alert">
         <div class="w-11/12 flex">
             <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
             <div>
@@ -14,7 +14,7 @@
     </div>
     @endif
 
-    <div wire:loading wire:target="{{ $model }}" class="w-full flex items-center bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700 font-medium" role="alert">
+    <div wire:loading wire:target="{{ $model }}" class="w-full flex items-center dark:bg-red-300 bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700 font-medium" role="alert">
         <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
         <div>
             <span class="font-extrabold">Imagen cargando:</span> Espere un momento por favor, la imagen está procesandose.
@@ -26,7 +26,7 @@
         @if(in_array($image->extension(), $image_extensions))
         <img class="rounded-2xl" src="{{ $image->temporaryUrl() }}">
         @else
-        <div class="rounded-2xl bg-red-100 text-red-700 flex justify-center items-center p-4">
+        <div class="rounded-2xl dark:bg-red-300 bg-red-100 text-red-700 flex justify-center items-center p-4">
             <p class="text-sm">El archivo seleccionado no es una imagen</p>
         </div>
         @endif

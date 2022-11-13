@@ -1,6 +1,6 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-400 leading-tight flex justify-between">
             <div class="flex items-center">
                 <i class="fas fa-file-invoice-dollar mr-2"></i>
                 Cotizaciones
@@ -17,12 +17,12 @@
 
         <!-- inputs -->
         <div class="w-11/12 lg:w-3/4 mx-auto">
-            <x-jet-input class="w-full placeholder:text-xs" wire:model="search" type="text" name="search"
+            <x-jet-input class="w-full placeholder:text-xs input" wire:model="search" type="text" name="search"
                 placeholder="Escribe el ID, creador o cliente" />
         </div>
         <div class="w-3/4 mx-auto flex justify-between pt-8">
             <div>
-                <span class="mr-2 text-sm">Mostrar</span>
+                <span class="mr-2 text-sm text-gray-400">Mostrar</span>
                 <select class="mt-2 input" wire:model="elements">
                     <option value="10" selected>10</option>
                     <option value="25">25</option>
@@ -37,18 +37,18 @@
             <x-slot name="body">
                 @foreach ($quotes as $item)
                     <tr>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-300">
                                 {{ $item->id }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-300">
                                 {{ $item->creator->name }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-300">
                                 @if ($item->customer)
                                     {{ $item->customer->name }}
                                 @else
@@ -56,8 +56,8 @@
                                 @endif
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-300">
                                 @if ($item->authorized_by)
                                     <span
                                         class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
@@ -79,10 +79,10 @@
                                 @endif
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
+                        <td class="px-3 py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
                             {{ $item->created_at->diffForHumans() }}
                         </td>
-                        <td class="w-28 px-px py-3 border-b border-gray-200 bg-white">
+                        <td class="w-28 px-px py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
                             @can('ver_cotizaciones')
                                 @php
                                    $hash = ($item->id + 990) * 480 + 880; 
@@ -99,7 +99,7 @@
                                     class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
                             @endcan
                         </td>
-                        <td class="py-3 border-b border-gray-200 bg-white">
+                        <td class="py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
                             @can('más_acciones_cotizaciones')
                                 <x-jet-dropdown align="right" width="48">
                                     <x-slot name="trigger">

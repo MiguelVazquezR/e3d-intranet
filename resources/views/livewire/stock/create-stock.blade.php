@@ -28,14 +28,14 @@
 
             <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <x-jet-label value="Cantidad" class="mt-3" />
-                    <x-jet-input wire:model.defer="quantity" type="number" min="1" class="w-full mt-2" />
+                    <x-jet-label value="Cantidad" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="quantity" type="number" min="1" class="w-full mt-2 input" />
                     <x-jet-input-error for="quantity" class="text-xs" />
                 </div>
 
                 <div class="mb-3">
-                    <x-jet-label value="Ubicación" class="mt-3" />
-                    <x-jet-input wire:model.defer="location" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Ubicación" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="location" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="location" class="text-xs" />
                 </div>
             </div>

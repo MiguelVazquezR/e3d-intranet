@@ -37,7 +37,7 @@
       </div>
 
       <!-- banner -->
-      <div x-data="{open: true}" x-show="open" class="w-11/12 flex justify-between mx-auto bg-orange-100 rounded-lg p-4 my-6 text-sm font-medium text-orange-700" role="alert">
+      <div x-data="{open: true}" x-show="open" class="w-11/12 flex justify-between mx-auto bg-orange-100 dark:bg-orange-200 rounded-lg p-4 my-6 text-sm font-medium text-orange-700" role="alert">
          <div class="w-11/12 flex">
             <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
             <div>
