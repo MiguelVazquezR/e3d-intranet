@@ -33,4 +33,5 @@ class MarketingOrderResult extends Model
     {
         return $this->belongsTo(Media::class);
     }
+
 }

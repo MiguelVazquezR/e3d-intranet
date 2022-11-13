@@ -139,7 +139,9 @@
                             <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
                                 ? Storage::url($design_result->image)
                                 : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
-                                <span class="text-gray-500">{{ $design_result->notes }}</span>
+                                <span class="text-gray-500 w-2/3">{{ $design_result->notes }}</span>
+                                <strong class="text-gray-600 text-xs w-1/3 ml-2 border-l pl-2">subido el
+                                    ({{ $design_result->created_at->isoFormat('DD MMM, YYYY - hh:mm a') }})</strong>
                             </x-item-quick-view>
                         </div>
                     @endforeach

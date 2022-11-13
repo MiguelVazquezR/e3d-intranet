@@ -4,7 +4,7 @@
     <div class="flex items-center text-sm">
         @if($image)
         <a href="{{$src}}" target="_blank" class="mr-2 hover:cursor-pointer">
-            <img class="h-8 w-8 md:h-10 md:w-10 rounded-full" src="{{$image}}">
+            <img class="h-8 w-8 md:h-10 md:w-10 rounded-full dark:bg-gray-200" src="{{$image}}">
         </a>
         @endif
         <span class="{{$name_bolded ? 'font-bold' : ''}} mr-2">{{ $name }}</span>
