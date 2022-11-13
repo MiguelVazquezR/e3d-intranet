@@ -14,21 +14,21 @@
         <x-slot name="content">
             <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <x-jet-label value="Operador" class="mt-3" />
-                    <x-select class="mt-2 w-full" wire:model.defer="user_id" :options="$operators" />
+                    <x-jet-label value="Operador" class="mt-3 dark:text-gray-400" />
+                    <x-select class="mt-2 w-full input" wire:model.defer="user_id" :options="$operators" />
                     <x-jet-input-error for="user_id" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Tiempo estimado" class="mt-3" />
-                    <x-jet-input wire:model.defer="estimated_time" type="number" class="w-1/2 mt-2" />
+                    <x-jet-label value="Tiempo estimado" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="estimated_time" type="number" class="w-1/2 mt-2 input" />
                     <span class="ml-1">Minutos</span>
                     <x-jet-input-error for="estimated_time" class="text-xs" />
                 </div>
             </div>
             <div class="mt-2">
-                <x-jet-label value="Indicaciones" />
+                <x-jet-label value="Indicaciones" class="dark:text-gray-400" />
                 <textarea wire:model.defer="indications" rows="3"
-                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    class="dark:bg-slate-700 dark:border-slate-500 dark:text-gray-300 dark:focus:border-indigo-700 dark:focus:ring-opacity-70 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
                 <x-jet-input-error for="indications" class="text-xs" />
             </div>
             @if (is_null($edit_index))
