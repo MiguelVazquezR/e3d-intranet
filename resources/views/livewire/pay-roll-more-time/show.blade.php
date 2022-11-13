@@ -20,7 +20,7 @@
             
             <div class="mt-3">
                 <x-jet-label value="Descripción de actividades" />
-                <div class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">
+                <div class="px-4 py-2 text-sm dark:bg-blue-300 bg-blue-100 text-gray-700 shadow-lg rounded-lg">
                     {!! $request->report !!}
                 </div>
             </div>

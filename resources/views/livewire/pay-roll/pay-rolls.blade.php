@@ -1,6 +1,6 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-400 leading-tight flex justify-between">
             <div class="flex items-center">
                 <i class="fas fa-money-check-alt mr-2"></i>
                 Nóminas
@@ -19,12 +19,12 @@
 
         <!-- inputs -->
         <div class="w-11/12 lg:w-3/4 mx-auto">
-            <x-jet-input class="w-full placeholder:text-xs" wire:model="search" type="text" name="search"
+            <x-jet-input class="w-full placeholder:text-xs input" wire:model="search" type="text" name="search"
                 placeholder="Escribe el ID, semana o priodo" />
         </div>
         <div class="w-3/4 mx-auto flex justify-between pt-8">
             <div>
-                <span class="mr-2 text-sm">Mostrar</span>
+                <span class="mr-2 text-sm dark:text-gray-400">Mostrar</span>
                 <select class="input mt-2" wire:model="elements">
                     <option value="10" selected>10</option>
                     <option value="25">25</option>
@@ -39,27 +39,27 @@
             <x-slot name="body">
                 @foreach ($pay_rolls as $item)
                     <tr>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                                 {{ $item->id }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                                 {{ $item->week }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                                 {{ $item->start_period->isoFormat('D MMMM YYYY') }}
                             </p>
                         </td>
-                        <td class="px-3 py-3 border-b border-gray-200 bg-white">
-                            <p class="text-gray-900 whitespace-no-wrap">
+                        <td class="px-3 py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
+                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
                                 {{ $item->end_period->isoFormat('D MMMM YYYY') }}
                             </p>
                         </td>
-                        <td class="w-28 px-px py-3 border-b border-gray-200 bg-white">
+                        <td class="w-28 px-px py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
                             @can('ver_nóminas')
                                 @if (Auth::user()->can('editar_nóminas'))
                                     <i wire:click="show( {{ $item }} )"
@@ -79,7 +79,7 @@
                                     class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
                             @endcan
                         </td>
-                        <td class="py-3 border-b border-gray-200 bg-white">
+                        <td class="py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
                         </td>
                     </tr>
                 @endforeach

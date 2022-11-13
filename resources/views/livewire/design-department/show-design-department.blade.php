@@ -148,7 +148,7 @@
                         @endforeach
                     @else
                         <div x-data="{ open: true }" x-show="open"
-                            class="w-11/12 flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                            class="w-11/12 flex justify-between mx-auto dark:bg-blue-300 bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
                             role="alert">
                             <div class="w-11/12 flex">
                                 <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
@@ -161,16 +161,16 @@
                             <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
                         </div>
                         <div class="col-span-2">
-                            <x-jet-label value="Entrega estimada" class="mt-3" />
-                            <x-jet-input wire:model.defer="tentative_end" type="datetime-local" class="w-full mt-2" />
+                            <x-jet-label value="Entrega estimada" class="mt-3 dark:text-gray-400" />
+                            <x-jet-input wire:model.defer="tentative_end" type="datetime-local" class="w-full mt-2 input" />
                             <x-jet-input-error for="tentative_end" class="text-xs" />
                         </div>
-                        <label class="inline-flex items-center mt-3 text-xs">
+                        <label class="inline-flex items-center mt-3 text-xs dark:text-gray-400">
                             <input wire:model.defer="is_complex" type="checkbox" value="1" class="rounded">
-                            <span class="ml-1 text-gray-700">Es un diseño complicado</span>
+                            <span class="ml-1 text-gray-700 dark:text-gray-500">Es un diseño complicado</span>
                         </label>
                         <div class="mt-1">
-                            <x-jet-label value="Si tienes archivos que puedas reutilizar, ¿qué porcentaje tienes de la orden?" />
+                            <x-jet-label class="dark:text-gray-400" value="Si tienes archivos que puedas reutilizar, ¿qué porcentaje tienes de la orden?" />
                             <div class="flex items-center space-x-2">
                                 <input wire:model="reuse" class="outline-none" type="range" step="5" min="0" max="100">
                                 <span wire:loading wire:target="reuse" class="text-xs text-blue-400">calculando...</span>

@@ -19,8 +19,8 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-2">
                 @can('ver_todas_las_nóminas')
                     <div>
-                        <x-jet-label value="Usuario" class="mt-3" />
-                        <x-select class="mt-2 w-full" wire:model="user" :options="$users" />
+                        <x-jet-label value="Usuario" class="mt-3 dark:text-gray-400" />
+                        <x-select class="mt-2 w-full input" wire:model="user" :options="$users" />
                         <x-jet-input-error for="user" class="text-xs" />
                     </div>
                 @endcan
@@ -46,14 +46,14 @@
                             <img class="h-10 w-10 rounded-full object-cover border-2"
                                 src="{{ $user->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                         </a>
-                        <p class="text-gray-900 whitespace-no-wrap ml-1">
+                        <p class="text-gray-900 dark:text-gray-400 whitespace-no-wrap ml-1">
                             {{ $user->name }}
                         </p>
                     </div>
                     <div class="flex flex-col justify-center h-full col-span-full">
                         <!-- banner -->
                         <div x-data="{ open: true }" x-show="open"
-                            class="w-11/12 flex justify-between mx-auto bg-pink-100 rounded-lg p-4 my-6 text-sm font-medium text-pink-700"
+                            class="w-11/12 flex justify-between mx-auto dark:bg-pink-300 bg-pink-100 rounded-lg p-4 my-6 text-sm font-medium text-pink-700"
                             role="alert">
                             <div class="w-11/12 flex">
                                 <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>
@@ -87,10 +87,10 @@
                         @endif
                         {{-- @endif --}}
                         <!-- Table -->
-                        <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+                        <div class="w-full max-w-2xl mx-auto dark:text-gray-400 dark:bg-slate-800 dark:border-slate-500 bg-white shadow-lg rounded-sm border border-gray-200">
                             <header class="px-5 py-4 border-b border-gray-100 flex justify-between text-sm">
-                                <h2 class="font-semibold text-gray-600">Semana</h2>
-                                <h2 class="font-semibold text-gray-600">Tiempo hasta ahora: <span
+                                <h2 class="font-semibold text-gray-600 dark:text-gray-400">Semana</h2>
+                                <h2 class="font-semibold text-gray-600 dark:text-gray-400">Tiempo hasta ahora: <span
                                         class="{{ $user->employee->exceedWeeklyHours() ? 'text-red-500' : '' }}">{{ $user->totalTime() }}</span>
                                     / {{ $user->weeklyLimitTime() }}
                                 </h2>
@@ -98,7 +98,7 @@
                             <div class="p-3">
                                 <div class="overflow-x-auto">
                                     <table class="table-auto w-full">
-                                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                        <thead class="text-xs font-semibold uppercase dark:bg-slate-700 text-gray-400 bg-gray-50">
                                             <tr>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">dia</div>
@@ -123,7 +123,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody class="text-sm divide-y divide-gray-100">
+                                        <tbody class="text-sm divide-y dark:divide-gray-500 divide-gray-100">
                                             @foreach ($current_week_registers as $i => $register)
                                                 <tr>
                                                     <td class="p-2 whitespace-nowrap text-left">
@@ -135,27 +135,27 @@
                                                                 <x-jet-input
                                                                     wire:model.defer="current_week_registers.{{ $i }}.check_in"
                                                                     type="time"
-                                                                    class="w-full text-xs mt-2 {{ $register->late ? 'text-yellow-500 font-bold' : '' }}" />
+                                                                    class="input w-full text-xs mt-2 {{ $register->late ? 'text-yellow-500 font-bold' : '' }}" />
                                                             @else
                                                                 <x-jet-input
                                                                     wire:model.defer="current_week_registers.{{ $i }}.check_in"
-                                                                    type="time" class="w-full text-xs mt-2" />
+                                                                    type="time" class="input w-full text-xs mt-2" />
                                                             @endif
                                                         </td>
                                                         <td class="p-2 whitespace-nowrap text-left">
                                                             <x-jet-input
                                                                 wire:model.defer="current_week_registers.{{ $i }}.start_break"
-                                                                type="time" class="w-full text-xs mt-2" />
+                                                                type="time" class="input w-full text-xs mt-2" />
                                                         </td>
                                                         <td class="p-2 whitespace-nowrap text-left">
                                                             <x-jet-input
                                                                 wire:model.defer="current_week_registers.{{ $i }}.end_break"
-                                                                type="time" class="w-full text-xs mt-2" />
+                                                                type="time" class="input w-full text-xs mt-2" />
                                                         </td>
                                                         <td class="p-2 whitespace-nowrap text-left">
                                                             <x-jet-input
                                                                 wire:model.defer="current_week_registers.{{ $i }}.check_out"
-                                                                type="time" class="w-full text-xs mt-2" />
+                                                                type="time" class="input w-full text-xs mt-2" />
                                                         </td>
                                                         <td class="p-2 whitespace-nowrap text-left">
                                                             {{ $user->timeForRegister($register, true, false) }}

@@ -8,11 +8,11 @@
             <!-- Details -->
             <div class="lg:grid lg:grid-cols-2 lg:gap-2">
                 <div>
-                    <x-jet-label value="Nombre" class="mt-3" />
+                    <x-jet-label value="Nombre" class="mt-3 dark:text-gray-400" />
                     <p>{{ $supplier->name }}</p>
                 </div>
                 <div>
-                    <x-jet-label value="Dirección" class="mt-3" />
+                    <x-jet-label value="Dirección" class="mt-3 dark:text-gray-400" />
                     <p>{{ $supplier->address }} - C.P.{{ $supplier->post_code }}</p>
                 </div>
                 <h4 class="text-center text-sm text-sky-500 my-1 col-span-2">Contactos</h4>

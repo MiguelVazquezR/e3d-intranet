@@ -7,9 +7,9 @@
 
         <x-slot name="content">
             <div class="mt-3">
-                <x-jet-label value="Modificaciones" />
+                <x-jet-label class="dark:text-gray-400" value="Modificaciones" />
                 <textarea wire:model.defer="modifications" rows="5"
-                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                    class="input !h-[6rem] w-full"></textarea>
                 <x-jet-input-error for="modifications" class="text-xs" />
             </div>
         </x-slot>

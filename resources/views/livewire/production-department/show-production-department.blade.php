@@ -5,7 +5,7 @@
             <ul class="flex justify-center items-center pb-4" x-data="setup()">
                 <template x-for="(tab, index) in tabs" :key="index">
                     <li class="cursor-pointer text-sm py-2 px-6 text-gray-500 border-b-2"
-                        :class="activeTab === index ? 'text-black border-black' : ''"
+                        :class="activeTab === index ? 'text-black border-black dark:text-blue-700 dark:border-blue-700' : ''"
                         @click="activeTab = index; $dispatch('change-tab', index);" x-text="tab"></li>
                 </template>
             </ul>
@@ -98,7 +98,7 @@
 
                 <!-- Products -->
                 <div x-show="activeTab == 1">
-                    <h2 class="text-lg text-gray-800">
+                    <h2 class="text-lg text-gray-800 dark:text-gray-200">
                         Productos
                     </h2>
                     <div class="grid-cols-1 md:grid md:grid-cols-2 md:gap-3 mt-2 text-sm">
@@ -152,7 +152,7 @@
                                                 <span
                                                     class="relative inline-block px-1 py-1 ml-1 mb-1 font-semibold text-green-900 leading-tight">
                                                     <span aria-hidden
-                                                        class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                        class="absolute inset-0 dark:bg-green-300 bg-green-200 opacity-50 rounded-full"></span>
                                                     <span class="relative">Terminado
                                                         ({{ $current_operator_activity->totalTime() }}
                                                         minutos)</span>
@@ -162,7 +162,7 @@
                                                     <span
                                                         class="relative inline-block px-1 py-1 ml-1 mb-1 font-semibold text-blue-900 leading-tight">
                                                         <span aria-hidden
-                                                            class="absolute inset-0 bg-blue-200 opacity-50 rounded-full"></span>
+                                                            class="absolute inset-0 dark:bg-blue-300 bg-blue-200 opacity-50 rounded-full"></span>
                                                         <span class="relative">Pausado</span>
                                                     </span>
                                                     <button wire:click="continue({{ $current_operator_activity }})"
@@ -219,7 +219,7 @@
                                     <div class="flex justify-between mt-1 text-gray-700">
                                         <span>{{ $s_o_p->quantity }} unidades ordenadas</span>
                                         <span
-                                            class="text-xs p-1 bg-blue-100 rounded-full">{{ $s_o_p->status }}</span>
+                                            class="text-xs p-1 dark:bg-blue-300 bg-blue-100 rounded-full">{{ $s_o_p->status }}</span>
                                     </div>
                                 </x-simple-product-card>
                             @else
