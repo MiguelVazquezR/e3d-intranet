@@ -36,7 +36,7 @@ class MDOrdersShow extends Component
     {
         $this->marketing_order = $marketing_order;
         $this->open = true;
-        // $this->marketing_results_list = $marketing_order->results;
+        $this->marketing_results_list = $marketing_order->results;
     }
 
     public function seeOrder($order_id)
