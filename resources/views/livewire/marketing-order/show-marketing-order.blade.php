@@ -2,7 +2,7 @@
     <x-jet-dialog-modal wire:model="open">
 
         <x-slot name="title">
-            Orden de mercadotecnia {{ $marketing_order->id }} 
+            Orden de mercadotecnia {{ $marketing_order->id }}
         </x-slot>
 
         <x-slot name="content">
@@ -84,10 +84,15 @@
                     @endif
                     @foreach ($marketing_results_list as $i => $marketing_result)
                         <div class="py-2 border-b">
-                            <x-item-quick-view :image="in_array($marketing_result->file_extension, $image_extensions)
-                                ? Storage::url($marketing_result->image)
-                                : asset('images/file-extensions/' . $marketing_result->file_extension . '.png')" :src="Storage::url($marketing_result->image)">
-                                <span class="text-gray-500">{{ $marketing_result->notes }}</span>
+                            <x-item-quick-view :image="$marketing_result->external_link
+                                ? asset('images/file-extensions/link.png')
+                                : asset('images/file-extensions/file.png')" :src="$marketing_result->external_link
+                                ? $marketing_result->external_link
+                                : $marketing_result->media->getUrl()">
+                                <span class="text-gray-500 w-2/3">{{ $marketing_result->notes }}</span>
+                                <strong class="text-gray-600 text-xs w-1/3 ml-2 border-l pl-2">subido por
+                                    {{ $marketing_result->creator->name }}
+                                    ({{ $marketing_result->created_at->isoFormat('DD MMM, YYYY - hh:mm a') }})</strong>
                             </x-item-quick-view>
                         </div>
                     @endforeach

@@ -142,7 +142,10 @@
                                 <x-item-quick-view :image="in_array($design_result->file_extension, $image_extensions)
                                     ? Storage::url($design_result->image)
                                     : asset('images/file-extensions/' . $design_result->file_extension . '.png')" :src="Storage::url($design_result->image)">
-                                    <span class="text-gray-500">{{ $design_result->notes }}</span>
+                                    <span class="text-gray-500 w-2/3">{{ $design_result->notes }}</span>
+                                    <strong class="text-gray-600 text-xs w-1/3 ml-2 border-l pl-2">subido el
+                                        ({{ $design_result->created_at->isoFormat('DD MMM, YYYY - hh:mm a') }})
+                                    </strong>
                                 </x-item-quick-view>
                             </x-item-list>
                         @endforeach
@@ -172,9 +175,12 @@
                         <div class="mt-1">
                             <x-jet-label class="dark:text-gray-400" value="Si tienes archivos que puedas reutilizar, ¿qué porcentaje tienes de la orden?" />
                             <div class="flex items-center space-x-2">
-                                <input wire:model="reuse" class="outline-none" type="range" step="5" min="0" max="100">
-                                <span wire:loading wire:target="reuse" class="text-xs text-blue-400">calculando...</span>
-                                <span wire:loading.remove wire:target="reuse" class="text-xs text-blue-400 font-bold">{{ $reuse }}%</span>
+                                <input wire:model="reuse" class="outline-none" type="range" step="5"
+                                    min="0" max="100">
+                                <span wire:loading wire:target="reuse"
+                                    class="text-xs text-blue-400">calculando...</span>
+                                <span wire:loading.remove wire:target="reuse"
+                                    class="text-xs text-blue-400 font-bold">{{ $reuse }}%</span>
                             </div>
                         </div>
                     @endif

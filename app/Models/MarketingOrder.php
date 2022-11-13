@@ -43,4 +43,9 @@ class MarketingOrder extends Model
     {
         return $this->belongsTo(User::class, 'authorized_user_id');
     }
+
+    public function results()
+    {
+        return $this->hasMany(MarketingOrderResult::class);
+    }
 }
