@@ -196,6 +196,12 @@
                 <x-dashboard-panel-1 href="{{ route('marketing-department') }}"
                     title="Proyectos de mercadotecnia por autorizar" :counter="$marketing_projects_for_authorize->count()" icon="fas fa-lightbulb" />
             @endcan
+
+            <!-- marketing project for authorize -->
+            @can('autorizar_ordenes_mercadotecnia')
+                <x-dashboard-panel-1 href="{{ route('marketing-orders') }}"
+                    title="Órdenes de mercadotecnia por autorizar" :counter="$marketing_orders_for_authorize->count()" icon="fas fa-thumbtack" />
+            @endcan
         </div>
 
         <h2 class="text-2xl text-gray-400 mb-3 mt-8 ml-6">Colaboradores (empleados)</h2>

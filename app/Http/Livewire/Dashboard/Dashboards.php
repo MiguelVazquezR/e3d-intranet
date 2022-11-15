@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dashboard;
 use App\Models\Customer;
 use App\Models\DesignOrder;
 use App\Models\Employee;
+use App\Models\MarketingOrder;
 use App\Models\MarketingProject;
 use App\Models\Meeting;
 use App\Models\MovementHistory;
@@ -31,6 +32,7 @@ class Dashboards extends Component
         $design_orders_for_authorize,
         $additional_time_for_authorize,
         $marketing_projects_for_authorize,
+        $marketing_orders_for_authorize,
         $so_to_start,
         $low_stock,
         $created_histories,
@@ -57,6 +59,7 @@ class Dashboards extends Component
         $this->purchase_orders_for_authorize = PurchaseOrder::whereNull('authorized_user_id')->get();
         $this->additional_time_for_authorize = PayRollMoreTime::whereNull('authorized_by')->where('pay_roll_id', PayRoll::currentPayRoll()->id)->get();
         $this->marketing_projects_for_authorize = MarketingProject::whereNull('authorized_by_id')->get();
+        $this->marketing_orders_for_authorize = MarketingOrder::whereNull('authorized_user_id')->get();
         $this->design_orders_for_authorize = DesignOrder::whereNull('authorized_user_id')->get();
         $this->so_to_start = SellOrder::where('status', 'Autorizado. Asignar tareas')->get();
         $this->packages_for_shipping = ShippingPackage::where('status', 'Prepando para envío')->get();
