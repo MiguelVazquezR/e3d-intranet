@@ -11,7 +11,7 @@
         <i class="fas fa-user-circle text-5xl"></i>
     @endif
     <div class="ml-2 flex-1">
-        <div class="text-gray-900">
+        <div class="text-gray-900 dark:text-gray-300">
             {{ $title }}
         </div>
         <div class="text-xs">

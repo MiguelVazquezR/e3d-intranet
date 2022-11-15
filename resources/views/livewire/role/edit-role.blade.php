@@ -11,16 +11,16 @@
 
         <x-slot name="content">
             <div>
-                <x-jet-label value="Nombre del rol" class="mt-3" />
-                <x-jet-input wire:model.defer="role.name" type="text" class="w-full mt-2" />
+                <x-jet-label value="Nombre del rol" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="role.name" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="role.name" class="text-xs" />
             </div>
-            <x-jet-label value="Permisos" class="mt-3" />
+            <x-jet-label value="Permisos" class="mt-3 dark:text-gray-400" />
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-1">
                 @forelse($permissions as $name => $id)
                 <label class="inline-flex items-center mt-3 text-xs">
                     <input wire:model="permissions_selected.{{$name}}" type="checkbox" value="{{$id}}" class="rounded">
-                    <span class="ml-1 text-gray-700">{{$name}}</span>
+                    <span class="ml-1 text-gray-700 dark:text-gray-500">{{$name}}</span>
                 </label>
                 @empty
                 <p class="col-span-full text-sm text-red-700 mt-1">No hay permisos registrados</p>
