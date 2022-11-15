@@ -11,19 +11,19 @@
 
         <x-slot name="content">
             <div>
-                <x-jet-label value="Nombre del bono" class="mt-3" />
-                <x-jet-input wire:model.defer="bonus.name" type="text" class="w-full mt-2" />
+                <x-jet-label value="Nombre del bono" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="bonus.name" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="bonus.name" class="text-xs" />
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <x-jet-label value="Nombre del bono" class="mt-3" />
-                    <x-jet-input wire:model.defer="bonus.full_time" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Nombre del bono" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="bonus.full_time" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="bonus.full_time" class="text-xs" />
                 </div>
                 <div>
-                    <x-jet-label value="Nombre del bono" class="mt-3" />
-                    <x-jet-input wire:model.defer="bonus.half_time" type="text" class="w-full mt-2" />
+                    <x-jet-label value="Nombre del bono" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="bonus.half_time" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="bonus.half_time" class="text-xs" />
                 </div>
             </div>
