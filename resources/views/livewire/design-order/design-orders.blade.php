@@ -37,8 +37,8 @@
             <x-slot name="body">
                 @foreach ($design_orders as $item)
                     <tr>
-                        <td class="px-3 py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 {{$item->isLate() ? 'bg-red-100' : 'bg-white'}}" title="{{$item->isLate() ? 'Pedido retrasado' : ''}}">
-                            <p class="text-gray-900 whitespace-no-wrap dark:text-gray-400">
+                        <td class="px-3 py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 {{$item->isLate() ? 'bg-red-100 dark:bg-red-200' : 'bg-white'}}" title="{{$item->isLate() ? 'Pedido retrasado' : ''}}">
+                            <p class="whitespace-no-wrap {{$item->isLate() ? 'text-red-600' : 'dark:text-gray-400 text-gray-900'}}">
                                 {{ $item->id }}
                             </p>
                         </td>

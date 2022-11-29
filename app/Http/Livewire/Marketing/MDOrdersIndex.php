@@ -67,13 +67,26 @@ class MDOrdersIndex extends Component
 
     public function render()
     {
-        $marketing_orders = MarketingOrder::where('id', 'like', "%$this->search%")
+        if (auth()->user()->can('autorizar_ordenes_mercadotecnia')) {
+            $marketing_orders = MarketingOrder::where('id', 'like', "%$this->search%")
                 ->orWhere('order_name', 'like', "%$this->search%")
                 ->orWhereHas('creator', function ($query) {
                     $query->where('name', 'like', "%$this->search%");
                 })
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->elements);
+        } else {
+            $marketing_orders = MarketingOrder::whereNotNull('authorized_user_id')
+                ->where(function ($query) {
+                    $query->where('id', 'like', "%$this->search%")
+                        ->orWhere('order_name', 'like', "%$this->search%")
+                        ->orWhereHas('creator', function ($query) {
+                            $query->where('name', 'like', "%$this->search%");
+                        });
+                })
+                ->orderBy($this->sort, $this->direction)
+                ->paginate($this->elements);
+        }
 
         return view('livewire.marketing.m-d-orders-index', compact('marketing_orders'));
     }

@@ -9,8 +9,8 @@
             <div class="mt-2">
                 <x-jet-label value="Tiempo adicional solicitado" />
                 <div class="flex items-center">
-                    <x-jet-input type="number" class="mt-2 w-24" wire:model="hours" />&nbsp;:&nbsp;
-                    <x-jet-input type="number" class="mt-2 w-24" wire:model="minutes" />
+                    <input type="number" class="input mt-2 w-24" wire:model="hours" />&nbsp;:&nbsp;
+                    <input type="number" class="input mt-2 w-24" wire:model="minutes" />
                 </div>
                 <div class="flex items-center">
                     <x-jet-input-error for="hours" class="text-xs mr-4" />&nbsp;&nbsp;
@@ -20,7 +20,7 @@
 
             <!-- banner -->
             <div x-data="{ open: true }" x-show="open"
-                class="w-full flex justify-between mx-auto bg-blue-100 rounded-lg p-4 my-6 text-sm font-medium text-blue-700"
+                class="w-full flex justify-between mx-auto bg-blue-100 dark:bg-blue-300 rounded-lg p-4 my-6 text-sm font-medium dark:text-blue-800 text-blue-700"
                 role="alert">
                 <div class="w-full flex">
                     <i class="fas fa-exclamation-circle w-5 h-5 inline mr-3"></i>

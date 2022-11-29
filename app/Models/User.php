@@ -549,4 +549,14 @@ class User extends Authenticatable
         $time_late = $this->delayTime($pay_roll_id);
         return (!$this->hasRole('Auxiliar_producción') &&  $time_late >= 15);
     }
+
+    public function breakTime($register)
+    {
+        $time = 0;
+        if (!is_string($register) && !is_null($register)) {
+            $time = Carbon::parse($register->start_break)->floatDiffInHours($register->end_break);
+        }
+        
+        return $this->_hoursToTime($time);
+    }
 }

@@ -23,7 +23,7 @@
                 <div class="lg:grid lg:grid-cols-2 lg:gap-3">
                     <div>
                         <x-jet-label value="Cliente" class="mt-3" />
-                        <x-jet-input wire:model.defer="marketing_order.customer_name" type="text" class="w-full mt-2" />
+                        <input wire:model.defer="marketing_order.customer_name" type="text" class="w-full mt-2 input" />
                         <x-jet-input-error for="marketing_order.customer_name" class="text-xs" />
                     </div>
                 </div>
@@ -31,7 +31,7 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-3">
                 <div>
                     <x-jet-label value="Nombre de la orden" class="mt-3" />
-                    <x-jet-input wire:model.defer="marketing_order.order_name" type="text" class="w-full mt-2" />
+                    <input wire:model.defer="marketing_order.order_name" type="text" class="w-full mt-2 input" />
                     <x-jet-input-error for="marketing_order.order_name" class="text-xs" />
                 </div>
                 <div>
@@ -48,7 +48,7 @@
                 <div class="col-span-full">
                     <x-jet-label value="Requerimientos/especificaciones" class="mt-3" />
                     <textarea wire:model.defer="marketing_order.especifications" rows="5"
-                        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
+                        class="input w-full !h-24"></textarea>
                     <x-jet-input-error for="marketing_order.especifications" class="text-xs" />
                 </div>
             </div>

@@ -79,15 +79,16 @@
                                     <i class="fas fa-pen text-xs"></i>
                                 </button>
                             </div>
-                        {{-- @else
+                        @else
                             <button wire:loading.attr="disabled" wire:target="requestTime" wire:click="requestTime"
                                 class="px-4 py-2 bg-blue-500 outline-none rounded text-white shadow-blue-200 shadow-lg font-medium active:shadow-none active:scale-95 hover:bg-blue-600 focus:bg-blue-600 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
                                 Solicitar horas adicionales
-                            </button> --}}
+                            </button>
                         @endif
                         {{-- @endif --}}
                         <!-- Table -->
-                        <div class="w-full max-w-2xl mx-auto dark:text-gray-400 dark:bg-slate-800 dark:border-slate-500 bg-white shadow-lg rounded-sm border border-gray-200">
+                        <div
+                            class="w-full max-w-2xl mx-auto dark:text-gray-400 dark:bg-slate-800 dark:border-slate-500 bg-white shadow-lg rounded-sm border border-gray-200">
                             <header class="px-5 py-4 border-b border-gray-100 flex justify-between text-sm">
                                 <h2 class="font-semibold text-gray-600 dark:text-gray-400">Semana</h2>
                                 <h2 class="font-semibold text-gray-600 dark:text-gray-400">Tiempo hasta ahora: <span
@@ -98,7 +99,8 @@
                             <div class="p-3">
                                 <div class="overflow-x-auto">
                                     <table class="table-auto w-full">
-                                        <thead class="text-xs font-semibold uppercase dark:bg-slate-700 text-gray-400 bg-gray-50">
+                                        <thead
+                                            class="text-xs font-semibold uppercase dark:bg-slate-700 text-gray-400 bg-gray-50">
                                             <tr>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">dia</div>
@@ -116,7 +118,10 @@
                                                     <div class="font-semibold text-left">salida</div>
                                                 </th>
                                                 <th class="p-2 whitespace-nowrap">
-                                                    <div class="font-semibold text-left">hrs</div>
+                                                    <div class="font-semibold text-left">hrs break</div>
+                                                </th>
+                                                <th class="p-2 whitespace-nowrap">
+                                                    <div class="font-semibold text-left">hrs totales</div>
                                                 </th>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">&nbsp;</div>
@@ -135,7 +140,7 @@
                                                                 <x-jet-input
                                                                     wire:model.defer="current_week_registers.{{ $i }}.check_in"
                                                                     type="time"
-                                                                    class="input w-full text-xs mt-2 {{ $register->late ? 'text-yellow-500 font-bold' : '' }}" />
+                                                                    class="input w-full text-xs mt-2 {{ $register->late ? 'text-yellow-500 dark:text-yellow-600 font-bold' : '' }}" />
                                                             @else
                                                                 <x-jet-input
                                                                     wire:model.defer="current_week_registers.{{ $i }}.check_in"
@@ -156,6 +161,9 @@
                                                             <x-jet-input
                                                                 wire:model.defer="current_week_registers.{{ $i }}.check_out"
                                                                 type="time" class="input w-full text-xs mt-2" />
+                                                        </td>
+                                                        <td class="p-2 whitespace-nowrap text-left">
+                                                            {{ $user->breakTime($register) }}
                                                         </td>
                                                         <td class="p-2 whitespace-nowrap text-left">
                                                             {{ $user->timeForRegister($register, true, false) }}
