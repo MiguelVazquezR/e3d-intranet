@@ -20,7 +20,7 @@
             <div class="grid grid-cols-3 lg:grid-cols-4 gap-3 mt-1 mb-6">
                 @forelse($employees as $id => $name)
                 <label class="inline-flex items-center mt-3 text-xs">
-                    <input wire:model.defer="employees_selected" type="checkbox" value="{{$id}}" class="rounded">
+                    <input wire:model="employees_selected" type="checkbox" value="{{$id}}" class="rounded">
                     <span class="ml-1 text-gray-700">{{$name}}</span>
                 </label>
                 @empty

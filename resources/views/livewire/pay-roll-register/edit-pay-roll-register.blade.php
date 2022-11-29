@@ -63,7 +63,10 @@
                                                     <div class="font-semibold text-left">salida</div>
                                                 </th>
                                                 <th class="p-2 whitespace-nowrap">
-                                                    <div class="font-semibold text-left">hrs</div>
+                                                    <div class="font-semibold text-left">hrs break</div>
+                                                </th>
+                                                <th class="p-2 whitespace-nowrap">
+                                                    <div class="font-semibold text-left">hrs totales</div>
                                                 </th>
                                                 <th class="p-2 whitespace-nowrap">
                                                     <div class="font-semibold text-left">&nbsp;</div>
@@ -103,6 +106,9 @@
                                                             <x-jet-input
                                                                 wire:model.defer="current_week_registers.{{ $i }}.check_out"
                                                                 type="time" class="input w-full text-xs mt-2" />
+                                                        </td>
+                                                        <td class="p-2 whitespace-nowrap text-left">
+                                                            {{ $user->breakTime($register) }}
                                                         </td>
                                                         <td class="p-2 whitespace-nowrap text-left">
                                                             {{ $user->timeForRegister($register, true, false) }}
