@@ -75,8 +75,10 @@ class MDProjectsIndex extends Component
         $project->tasks->each(function ($task){
             $task->users->each(function ($item) use ($task){
                 $result = MarketingResult::where('marketing_task_user_id', $item->pivot->id)->first();
-                Storage::delete([$result->file]);
-                $result->delete();
+                if($result) {
+                    Storage::delete([$result->file]);
+                    $result->delete();
+                }
                 $item->marketingTasks()->detach($task->id);
             });
             $task->delete();

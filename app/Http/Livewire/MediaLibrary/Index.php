@@ -40,6 +40,7 @@ class Index extends Component
                 $query->where('path', 'LIKE',  $this->current_path . '/%')
                     ->where('path', 'NOT LIKE',  $this->current_path . '/%\/%');
             })
+            ->orderBy('path')
             ->get();
     }
 

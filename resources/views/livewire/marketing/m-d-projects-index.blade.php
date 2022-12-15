@@ -93,7 +93,7 @@
                                 class="far fa-eye bg-sky-400 text-white p-2 rounded-lg hover:cursor-pointer"></i>
                             @if ($item->creator->id == auth()->user()->id ||
                                 auth()->user()->can('autorizar_proyectos_mercadotecnia'))
-                                <i wire:click="$emit('confirm', { 0:'marketing.marketing-index', 1:'delete' ,2:{{ $item->id }}, 3:'Este proceso no se puede revertir' })"
+                                <i wire:click="$emit('confirm', { 0:'marketing.m-d-projects-index', 1:'delete' ,2:{{ $item->id }}, 3:'Este proceso no se puede revertir' })"
                                     class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
                             @endif
                         </td>
