@@ -82,9 +82,10 @@ class Quotes extends Component
 
     public function clone(Quote $quote)
     {
-        $clone = $quote->replicate(['authorized_user_id', 'user_id']);
+        $clone = $quote->replicate(['authorized_user_id', 'user_id', 'sell_order_id']);
         $clone->user_id = auth()->user()->id;
         $clone->authorized_user_id = null;
+        $clone->sell_order_id = null;
         $clone->save();
 
         // cloning relations

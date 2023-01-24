@@ -48,7 +48,11 @@
                         </div>
                         <div>
                             <x-jet-label value="Retenciones" class="mt-3" />
-                            <p>${{ $user->employee->discounts }}</p>
+                             @if (Auth::user()->can('crear_usuarios'))
+                                   <p>${{ $user->employee->discounts }}</p>
+                                @else
+                                    *****
+                                @endif
                         </div>
                         <div>
                             <x-jet-label value="Horas semanales" class="mt-3" />
@@ -56,7 +60,12 @@
                         </div>
                         <div>
                             <x-jet-label value="Vacaciones" class="mt-3" />
-                            <p>{{ $user->employee->vacations }} días</p>
+                             @if (Auth::user()->can('crear_usuarios'))
+                                  <p>{{ $user->employee->vacations }} días</p>
+                                @else
+                                    *****
+                                @endif
+                            
                         </div>
                         <div class="col-span-2">
                             <x-jet-label value="Bonos" class="mt-3" />

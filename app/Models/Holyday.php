@@ -22,7 +22,7 @@ class Holyday extends Model
         $dates = [];
         foreach ( self::all() as $holyday ) {
             if($holyday->active) {
-                $dates[] = $holyday->date->isoFormat('YYYY-MM-DD');
+                $dates[] = $holyday->date->isoFormat('MM-DD');
             }
         }
         return $dates;

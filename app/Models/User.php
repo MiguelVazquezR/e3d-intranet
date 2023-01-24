@@ -124,7 +124,7 @@ class User extends Authenticatable
                     $week_registers_index++;
                 } elseif (in_array($index, $this->employee->days_off)) {
                     $current_week_registers[] = 'Descanso';
-                } elseif (in_array($pay_roll->start_period->addDays($index)->isoFormat('YYYY-MM-DD'), Holyday::arrayDates()) && !in_array($index, $this->employee->days_off)) {
+                } elseif (in_array($pay_roll->start_period->addDays($index)->isoFormat('MM-DD'), Holyday::arrayDates()) && !in_array($index, $this->employee->days_off)) {
                     $current_week_registers[] = 'Día feriado';
                 } else {
                     $current_week_registers[] = 'Falta';

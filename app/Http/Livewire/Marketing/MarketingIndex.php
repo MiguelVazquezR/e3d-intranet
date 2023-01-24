@@ -9,7 +9,7 @@ class MarketingIndex extends Component
 {
     use WithPagination;
 
-    public $projects_tab = true;
+    public $projects_tab = false;
 
     public function toggleTrue()
     {

@@ -92,10 +92,10 @@
                             @endif
                         </td>
                         <td class="w-28 px-px py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
-                            @can('ver_usuarios')
+                            @if(auth()->user()->can('ver_usuarios') || $item->id === auth()->id())
                                 <i wire:click="show( {{ $item }} )"
                                     class="far fa-eye bg-sky-400 text-white p-2 mt-1 rounded-lg ml-px hover:cursor-pointer"></i>
-                            @endcan
+                            @endif
                             @can('editar_usuarios')
                                 <i wire:click="edit( {{ $item }} )"
                                     class="far fa-edit bg-blue-500 text-white p-2 mt-1 rounded-lg ml-px hover:cursor-pointer"></i>

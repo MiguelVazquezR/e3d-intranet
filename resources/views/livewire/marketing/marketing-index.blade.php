@@ -14,7 +14,7 @@
     </header>
 
     {{-- tabs --}}
-    <div class="flex items-center justify-between w-11/12 my-3 mx-auto">
+     <!--<div class="flex items-center justify-between w-11/12 my-3 mx-auto">
         <div class="rounded-full p-2 dark:bg-gray-400 bg-white shadow-md">
             <span wire:click="toggleTrue"
                 class="{{ $projects_tab ? 'dark:bg-blue-300 dark:text-blue-700 dark:border-blue-700 bg-blue-100 text-blue-500 border border-blue-500 rounded-full p-1 hover:cursor-pointer' : 'text-gray-700 p-1 hover:cursor-pointer' }}">
@@ -25,7 +25,7 @@
                 Órdenes
             </span>
         </div>
-    </div>
+    </div>-->
 
     <!-- module type content (projects or orders) -->
     <div wire:loading.remove wire:target="toggleTrue,toggleFalse">

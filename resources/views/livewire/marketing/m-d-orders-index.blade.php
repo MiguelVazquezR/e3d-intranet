@@ -4,6 +4,8 @@
         <div wire:loading wire:target="edit,show">
             <x-loading-indicator />
         </div>
+        <h1 class="text-2xl text-gray-500 text-center">Listado de órdenes</h1>
+        <br>
 
         <!-- inputs -->
         <div class="w-11/12 lg:w-3/4 mx-auto">
