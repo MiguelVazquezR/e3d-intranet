@@ -40,6 +40,7 @@ class CreateQuote extends Component
         $edit_index = null,
         $show_image = 1,
         $new_customer = 1,
+        $template_language = 1,
         $simple_product = 0,
         $product_notes,
         $images = [];
@@ -54,6 +55,7 @@ class CreateQuote extends Component
         'currency_id' => 'required',
         'strikethrough_tooling_cost' => 'numeric|min:0',
         'products_list' => 'required',
+        'spanish_template' => 'required',
     ];
 
     protected $quote_product_rules = [

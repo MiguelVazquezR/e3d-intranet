@@ -22,7 +22,8 @@ class CreateQuotesTable extends Migration
             $table->string('customer_name')->nullable();
             $table->string('freight_cost', 60);
             $table->string('first_production_days', 60)->default('3 a 4 semanas');
-            
+
+            $table->boolean('spanish_template')->nullable();            
 
             $table->text('notes')->nullable();
 

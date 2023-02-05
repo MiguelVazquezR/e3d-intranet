@@ -23,6 +23,7 @@ class Quote extends Model
         'strikethrough_tooling_cost',
         'notes',
         'sell_order_id',
+        'spanish_tamplate',
     ];
 
     public function creator()
