@@ -50,6 +50,7 @@ class EditQuote extends Component
         'quote.tooling_cost' => 'required',
         'quote.freight_cost' => 'required',
         'quote.currency_id' => 'required',
+        'quote.spanish_template' => 'required',
         'quote.strikethrough_tooling_cost' => 'min:0',
         'quote.notes' => 'max:255',
         'quote.customer_name' => 'max:150',
@@ -87,6 +88,7 @@ class EditQuote extends Component
     public function openModal(Quote $quote)
     {
         $this->quote = $quote;
+        $this->quote->spanish_template = $quote->spanish_template;
         $this->open = true;
         $this->quote->strikethrough_tooling_cost =
             intval($this->quote->strikethrough_tooling_cost);

@@ -6,6 +6,7 @@
         </x-slot>
 
         <x-slot name="content">
+            <x-my-radio :options="['Inglés', 'Español']" label="Idioma de plantilla" model="quote.spanish_template" />
             <x-my-radio :options="['Registrado', 'Nuevo']" label="Cliente" model="new_customer" />
             @if (!$new_customer)
                 <div>

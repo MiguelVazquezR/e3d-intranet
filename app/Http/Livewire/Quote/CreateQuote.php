@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Quote;
 use App\Models\QuoteCompositProduct;
 use App\Models\QuoteProduct;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -40,7 +41,7 @@ class CreateQuote extends Component
         $edit_index = null,
         $show_image = 1,
         $new_customer = 1,
-        $template_language = 1,
+        $spanish_template = 1,
         $simple_product = 0,
         $product_notes,
         $images = [];
@@ -141,7 +142,7 @@ class CreateQuote extends Component
             } else {
                 $product = QuoteCompositProduct::create($quote_product['product']);
             }
-            foreach($quote_product['aditional_images'] as $image_path) {
+            foreach ($quote_product['aditional_images'] as $image_path) {
                 $product->addMedia($image_path)->toMediaCollection();
             }
         }
@@ -157,10 +158,11 @@ class CreateQuote extends Component
             $quote->authorized_user_id = Auth::user()->id;
             $quote->save();
         } else {
-            // send email notification
-            Mail::to('maribel@emblemas3d.com')
-                // ->bcc('miguelvz26.mv@gmail.com')
-                ->queue(new ApproveMailable('Cotización', $quote->id, Quote::class));
+            if (App::environment('production'))
+                // send email notification
+                Mail::to('maribel@emblemas3d.com')
+                    // ->bcc('miguelvz26.mv@gmail.com')
+                    ->queue(new ApproveMailable('Cotización', $quote->id, Quote::class));
         }
 
         $this->reset();
