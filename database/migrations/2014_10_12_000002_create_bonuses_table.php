@@ -19,6 +19,7 @@ class CreateBonusesTable extends Migration
             $table->float('full_time');
             $table->float('half_time');
             $table->string('name');
+            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
         });

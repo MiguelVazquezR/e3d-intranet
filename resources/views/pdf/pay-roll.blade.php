@@ -133,14 +133,14 @@
                 <span>${{ $user->weekSalary() }}</span>
                 <span>faltas</span>
                 <span>{{ $user->absences($pay_roll->id) }}</span>
-                <span>hrs semanales</span>
-                <span>{{ $user->employee->hours_per_week }}</span>
-                <span>hrs hechas</span>
+                {{-- <span>hrs semanales</span>
+                <span>{{ $user->employee->hours_per_week }}</span> --}}
+                <span>Semana completada al</span>
                 <span>
                     @if ($user->totalTime($pay_roll->id, false, true) < $user->employee->hours_per_week)
                         <i class="fas fa-exclamation-triangle text-red-600"></i>
                     @endif
-                    {{ $user->totalTime($pay_roll->id, true, true) }}
+                    {{ number_format(($user->totalTime($pay_roll->id, false, true) * 100) / $user->employee->hours_per_week, 2) }}%
                 </span>
                 {{-- <span>sueldo/hora</span> --}}
                 {{-- <span>${{ $user->employee->salary }}</span> --}}
@@ -148,12 +148,14 @@
                     @php
                         $bonus = App\Models\Bonus::find($bonus_id);
                     @endphp
-                    <span>{{ $bonus->name }}
-                        @if (($bonus->id == 2 || $bonus->id == 5) && count($user->lateDays($pay_roll->id)))
-                           <span class="text-red-500"> ({{ count($user->lateDays($pay_roll->id)) }})</span>
-                        @endif
-                    </span>
-                    <span>${{ $earned }}</span>
+                    @if ($bonus->is_active)
+                        <span>{{ $bonus->name }}
+                            @if (($bonus->id == 2 || $bonus->id == 5) && count($user->lateDays($pay_roll->id)))
+                                <span class="text-red-500"> ({{ count($user->lateDays($pay_roll->id)) }})</span>
+                            @endif
+                        </span>
+                        <span>${{ $earned }}</span>
+                    @endif
                     {{-- <span>
                         ${{ $earned }}
                         @if ($bonus->id == 3)

@@ -13,6 +13,7 @@ class Bonus extends Model
         'full_time',
         'half_time',
         'name',
+        'is_active',
     ];
 
     public function amount( $hours_per_week )

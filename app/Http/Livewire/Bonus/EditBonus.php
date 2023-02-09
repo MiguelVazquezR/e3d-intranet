@@ -12,6 +12,7 @@ class EditBonus extends Component
     public $open = false,
         $name,
         $full_time,
+        $bonus,
         $half_time;
 
     protected $listeners = [
@@ -23,6 +24,7 @@ class EditBonus extends Component
         'bonus.name' => 'required',
         'bonus.full_time' => 'required|numeric',
         'bonus.half_time' => 'required|numeric',
+        'bonus.is_active' => 'required|numeric',
     ];
 
     public function updatingOpen()
@@ -33,6 +35,12 @@ class EditBonus extends Component
                 'bonus',
             ]);
         }
+    }
+
+    public function mounted()
+    {
+        $this->bonus = new Bonus();
+        $this->bonus->is_active = true;
     }
 
     public function openModal(Bonus $bonus)
@@ -58,6 +66,14 @@ class EditBonus extends Component
 
         $this->emitTo('bonus.bonuses', 'render');
         $this->emit('success', 'Bono actualizado');
+    }
+
+    public function toggleActivation()
+    {
+        $this->bonus->is_active = !$this->bonus->is_active;
+        $this->bonus->save();
+
+        $this->emitTo('bonus.bonuses', 'render');
     }
 
     public function render()

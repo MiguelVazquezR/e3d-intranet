@@ -22,6 +22,7 @@ class Bonuses extends Component
         'name' => 'nombre',
         'full_time' => 'tiempo completo',
         'half_time' => 'medio turno',
+        'is_active' => 'status',
     ];
 
     protected $listeners = [

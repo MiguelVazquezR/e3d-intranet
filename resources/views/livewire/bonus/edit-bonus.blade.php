@@ -34,9 +34,23 @@
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-button wire:click="update" wire:loading.attr="disabled" wire:target="update" class="disabled:opacity-25">
+            <x-jet-button wire:click="update" wire:loading.attr="disabled" wire:target="update"
+                class="disabled:opacity-25">
                 Actualizar
             </x-jet-button>
+            @if ($bonus)
+                @if ($bonus->is_active)
+                    <x-jet-button wire:click="toggleActivation" wire:loading.attr="disabled"
+                        wire:target="toggleActivation" class="disabled:opacity-25 bg-red-500 ml-2">
+                        Desactivar
+                    </x-jet-button>
+                @else
+                    <x-jet-button wire:click="toggleActivation" wire:loading.attr="disabled"
+                        wire:target="toggleActivation" class="disabled:opacity-25 bg-green-500 ml-2">
+                        Activar
+                    </x-jet-button>
+                @endif
+            @endif
         </x-slot>
 
     </x-jet-dialog-modal>
