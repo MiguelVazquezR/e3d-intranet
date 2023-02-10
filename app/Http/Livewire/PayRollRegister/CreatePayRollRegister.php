@@ -16,6 +16,9 @@ class CreatePayRollRegister extends Component
 {
     public $open = false,
         $user,
+        $open_confirm = false,
+        $password,
+        $verification_failed = false,
         $current_week_registers = [];
 
     protected $rules = [
@@ -189,6 +192,16 @@ class CreatePayRollRegister extends Component
         $this->user->employee->updateVacations();
         $this->emit('success', "Se ha registrado a las $now");
         $this->current_week_registers = $this->user->currentWeekRegisters();
+    }
+
+    public function verifyUser()
+    {
+        if($this->password === "admin123") {
+            $this->update();
+            $this->reset(['verification_failed', 'open_confirm']);
+        } else {
+            $this->verification_failed = true;
+        }
     }
 
     public function update()

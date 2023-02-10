@@ -130,139 +130,145 @@
                                         </thead>
                                         <tbody class="text-sm divide-y dark:divide-gray-500 divide-gray-100">
                                             @foreach ($current_week_registers as $i => $register)
-                                                <tr>
-                                                    <td class="p-2 whitespace-nowrap text-left">
-                                                        {{ App\Models\Employee::WEEK[$i] }}
-                                                    </td>
-                                                    @if (!is_string($register))
+                                                @if (!is_array($register))
+                                                    <tr>
                                                         <td class="p-2 whitespace-nowrap text-left">
-                                                            @if ($register)
-                                                                <x-jet-input
-                                                                    wire:model.defer="current_week_registers.{{ $i }}.check_in"
-                                                                    type="time"
-                                                                    class="input w-full text-xs mt-2 {{ $register->late ? 'text-yellow-500 dark:text-yellow-600 font-bold' : '' }}" />
-                                                            @else
-                                                                <x-jet-input
-                                                                    wire:model.defer="current_week_registers.{{ $i }}.check_in"
-                                                                    type="time" class="input w-full text-xs mt-2" />
-                                                            @endif
+                                                            {{ App\Models\Employee::WEEK[$i] }}
                                                         </td>
-                                                        <td class="p-2 whitespace-nowrap text-left">
-                                                            <x-jet-input
-                                                                wire:model.defer="current_week_registers.{{ $i }}.start_break"
-                                                                type="time" class="input w-full text-xs mt-2" />
-                                                        </td>
-                                                        <td class="p-2 whitespace-nowrap text-left">
-                                                            <x-jet-input
-                                                                wire:model.defer="current_week_registers.{{ $i }}.end_break"
-                                                                type="time" class="input w-full text-xs mt-2" />
-                                                        </td>
-                                                        <td class="p-2 whitespace-nowrap text-left">
-                                                            <x-jet-input
-                                                                wire:model.defer="current_week_registers.{{ $i }}.check_out"
-                                                                type="time" class="input w-full text-xs mt-2" />
-                                                        </td>
-                                                        <td class="p-2 whitespace-nowrap text-left">
-                                                            {{ $user->breakTime($register) }}
-                                                        </td>
-                                                        <td class="p-2 whitespace-nowrap text-left">
-                                                            {{ $user->timeForRegister($register, true, false) }}
-                                                            @if (!is_string($register) && !is_null($register))
-                                                                @if ($register->extras_enabled)
-                                                                    <span class="text-green-500"
-                                                                        style="font-size: 10px;"> +
-                                                                        {{ $user->extraTime($register) }}
-                                                                        (dobles)
-                                                                    </span>
+                                                        @if (!is_string($register))
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                @if ($register)
+                                                                    <x-jet-input
+                                                                        wire:model.defer="current_week_registers.{{ $i }}.check_in"
+                                                                        type="time"
+                                                                        class="input w-full text-xs mt-2 {{ $register->late ? 'text-yellow-500 dark:text-yellow-600 font-bold' : '' }}" />
+                                                                @else
+                                                                    <x-jet-input
+                                                                        wire:model.defer="current_week_registers.{{ $i }}.check_in"
+                                                                        type="time"
+                                                                        class="input w-full text-xs mt-2" />
                                                                 @endif
-                                                            @endif
-                                                        </td>
-                                                    @elseif($register == 'Falta')
-                                                        <td colspan="4"
-                                                            class="p-2 whitespace-nowrap text-left text-lg font-bold">
-                                                            <div class="bg-red-100 rounded-lg text-red-600 p-2">
-                                                                {{ $register }}</div>
-                                                        </td>
-                                                    @else
-                                                        <td colspan="4"
-                                                            class="p-2 whitespace-nowrap text-left text-lg font-bold">
-                                                            <div class="bg-green-100 rounded-lg text-green-600 p-2">
-                                                                {{ $register }}</div>
-                                                        </td>
-                                                    @endif
-                                                    @can('editar_nóminas')
-                                                        <td class="p-2 whitespace-nowrap text-left">
-                                                            <x-jet-dropdown align="right" width="20">
-                                                                <x-slot name="trigger">
-                                                                    @if ($register != 'Descanso')
-                                                                        <button
-                                                                            class="flex text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-1 text-center"">
-                                                                            Acciones
-                                                                            <svg class="   ml-2 -mr-0.5 h-4 w-4"
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                viewBox="0 0 20 20" fill="currentColor">
-                                                                                <path fill-rule="evenodd"
-                                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                                                    clip-rule="evenodd" />
-                                                                            </svg>
-                                                                        </button>
+                                                            </td>
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                <x-jet-input
+                                                                    wire:model.defer="current_week_registers.{{ $i }}.start_break"
+                                                                    type="time" class="input w-full text-xs mt-2" />
+                                                            </td>
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                <x-jet-input
+                                                                    wire:model.defer="current_week_registers.{{ $i }}.end_break"
+                                                                    type="time" class="input w-full text-xs mt-2" />
+                                                            </td>
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                <x-jet-input
+                                                                    wire:model.defer="current_week_registers.{{ $i }}.check_out"
+                                                                    type="time" class="input w-full text-xs mt-2" />
+                                                            </td>
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                {{ $user->breakTime($register) }}
+                                                            </td>
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                {{ $user->timeForRegister($register, true, false) }}
+                                                                @if (!is_string($register) && !is_null($register))
+                                                                    @if ($register->extras_enabled)
+                                                                        <span class="text-green-500"
+                                                                            style="font-size: 10px;"> +
+                                                                            {{ $user->extraTime($register) }}
+                                                                            (dobles)
+                                                                        </span>
                                                                     @endif
-                                                                </x-slot>
+                                                                @endif
+                                                            </td>
+                                                        @elseif($register == 'Falta')
+                                                            <td colspan="4"
+                                                                class="p-2 whitespace-nowrap text-left text-lg font-bold">
+                                                                <div class="bg-red-100 rounded-lg text-red-600 p-2">
+                                                                    {{ $register }}</div>
+                                                            </td>
+                                                        @else
+                                                            <td colspan="4"
+                                                                class="p-2 whitespace-nowrap text-left text-lg font-bold">
+                                                                <div
+                                                                    class="bg-green-100 rounded-lg text-green-600 p-2">
+                                                                    {{ $register }}</div>
+                                                            </td>
+                                                        @endif
+                                                        @can('editar_nóminas')
+                                                            <td class="p-2 whitespace-nowrap text-left">
+                                                                <x-jet-dropdown align="right" width="20">
+                                                                    <x-slot name="trigger">
+                                                                        @if ($register != 'Descanso')
+                                                                            <button
+                                                                                class="flex text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-1 text-center"">
+                                                                                Acciones
+                                                                                <svg class="   ml-2 -mr-0.5 h-4 w-4"
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    viewBox="0 0 20 20"
+                                                                                    fill="currentColor">
+                                                                                    <path fill-rule="evenodd"
+                                                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                                        clip-rule="evenodd" />
+                                                                                </svg>
+                                                                            </button>
+                                                                        @endif
+                                                                    </x-slot>
 
-                                                                <x-slot name="content">
-                                                                    @foreach ($justification_events as $j_e)
-                                                                        @if (is_string($register) || is_null($register))
-                                                                            <x-jet-dropdown-link
-                                                                                wire:click="$emit('confirm', { 0:'pay-roll-register.create-pay-roll-register', 1:'justification' ,2:[{{ $i }}, {{ $j_e->id }}], 3:'{{ $j_e->description }}' })"
-                                                                                :link="false" class="block">
-                                                                                {{ $j_e->name }}
-                                                                            </x-jet-dropdown-link>
-                                                                        @endif
-                                                                    @endforeach
-                                                                    @if (!is_string($register) && !is_null($register))
-                                                                        @if ($register->late)
-                                                                            <x-jet-dropdown-link
-                                                                                wire:click="unmarkLate({{ $i }})"
-                                                                                :link="false">
-                                                                                Quitar retardo
-                                                                            </x-jet-dropdown-link>
-                                                                        @else
-                                                                            <x-jet-dropdown-link
-                                                                                wire:click="markLate({{ $i }})"
-                                                                                :link="false">
-                                                                                Poner retardo
-                                                                            </x-jet-dropdown-link>
-                                                                        @endif
-                                                                        <x-jet-dropdown-link
-                                                                            wire:click="extrasToDouble({{ $i }})"
-                                                                            :link="false">
-                                                                            @if ($register->extras_enabled)
-                                                                                <span class="text-red-500">Desactivar
-                                                                                    extras dobles</span>
-                                                                            @else
-                                                                                <span class="text-green-500">Activar extras
-                                                                                    dobles</span>
+                                                                    <x-slot name="content">
+                                                                        @foreach ($justification_events as $j_e)
+                                                                            @if (is_string($register) || is_null($register))
+                                                                                <x-jet-dropdown-link
+                                                                                    wire:click="$emit('confirm', { 0:'pay-roll-register.create-pay-roll-register', 1:'justification' ,2:[{{ $i }}, {{ $j_e->id }}], 3:'{{ $j_e->description }}' })"
+                                                                                    :link="false" class="block">
+                                                                                    {{ $j_e->name }}
+                                                                                </x-jet-dropdown-link>
                                                                             @endif
-                                                                        </x-jet-dropdown-link>
-                                                                    @elseif($register == 'Falta')
-                                                                        <x-jet-dropdown-link
-                                                                            wire:click="removeAbsence({{ $i }})"
-                                                                            :link="false">
-                                                                            Quitar falta
-                                                                        </x-jet-dropdown-link>
-                                                                    @elseif (!is_null($register))
-                                                                        <x-jet-dropdown-link
-                                                                            wire:click="removeJustification({{ $i }})"
-                                                                            :link="false">
-                                                                            Quitar Justificación
-                                                                        </x-jet-dropdown-link>
-                                                                    @endif
+                                                                        @endforeach
+                                                                        @if (!is_string($register) && !is_null($register))
+                                                                            @if ($register->late)
+                                                                                <x-jet-dropdown-link
+                                                                                    wire:click="unmarkLate({{ $i }})"
+                                                                                    :link="false">
+                                                                                    Quitar retardo
+                                                                                </x-jet-dropdown-link>
+                                                                            @else
+                                                                                <x-jet-dropdown-link
+                                                                                    wire:click="markLate({{ $i }})"
+                                                                                    :link="false">
+                                                                                    Poner retardo
+                                                                                </x-jet-dropdown-link>
+                                                                            @endif
+                                                                            <x-jet-dropdown-link
+                                                                                wire:click="extrasToDouble({{ $i }})"
+                                                                                :link="false">
+                                                                                @if ($register->extras_enabled)
+                                                                                    <span class="text-red-500">Desactivar
+                                                                                        extras dobles</span>
+                                                                                @else
+                                                                                    <span class="text-green-500">Activar
+                                                                                        extras
+                                                                                        dobles</span>
+                                                                                @endif
+                                                                            </x-jet-dropdown-link>
+                                                                        @elseif($register == 'Falta')
+                                                                            <x-jet-dropdown-link
+                                                                                wire:click="removeAbsence({{ $i }})"
+                                                                                :link="false">
+                                                                                Quitar falta
+                                                                            </x-jet-dropdown-link>
+                                                                        @elseif (!is_null($register))
+                                                                            <x-jet-dropdown-link
+                                                                                wire:click="removeJustification({{ $i }})"
+                                                                                :link="false">
+                                                                                Quitar Justificación
+                                                                            </x-jet-dropdown-link>
+                                                                        @endif
 
-                                                                </x-slot>
-                                                            </x-jet-dropdown>
-                                                        </td>
-                                                    @endcan
-                                                </tr>
+                                                                    </x-slot>
+                                                                </x-jet-dropdown>
+                                                            </td>
+                                                        @endcan
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -281,7 +287,7 @@
             @if ($user)
                 @can('editar_nóminas')
                     <x-jet-button class="mr-2 disabled:opacity-25 disabled:cursor-not-allowed"
-                        wire:loading.attr="disabled" wire:target="update" wire:click="update">
+                        wire:click="$set('open_confirm', true)">
                         Actualizar
                     </x-jet-button>
                 @endcan
@@ -297,5 +303,25 @@
         </x-slot>
 
     </x-jet-dialog-modal>
+
+    <x-jet-confirmation-modal wire:model="open_confirm">
+        <x-slot name="title">
+            Confirma que eres tu!
+        </x-slot>
+        <x-slot name="content">
+            <div>
+                <x-jet-label value="Contraseña" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="password" type="password" class="w-full mt-2 input" />
+                @if ($verification_failed)
+                    <small class="text-red-500">Contraseña no coincide!</small>
+                @endif
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-danger-button wire:click="verifyUser">
+                Verificar
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-confirmation-modal>
 
 </div>
