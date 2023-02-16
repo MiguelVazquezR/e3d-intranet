@@ -165,7 +165,7 @@ class CreateDesignOrder extends Component
     {
         return view('livewire.design-order.create-design-order', [
             'design_types' => DesignType::all(),
-            'designers' => User::role('Diseñador')->get(),
+            'designers' => User::role('Diseñador')->where('active', true)->get(),
             'units' => MeasurementUnit::all(),
         ]);
     }

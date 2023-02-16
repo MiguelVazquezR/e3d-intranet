@@ -102,8 +102,15 @@
 
                     <!-- Products -->
                     <div x-show="activeTab == 1">
-                        <h2 class="text-lg text-gray-800 dark:text-gray-300"> {{ $sell_order->sellOrderedProducts->count() }} productos
-                        </h2>
+                        <div class="flex justify-between">
+                            <h2 class="text-lg text-gray-800 dark:text-gray-300"> {{ $sell_order->sellOrderedProducts->count() }} productos
+                            </h2>
+                            <x-jet-secondary-button class="mr-2">
+                                <a href="{{ route('sale-order-pdf', ['item' => $sell_order]) }}" target="_blank">
+                                    <i class="fas fa-print mr-2"></i> Imprimir
+                                </a>
+                            </x-jet-secondary-button>
+                        </div>
                         <div class="grid-cols-1 md:grid md:grid-cols-2 md:gap-3 mt-2 text-sm">
                             @foreach ($sell_order->sellOrderedProducts as $s_o_p)
                                 @if ($s_o_p->productForSell->model_name == 'App\\Models\\' . Product::class)

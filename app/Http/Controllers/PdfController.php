@@ -6,6 +6,7 @@ use App\Models\Bonus;
 use App\Models\Organization;
 use App\Models\PayRoll;
 use App\Models\Quote;
+use App\Models\SellOrder;
 use App\Models\User;
 
 class PdfController extends Controller
@@ -19,6 +20,13 @@ class PdfController extends Controller
             return view('pdf.quote', compact('quote'));
         else
             return view('pdf.english-quote', compact('quote'));
+    }
+
+    public function saleOrder($sale_order_id)
+    {
+        $sale_order = SellOrder::with('sellOrderedProducts', 'sellOrderedProducts')->find($sale_order_id);
+
+        return view('pdf.sale-order', compact('sale_order'));
     }
 
     public function payRoll($data)

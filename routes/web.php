@@ -41,6 +41,9 @@ Route::get('/cotizacion-pdf/{item}', [PdfController::class, 'quote'])
 Route::get('/nomina-pdf/{item}', [PdfController::class, 'payRoll'])
     ->name('pay-roll-pdf');
 
+Route::get('/orden-venta-pdf/{item}', [PdfController::class, 'SaleOrder'])
+    ->name('sale-order-pdf');
+
 Route::get('/recibo-vacaciones/{item}', [FormatController::class, 'vacationsReceipt'])
     ->name('vacations-receipt-format');
 
@@ -154,7 +157,7 @@ Route::get('/biblioteca-medios', MediaLibraryIndex::class)
     ->middleware('auth')
     ->name('media-library');
 
-    Route::get('/ordenes-mercadotecnia', MarketingOrders::class)
+Route::get('/ordenes-mercadotecnia', MarketingOrders::class)
     ->middleware('auth')
     ->name('marketing-orders');
 
@@ -168,18 +171,3 @@ Route::get('event-cache', function () {
     Artisan::call('event:clear');
     return "events cache clear!";
 });
-     
-    //  Route::get('/view-cache', function() {
-    //     Artisan::call('view:cache');
-    //     return "precompiled all your Blade views so they are not compiled on demand!";
-    //  });
-     
-    //  Route::get('/storage-link', function() {
-    //     Artisan::call('storage:link');
-    //     return "created virtual storage link successfully!";
-    //  });
-     
-    //  Route::get('/migrate-db', function() {
-    //     Artisan::call('migrate --seed');
-    //     return "database migrated successfully!";
-    //  });
