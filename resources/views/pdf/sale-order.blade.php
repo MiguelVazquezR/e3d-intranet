@@ -15,15 +15,15 @@
 <body class="text-xs">
     @foreach ($sale_order->sellOrderedProducts as $ordered_product)
         @php
-            if ($ordered_product->productForSell->model_name === Product::class) {
-                $product = App\models\Product::find($ordered_product->productForSell->model_id);
+            if ($ordered_product->productForSell->model_name == 'App\\Models\\Product') {
+                $product = App\Models\Product::find($ordered_product->productForSell->model_id);
                 if ($product) {
                     $product_name = $product->name;
                 } else {
                     $product_name = '??? - simple';
                 }
             } else {
-                $product = App\models\CompositProduct::find($ordered_product->productForSell->model_id);
+                $product = App\Models\CompositProduct::find($ordered_product->productForSell->model_id);
                 if ($product) {
                     $product_name = $product->alias;
                 } else {
@@ -55,7 +55,9 @@
                                         <span class="text-yellow-700 font-bold">Asignado a:</span>
                                         {{ $activity->operator->name }} | 
                                         <span class="text-yellow-700 font-bold">Indicaciones:</span>
-                                        {{ $activity->indications }}
+                                        {{ $activity->indications }} | 
+                                        <span class="text-yellow-700 font-bold">Tiempo estimado:</span>
+                                        {{ $activity->estimated_time }} minutos
                                     @endforeach
                                 </p>
                             @else
