@@ -119,7 +119,7 @@ class EditSellOrder extends Component
         /// create stock movements
         foreach ($this->sell_order->sellOrderedProducts as $sop) {
             // create stock movements (- out)
-            $this->_assignOperator($sop);
+            // $this->_assignOperator($sop);
             $product_for_sell = $sop->productForSell;
             if ($product_for_sell->model_name == CompositProduct::class) {
                 $composit_product = CompositProduct::find($product_for_sell->model_id);

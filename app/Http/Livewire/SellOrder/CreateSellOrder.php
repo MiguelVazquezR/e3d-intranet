@@ -186,7 +186,7 @@ class CreateSellOrder extends Component
 
             if ($sell_order->authorized_user_id) {
                 // assign operator
-                $this->_assignOperator($sop);
+                // $this->_assignOperator($sop);
                 // create stock movements
                 $product_for_sell = $sop->productForSell;
                 if ($product_for_sell->model_name == CompositProduct::class) {
