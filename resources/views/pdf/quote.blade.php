@@ -105,7 +105,7 @@
         </table>
 
         <!-- Images -->
-        <div class="w-11/12 mx-auto my-3 grid grid-cols-5 gap-4 ">
+        <div class="w-11/12 mx-auto my-3 grid grid-cols-3 gap-4 ">
              {{-- simple products --}}
             @foreach ($quote->quotedProducts as $q_product)
                 @if ($q_product->show_image)
