@@ -12,9 +12,14 @@
                 <x-jet-input wire:model.defer="subject" type="text" class="w-full mt-2" />
                 <x-jet-input-error for="subject" class="text-xs" />
             </div>
-            <div wire:ignore>
+            {{-- CKEDITOR 5 --}}
+            {{-- <div wire:ignore>
                 <x-jet-label value="Mensaje" class="mt-3" />
                 <textarea id="editor" wire:model.defer="body" rows="3"></textarea>
+            </div> --}}
+            <div>
+                <x-jet-label value="Mensaje" class="mt-3" />
+                <textarea wire:model="body" rows="3" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
             </div>
             <x-jet-input-error for="body" class="text-xs" />
             <div>
@@ -57,7 +62,7 @@
 
     </x-jet-dialog-modal>
 
-    @push('js')
+    {{-- @push('js')
     <script>
             ClassicEditor
                 .create(document.querySelector('#editor'), {
@@ -92,5 +97,5 @@
                     console.log(error);
                 });
         </script>
-    @endpush
+    @endpush --}}
 </div>

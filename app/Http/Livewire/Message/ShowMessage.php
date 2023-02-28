@@ -35,6 +35,8 @@ class ShowMessage extends Component
             'message_id' => $this->message->id,
         ]);
 
+        $this->comment_body = "";
+
         //set notifications as unreaded
         $this->message->MarkAsUnreadNotifications();
 
@@ -50,7 +52,7 @@ class ShowMessage extends Component
         }
 
         $this->updateView();
-        $this->emit('success', 'Comentario agregado');
+        $this->emit('success', 'Comentario agregado', 'clear');
     }
 
     public function updateView()

@@ -15,13 +15,14 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">
-                {!! $message->body !!}
-            </div>
+            <p style="white-space: pre-line;" class="px-4 py-2 text-sm bg-blue-100 text-gray-700 shadow-lg rounded-lg">
+                {{ $message->body }}
+            </p>
             <x-jet-label value="Comentarios" class="mt-4" />
 
             <div wire:ignore class="mt-1">
-                <textarea id="editor1" wire:model.defer="comment_body" rows="3"></textarea>
+                <textarea id="editor1" wire:model="comment_body" rows="3"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"></textarea>
             </div>
             @if ($comment_body)
                 <x-jet-button class="mt-1" wire:click="sendComment">
@@ -36,12 +37,12 @@
                             <img class="h-10 w-10 rounded-full object-cover border-2"
                                 src="{{ $_comment->user->profile_photo_url }}" />
                         </div>
-                        <div
+                        <p style="white-space: pre-line;"
                             class="col-span-6 lg:col-span-8 text-gray-700 rounded-xl rounded-tl-none bg-blue-100 shadow-lg px-4 pt-2 ml-1">
-                            {!! $_comment->body !!}
-                            <p class="text-gray-500 text-right mb-0" style="font-size: 10px;">
-                                {{ $_comment->created_at->diffForHumans() }}</p>
-                        </div>
+                            {{ $_comment->body }}
+                            <small class="text-gray-500 text-right mb-0" style="font-size: 10px;">
+                                {{ $_comment->created_at->diffForHumans() }}</small>
+                        </p>
                     </div>
                 </div>
             @endforeach
@@ -64,7 +65,7 @@
 
     </x-jet-dialog-modal>
 
-    @push('js')
+    {{-- @push('js')
         <script>
             ClassicEditor
                 .create(document.querySelector('#editor1'), {
@@ -99,5 +100,5 @@
                     console.log(error);
                 });
         </script>
-    @endpush
+    @endpush --}}
 </div>
