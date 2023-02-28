@@ -63,14 +63,14 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         <!-- Main js Scripts -->
         <script src="{{ mix('js/app.js') }}"></script>
 
-        @auth
+        {{-- @auth
             <script>
                 Echo.private('App.Models.User.' + {{ Auth::user()->id }})
                     .notification((notification) => {
                         Livewire.emit('messages-counter-refresh');
                     });
             </script>
-        @endauth
+        @endauth --}}
 
 </body>
 
