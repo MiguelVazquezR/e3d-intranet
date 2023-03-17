@@ -13,6 +13,14 @@
 </head>
 
 <body class="text-xs">
+    <pre>
+        {{ $sale_order }}
+
+    </pre>
+    <h1 class="text-center font-semibold text-lg">
+        OCE: {{ $sale_order->oce_name }} <br>
+        Cliente: {{ $sale_order->customer->name }}
+    </h1>
     @foreach ($sale_order->sellOrderedProducts as $ordered_product)
         @php
             if ($ordered_product->productForSell->model_name == 'App\\Models\\Product') {
@@ -92,6 +100,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <p>Notas: {{ $ordered_product->notes ?? '--' }}</p>
                         </div>
                     </div>
                 </div>

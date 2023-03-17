@@ -24,7 +24,7 @@ class PdfController extends Controller
 
     public function saleOrder($sale_order_id)
     {
-        $sale_order = SellOrder::with('sellOrderedProducts.productForSell.model', 'sellOrderedProducts.activityDetails.operator', 'creator')
+        $sale_order = SellOrder::with('sellOrderedProducts.productForSell.model', 'sellOrderedProducts.activityDetails.operator', 'creator', 'customer')
             ->find($sale_order_id);
 
         return view('pdf.sale-order', compact('sale_order'));
