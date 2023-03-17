@@ -13,10 +13,6 @@
 </head>
 
 <body class="text-xs">
-    <pre>
-        {{ $sale_order }}
-
-    </pre>
     <h1 class="text-center font-semibold text-lg">
         OCE: {{ $sale_order->oce_name }} <br>
         Cliente: {{ $sale_order->customer->name }}
