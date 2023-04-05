@@ -168,10 +168,6 @@
                 <span>Hrs extra</span>
                 <span>{{ $user->totalExtraTime($pay_roll->id) }}
                     (${{ $user->extraSalary($pay_roll->id) }})</span>
-                @if ($user->id === 40 && $pay_roll->id > 40)
-                    <span class="text-red-500">Prestamo de lampara</span>
-                    <span class="text-red-500">-$200</span>
-                @endif
                 @if ($user->employee->discounts || $user->discountByDelay($pay_roll->id))
                     <span>deducciones</span>
                     <div>
@@ -185,11 +181,7 @@
                     </div>
                 @endif
                 <span>total</span>
-                @if ($user->id === 40 && $pay_roll->id > 40)
-                    <span>${{ $user->totalSalary($pay_roll->id, false) - 200 }}</span>
-                @else
-                    <span>${{ $user->totalSalary($pay_roll->id) }}</span>
-                @endif
+                <span>${{ $user->totalSalary($pay_roll->id) }}</span>
                 <span class="col-span-2">&nbsp;</span>
                 <span class="col-span-2">firma</span>
             </div>

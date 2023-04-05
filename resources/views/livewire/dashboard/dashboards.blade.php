@@ -18,6 +18,12 @@
             <x-loading-indicator />
         </div>
 
+        <h2 class="text-2xl text-gray-400 mb-3 ml-6">Manuales</h2>
+        <div class="lg:grid lg:grid-cols-4 lg:gap-3 mb-2 text-blue-400">
+            <a href="{{ asset('manuals/pulpo_basico.pdf') }}" target="_blank" class="rounded-md border px-2 py-1">Pulpo de serigrafía (básico)</a> <br>
+            <a href="{{ asset('manuals/pulpo_tecnico.pdf') }}" target="_blank" class="rounded-md border px-2 py-1">Pulpo de serigrafía (técnico)</a>
+        </div>
+
         <h2 class="text-2xl text-gray-400 mb-3 ml-6">Mios</h2>
         <div class="lg:grid lg:grid-cols-4 lg:gap-3 mb-2">
 

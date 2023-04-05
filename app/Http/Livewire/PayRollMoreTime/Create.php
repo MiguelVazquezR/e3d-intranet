@@ -14,7 +14,7 @@ class Create extends Component
         $hours;
 
     protected $rules = [
-        'hours' => 'required|numeric|min:0|max:15',
+        'hours' => 'required|numeric|min:0|max:25',
         'minutes' => 'required|numeric|min:0|max:59',
         'report' => 'required',
     ];

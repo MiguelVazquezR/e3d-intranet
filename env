@@ -2,7 +2,7 @@ APP_NAME="Emblemas3d | Intranet"
 APP_ENV=local
 APP_KEY=base64:tsUicHSXB8ytpD9JC1JeQUaamBa29B2zP1b5ePqgNxM=
 APP_DEBUG=true
-APP_URL=https://emblemas3d.arcomtechmexico.com
+APP_URL=http://localhost:8000
 
 LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
@@ -11,9 +11,9 @@ LOG_LEVEL=debug
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=arcomte1_emblemas3d
-DB_USERNAME=arcomte1_admin
-DB_PASSWORD=K%x5i];UApAL
+DB_DATABASE=emblemas3d_8
+DB_USERNAME=root
+DB_PASSWORD=
 
 BROADCAST_DRIVER=pusher
 CACHE_DRIVER=file
