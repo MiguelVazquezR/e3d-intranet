@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Machine extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'serial_number',
+        'weight',
+        'width',
+        'large',
+        'height',
+        'cost',
+        'supplier',
+        'aquisition_date',
+    ];
+
+    protected $dates = [
+        'aquisition_date'
+    ];
+
+    //relationships
+    
 }

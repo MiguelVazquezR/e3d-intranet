@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class SparePart extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'supplier',
+        'cost',
+        'description',
+        'machine_id',
+    ];
+
+    //relationships
 }

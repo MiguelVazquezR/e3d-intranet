@@ -161,6 +161,10 @@ Route::get('/ordenes-mercadotecnia', MarketingOrders::class)
     ->middleware('auth')
     ->name('marketing-orders');
 
+Route::get('/mantenimiento-maquinaria', MarketingOrders::class)
+    ->middleware('auth')
+    ->name('marketing-orders');
+
 // // artisan commands
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');

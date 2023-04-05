@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Maintenance extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'problems',
+        'actions',
+        'cost',
+        'maintenance_type',
+        'responsible',
+        'machine_id',
+    ];
+
+    //relationships
 }
