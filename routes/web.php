@@ -9,6 +9,7 @@ use App\Http\Livewire\Dashboard\Dashboards;
 use App\Http\Livewire\DesignDepartment\HomeDesign;
 use App\Http\Livewire\DesignOrder\DesignOrders;
 use App\Http\Livewire\Holyday\Holydays;
+use App\Http\Livewire\Machines\MachineIndex;
 use App\Http\Livewire\Marketing\MarketingIndex;
 use App\Http\Livewire\MarketingOrder\MarketingOrders;
 use App\Http\Livewire\MediaLibrary\Index as MediaLibraryIndex;
@@ -55,7 +56,6 @@ Route::get('/orden-venta/{item}', [FormatController::class, 'sellOrder'])
 
 Route::get('/orden-compra/{item}', [FormatController::class, 'purchaseOrder'])
     ->name('purchase-order-format');
-
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
@@ -160,6 +160,10 @@ Route::get('/biblioteca-medios', MediaLibraryIndex::class)
 Route::get('/ordenes-mercadotecnia', MarketingOrders::class)
     ->middleware('auth')
     ->name('marketing-orders');
+
+Route::get('/maquinaria', MachineIndex::class)
+    ->middleware('auth')
+    ->name('machines');
 
 // // artisan commands
 Route::get('/clear-cache', function () {
