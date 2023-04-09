@@ -17,7 +17,7 @@
 
         <x-slot name="content">
             <div>
-                <x-jet-label value="Nombre de la máquina" class="mt-3 dark:text-gray-400" />
+                <x-jet-label value="Nombre de la máquina *" class="mt-3 dark:text-gray-400" />
                 <x-jet-input wire:model.defer="name" type="text" class="w-full mt-2 input" />
                 <x-jet-input-error for="name" class="mt-3" />
             </div>
@@ -33,17 +33,17 @@
                     <x-jet-input-error for="weight" class="mt-3" />
                 </div>
                 <div>
-                    <x-jet-label value="Ancho (mts)" class="mt-3 dark:text-gray-400" />
+                    <x-jet-label value="Ancho (cm)" class="mt-3 dark:text-gray-400" />
                     <x-jet-input wire:model.defer="width" type="number" class="w-full mt-2 input" />
                     <x-jet-input-error for="width" class="mt-3" />
                 </div>
                 <div>
-                    <x-jet-label value="Largo (mts)" class="mt-3 dark:text-gray-400" />
+                    <x-jet-label value="Largo (cm)" class="mt-3 dark:text-gray-400" />
                     <x-jet-input wire:model.defer="large" type="number" class="w-full mt-2 input" />
                     <x-jet-input-error for="large" class="mt-3" />
                 </div>
                 <div>
-                    <x-jet-label value="Alto (mts)" class="mt-3 dark:text-gray-400" />
+                    <x-jet-label value="Alto (cm)" class="mt-3 dark:text-gray-400" />
                     <x-jet-input wire:model.defer="height" type="number" class="w-full mt-2 input" />
                     <x-jet-input-error for="height" class="mt-3" />
                 </div>

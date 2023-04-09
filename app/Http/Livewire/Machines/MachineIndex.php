@@ -54,7 +54,7 @@ class MachineIndex extends Component
 
     public function edit(Machine $machine)
     {
-        $this->emitTo('machine.edit-machine', 'openModal', $machine);
+        $this->emitTo('machines.edit-machine', 'openModal', $machine);
     }
 
     public function delete(Machine $machine)
@@ -63,7 +63,7 @@ class MachineIndex extends Component
         MovementHistory::create([
             'movement_type' => 3,
             'user_id' => auth()->id(),
-            'description' => "Se eliminó maquina de nombre: {$machine->name}"
+            'description' => "Se eliminó máquina de nombre: {$machine->name}"
         ]);
 
         $machine->delete();
