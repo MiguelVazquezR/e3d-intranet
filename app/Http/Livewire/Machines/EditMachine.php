@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Machines;
 
+use App\Models\Machine;
+use App\Models\MovementHistory;
 use Livewire\Component;
 
 class EditMachine extends Component
 {
     public $open = false,
+        $aquisition_date,
         $machine;
        
     protected $listeners = [
@@ -14,48 +17,52 @@ class EditMachine extends Component
         'openModal',
     ];
 
-    // protected $rules = [
-    //     'holyday.name' => 'required',
-    //     'holyday.active' => 'required',
-    // ];
+    protected $rules = [
+        'machine.name' => 'required',
+        'machine.serial_number' => 'required',
+        'machine.weight' => 'nullable',
+        'machine.width' => 'nullable',
+        'machine.large' => 'nullable',
+        'machine.height' => 'nullable',
+        'machine.cost' => 'nullable',
+        'aquisition_date' => 'nullable',
+    ];
 
-    // public function updatingOpen()
-    // {
-    //     if ($this->open == true) {
-    //         $this->resetExcept([
-    //             'open',
-    //         ]);
-    //     }
-    // }
+    public function updatingOpen()
+    {
+        if ($this->open == true) {
+            $this->resetExcept([
+                'open',
+            ]);
+        }
+    }
 
-    // public function openModal(Holyday $holyday)
-    // {
-    //     $this->open = true;
-    //     $this->holyday = $holyday;
-    //     $this->day = $this->holyday->date->isoFormat('D');
-    //     $this->month = $this->holyday->date->isoFormat('M');
-    // }
+    public function openModal(Machine $machine)
+    {
+        $this->open = true;
+        $this->machine = $machine;
+        $this->aquisition_date = $machine->aquisition_date->toDateString();
+    }
 
-    // public function update()
-    // {
-    //     $this->validate();
+    public function update()
+    {
+        $this->validate();
 
-    //     $this->holyday->date = '2022-' . $this->month . '-' . $this->day;
+        $this->machine->aquisition_date = $this->aquisition_date;
+        $this->machine->save();
 
-    //     $this->holyday->save();
+        // create movement history
+        MovementHistory::create([
+            'movement_type' => 2,
+            'user_id' => auth()->id(),
+            'description' => "Se editó maquina con ID: {$this->machine->id}"
+        ]);
 
-    //     // create movement history
-    //     MovementHistory::create([
-    //         'movement_type' => 2,
-    //         'user_id' => Auth::user()->id,
-    //         'description' => "Se editó día feriado con ID: {$this->holyday->id}"
-    //     ]);
+        $this->reset();
 
-    //     $this->reset();
-
-    //     $this->emitTo('holyday.holydays', 'render');
-    //     $this->emit('success', 'Día festivo actualizado');
-    // }
+        $this->emitTo('machines.machine-index', 'render');
+        $this->emit('success', 'máquina actualizada');
+    }
 
     public function render()
     {

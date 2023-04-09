@@ -17,7 +17,7 @@ class CreateMachinesTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string('serial_number');
+            $table->string('serial_number')->nullable();
             $table->unsignedFloat('weight')->nullable();
             $table->unsignedFloat('width')->nullable();
             $table->unsignedFloat('large')->nullable();

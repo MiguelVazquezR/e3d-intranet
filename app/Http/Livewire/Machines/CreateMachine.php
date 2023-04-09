@@ -24,7 +24,7 @@ class CreateMachine extends Component
 
     protected $rules = [
         'name' => 'required',
-        'serial_number' => 'required',
+        'serial_number' => 'nullable',
         'weight' => 'nullable',
         'width' => 'nullable',
         'large' => 'nullable',
