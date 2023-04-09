@@ -213,17 +213,14 @@
                                     <i class="fas fa-photo-video"></i>
                                     Biblioteca de medios
                                 </x-jet-dropdown-link>
+                                {{-- machines --}}
+                                <x-jet-dropdown-link href="{{ route('machines') }}">
+                                    <i class="fas fa-tools"></i>
+                                    Maquinaria
+                                </x-jet-dropdown-link>
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
-
-                    {{-- machines --}}
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 md:flex">
-                        <x-jet-nav-link href="{{ route('machine') }}" :active="request()->routeIs('machine.*')">
-                            Maquinaria
-                        </x-jet-nav-link>
-                    </div>
-
                 </div>
             </div>
 
