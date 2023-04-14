@@ -19,4 +19,8 @@ class Maintenance extends Model
     ];
 
     //relationships
+    public function machine()
+    {
+        return $this->belongsTo(Machine::class);
+    }
 }
