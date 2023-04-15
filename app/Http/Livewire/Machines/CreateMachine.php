@@ -60,7 +60,9 @@ class CreateMachine extends Component
         
         // add files attached to machine (manuals, images, features, etc)
         foreach ($this->files as $file) {
-            $machine->addMedia($file->getRealPath())->toMediaCollection();
+            $machine->addMedia($file->getRealPath())
+                ->usingName($file->getClientOriginalName())
+                ->toMediaCollection('files');
         }
 
         // create movement history
