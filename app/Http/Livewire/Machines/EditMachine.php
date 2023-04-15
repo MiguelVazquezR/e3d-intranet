@@ -5,11 +5,15 @@ namespace App\Http\Livewire\Machines;
 use App\Models\Machine;
 use App\Models\MovementHistory;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EditMachine extends Component
 {
+    use WithFileUploads;
+
     public $open = false,
         $aquisition_date,
+        $files = [],
         $machine;
        
     protected $listeners = [
@@ -26,6 +30,7 @@ class EditMachine extends Component
         'machine.height' => 'nullable',
         'machine.cost' => 'nullable',
         'aquisition_date' => 'nullable',
+        'files.*' => 'mimes:jpg,png,jpeg,gif,svg,pdf,docx,doc,txt,xlsx,xlsm,xlsb,xls'
     ];
 
     public function updatingOpen()
@@ -33,20 +38,35 @@ class EditMachine extends Component
         if ($this->open == true) {
             $this->resetExcept([
                 'open',
+                'machine',
             ]);
         }
+    }
+
+    public function mount()
+    {
+        $this->machine = new Machine();
     }
 
     public function openModal(Machine $machine)
     {
         $this->open = true;
         $this->machine = $machine;
-        $this->aquisition_date = $machine->aquisition_date->toDateString();
+        $this->aquisition_date = $machine->aquisition_date 
+        ? $machine->aquisition_date->toDateString()
+        : '';
     }
 
     public function update()
     {
         $this->validate();
+
+         // add files attached to machine (manuals, images, features, etc)
+         foreach ($this->files as $file) {
+            $this->machine->addMedia($file->getRealPath())
+                ->usingName($file->getClientOriginalName())
+                ->toMediaCollection('files');
+        }
 
         $this->machine->aquisition_date = $this->aquisition_date;
         $this->machine->save();
@@ -58,7 +78,7 @@ class EditMachine extends Component
             'description' => "Se editó maquina con ID: {$this->machine->id}"
         ]);
 
-        $this->reset();
+        $this->resetExcept(['machine']);
 
         $this->emitTo('machines.machine-index', 'render');
         $this->emit('success', 'máquina actualizada');

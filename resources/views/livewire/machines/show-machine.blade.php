@@ -1,41 +1,63 @@
 <div>
     <x-jet-dialog-modal wire:model="open">
 
+        <div wire:loading wire:target="openModal">
+            <x-loading-indicator />
+        </div>
+
         <x-slot name="title">
             Máquina {{ $machine->id }}
         </x-slot>
 
         <x-slot name="content">
 
-            <div class="grid grid-cols-3 gap-4">
+            <div class="lg:grid grid-cols-2 gap-3">
                 @if ($machine->image)
-                    <a href="{{ Storage::url($machine->image) }}" target="_blank"><img class="w-48 h-48 rounded-2xl object-cover object-center" src="{{ Storage::url($machine->image) }}"> </a>
+                    <a href="{{ Storage::url($machine->image) }}" target="_blank"><img
+                            class="w-48 h-48 rounded-2xl object-cover object-center"
+                            src="{{ Storage::url($machine->image) }}"> </a>
                 @endif
                 @if ($machine->id)
                     <div>
-                        <div>
-                            <x-jet-label value="Nombre" class="mt-3" />
-                            <p>{{ $machine->name }}</p>
-                        </div>
-                        {{-- <div>
-                            <x-jet-label value="Stock mínimo" class="mt-3" />
-                            <p>{{ $machine->min_stock . ' ' . $machine->unit['name'] }}</p>
-                        </div>
-                        <div class="mb-4">
-                            <x-jet-label value="Material" class="mt-3" />
-                            <p>{{ $machine->material['name'] }}</p>
-                        </div> --}}
+                        <x-jet-label value="Nombre" class="mt-3" />
+                        <p>{{ $machine->name }}</p>
                     </div>
-                    {{-- <div>
-                        <div class="mb-4">
-                            <x-jet-label value="Familia" class="mt-3" />
-                            <p>{{ $machine->family['name'] }}</p>
-                        </div>
-                        <div class="mb-4">
-                            <x-jet-label value="Estado" class="mt-3" />
-                            <p>{{ $machine->status['name'] }}</p>
-                        </div>
-                    </div> --}}
+                    <div>
+                        <x-jet-label value="Número de serie" class="mt-3" />
+                        <p>{{ $machine->serial_number ?? '--' }}</p>
+                    </div>
+                    <div>
+                        <x-jet-label value="Dimensiones (ancho x largo x alto cm)" class="mt-3" />
+                        <p>{{ $machine->width ?? '--' }} x {{ $machine->large ?? '--' }} x
+                            {{ $machine->height ?? '--' }} (cm)</p>
+                    </div>
+                    <div>
+                        <x-jet-label value="Costo" class="mt-3" />
+                        <p>{{ number_format($machine->cost) ?? '--' }} $MXN</p>
+                    </div>
+                    <div>
+                        <x-jet-label value="Proveedor" class="mt-3" />
+                        <p>{{ $machine->supplier ?? '--' }}</p>
+                    </div>
+                    <div>
+                        <x-jet-label value="Fecha de adquisición" class="mt-3" />
+                        @if ($machine->aquisition_date)
+                            <p>{{ $machine->aquisition_date->isoFormat('DD MMMM, YYYY') }}</p>
+                        @else
+                            <p>--</p>
+                        @endif
+                    </div>
+                    <div class="col-span-full">
+                        <h2 class="my-2 dark:text-gray-300 text-gray-700 text-lg">
+                            <i class="fas fa-paperclip"></i>
+                            Archivos adjuntos
+                        </h2>
+                        @forelse ($machine->getMedia('files') as $media)
+                            {{ $media }}
+                        @empty
+                            <p class="text-sm text-center">No hay archivos adjuntos a esta máquina</p>
+                        @endforelse
+                    </div>
                 @endif
             </div>
 

@@ -74,6 +74,9 @@
             </x-slot>
         </x-table>
 
+        <!-- show modal -->
+        @livewire('machines.show-machine')
+
         <!-- edit modal -->
         @livewire('machines.edit-machine')
 
