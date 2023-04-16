@@ -67,8 +67,27 @@
                                     class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
                             @endcan
                         </td>
-                        <td class="py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
-                        </td>
+                        <td class="py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
+                            @can('más_acciones_cotizaciones')
+                                <x-jet-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <i
+                                            class="fas fa-ellipsis-v text-white p-1 rounded-lg hover:cursor-pointer bg-gray-400 ml-px mt-1"></i>
+                                    </x-slot>
+
+                                    <x-slot name="content">
+                                        <x-jet-dropdown-link wire:click="historyMaintenance( {{ $item }} )"
+                                            :link="false">
+                                            Bitácora de Mantenimientos
+                                        </x-jet-dropdown-link>
+                                        <x-jet-dropdown-link wire:click="spareParts( {{ $item }} )"
+                                            :link="false">
+                                            Piezas de repuesto
+                                        </x-jet-dropdown-link>
+                                    </x-slot>
+                                </x-jet-dropdown>
+                            @endcan
+                        </td>>
                     </tr>
                 @endforeach
             </x-slot>
@@ -76,6 +95,8 @@
 
         <!-- edit modal -->
         @livewire('machines.edit-machine')
+        @livewire('machines.history-maintenance')
+        @livewire('machines.spare-parts')
 
     </div>
 

@@ -21,6 +21,7 @@ class CreateSparePartsTable extends Migration
             $table->unsignedFloat('cost');
             $table->text('description')->nullable();
             $table->string('location');
+            $table->unsignedFloat('quantity');
 
             $table->foreignId('machine_id')->constrained()->cascadeOnDelete();
             

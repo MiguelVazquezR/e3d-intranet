@@ -86,4 +86,14 @@ class MachineIndex extends Component
 
         return view('livewire.machines.machine-index', compact('machines'));
     }
+
+    public function historyMaintenance(Machine $machine)
+    {
+        $this->emitTo('machines.history-maintenance', 'openModal', $machine);
+    }
+
+    public function spareParts(Machine $machine)
+    {
+        $this->emitTo('machines.spare-parts', 'openModal', $machine);
+    }
 }
