@@ -32,4 +32,9 @@ class Machine extends Model implements HasMedia
     {
         return $this->hasMany(Maintenance::class);
     }
+
+        public function spareParts()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
 }
