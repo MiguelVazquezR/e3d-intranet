@@ -23,7 +23,6 @@ class EditMachine extends Component
 
     protected $rules = [
         'machine.name' => 'required',
-        'machine.serial_number' => 'required',
         'machine.weight' => 'nullable',
         'machine.width' => 'nullable',
         'machine.large' => 'nullable',
