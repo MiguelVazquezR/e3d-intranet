@@ -15,7 +15,8 @@
 <body class="text-xs">
     <h1 class="text-center font-semibold text-lg">
         OCE: {{ $sale_order->oce_name }} <br>
-        Cliente: {{ $sale_order->customer->name }}
+        Cliente: {{ $sale_order->customer->name }} <br>
+        Fecha: {{ $sale_order->created_at->format('Y-m-d') }}
     </h1>
     @foreach ($sale_order->sellOrderedProducts as $ordered_product)
         @php

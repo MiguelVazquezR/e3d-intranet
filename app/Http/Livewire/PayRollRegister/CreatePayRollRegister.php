@@ -196,7 +196,7 @@ class CreatePayRollRegister extends Component
 
     public function verifyUser()
     {
-        if($this->password === "admin123") {
+        if($this->password === "e3d123") {
             $this->update();
             $this->reset(['verification_failed', 'open_confirm']);
         } else {

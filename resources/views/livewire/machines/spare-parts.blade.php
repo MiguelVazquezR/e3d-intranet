@@ -13,7 +13,6 @@
             <x-jet-button wire:click="openModal">
                 + agregar
              </x-jet-button>
-             @if ($machine->id)
                  
              <div class="lg:grid grid-cols-2 gap-2 mt-3">
                  <div>
@@ -32,10 +31,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    @if (!$machine->spareParts)
-                    <p>No hay partes de repuesto de esta máquina</p>
-                    @endif
-                    @endif
+
                 </x-slot>
 
         <x-slot name="footer">

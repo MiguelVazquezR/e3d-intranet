@@ -87,7 +87,7 @@
                                     </x-slot>
                                 </x-jet-dropdown>
                             @endcan
-                        </td>>
+                        </td>
                     </tr>
                 @endforeach
             </x-slot>
@@ -95,6 +95,7 @@
 
         <!-- edit modal -->
         @livewire('machines.edit-machine')
+        @livewire('machines.show-machine')
         @livewire('machines.history-maintenance')
         @livewire('machines.spare-parts')
 
