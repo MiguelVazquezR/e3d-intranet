@@ -52,11 +52,14 @@
                             <i class="fas fa-paperclip"></i>
                             Archivos adjuntos
                         </h2>
-                        @forelse ($machine->getMedia('files') as $media)
-                            {{ $media }}
-                        @empty
-                            <p class="text-sm text-center">No hay archivos adjuntos a esta máquina</p>
-                        @endforelse
+                        <div class="flex-col flex gap-y-1">
+                            @forelse ($machine->getMedia('files') as $media)
+                                <a href="{{ $media->getUrl() }}" target="_blank"
+                                    class="text-blue-400">{{ $media->name }}</a>
+                            @empty
+                                <p class="text-sm text-center">No hay archivos adjuntos a esta máquina</p>
+                            @endforelse
+                        </div>
                     </div>
                 @endif
             </div>

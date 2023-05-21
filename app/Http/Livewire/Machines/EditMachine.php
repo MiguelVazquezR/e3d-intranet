@@ -6,6 +6,7 @@ use App\Models\Machine;
 use App\Models\MovementHistory;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class EditMachine extends Component
 {
@@ -23,7 +24,6 @@ class EditMachine extends Component
 
     protected $rules = [
         'machine.name' => 'required',
-        'machine.serial_number' => 'required',
         'machine.weight' => 'nullable',
         'machine.width' => 'nullable',
         'machine.large' => 'nullable',
@@ -82,6 +82,15 @@ class EditMachine extends Component
 
         $this->emitTo('machines.machine-index', 'render');
         $this->emit('success', 'máquina actualizada');
+    }
+
+    public function deleteFile($media_uuid)
+    {
+        $media = Media::findByUuid($media_uuid);
+        $media->delete();
+
+        $this->machine = Machine::find($this->machine->id);
+        $this->emit('success', 'Archivo eliminado');
     }
 
     public function render()
