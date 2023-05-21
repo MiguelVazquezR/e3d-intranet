@@ -58,18 +58,22 @@
                         <i class="fas fa-paperclip"></i>
                         Archivos adjuntos
                     </h2>
-                    @forelse ($machine->getMedia('files') as $media)
-                        {{ $media->name }}
-                        <i class="far fa-trash-alt text-red-500 cursor-pointer ml-3"></i>
-                    @empty
-                        <p class="text-sm text-center">No hay archivos adjuntos a esta máquina</p>
-                    @endforelse
+                    <div class="flex flex-col">
+                        @forelse ($machine->getMedia('files') as $media)
+                            <div>
+                                <a href="{{ $media->getUrl() }}" target="_blank"
+                                    class="text-blue-400">{{ $media->name }}</a>
+                                <i wire:click="deleteFile('{{ $media->uuid }}')" class="far fa-trash-alt text-red-500 cursor-pointer ml-3"></i>
+                            </div>
+                        @empty
+                            <p class="text-sm text-center">No hay archivos adjuntos a esta máquina</p>
+                        @endforelse
+                    </div>
                 </div>
                 <hr class="my-2">
                 <div class="mt-3">
                     <x-jet-label value="Archivos (manuales, imagenes, planos, etc)" class="dark:text-gray-400" />
-                    <input type="file" id="files" wire:model="files"
-                        placeholder="Seleccionar" multiple>
+                    <input type="file" id="files" wire:model="files" placeholder="Seleccionar" multiple>
                 </div>
             @endif
         </x-slot>
