@@ -76,6 +76,16 @@ class MachineIndex extends Component
         $this->emit('success', 'maquina eliminada');
     }
 
+    public function openMaintenances(Machine $machine)
+    {
+        $this->emitTo('machines.maintenance.index-maintenance', 'openModal', $machine);
+    }
+    
+    public function openSpareParts(Machine $machine)
+    {
+        $this->emitTo('machines.spare-part.index-spare-part', 'openModal', $machine);
+    }
+
     public function render()
     {
         $machines = Machine::where('id', 'like', "%$this->search%")

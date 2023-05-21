@@ -67,7 +67,24 @@
                                     class="fas fa-trash bg-red-500 text-white p-2 rounded-lg ml-1 hover:cursor-pointer"></i>
                             @endcan
                         </td>
-                        <td class="py-3 border-b dark:border-slate-600 dark:bg-slate-700 border-gray-200 bg-white">
+                        <td class="py-3 border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-slate-700">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <i
+                                        class="fas fa-ellipsis-v text-white p-1 rounded-lg hover:cursor-pointer bg-gray-400 ml-px mt-1"></i>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <x-jet-dropdown-link wire:click="openMaintenances({{ $item }})"
+                                        :link="false">
+                                        Bitacora de mantenimientos
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link wire:click="openSpareParts({{ $item }})"
+                                        :link="false">
+                                        Refacciones
+                                    </x-jet-dropdown-link>
+                                </x-slot>
+                            </x-jet-dropdown>
                         </td>
                     </tr>
                 @endforeach
@@ -79,6 +96,18 @@
 
         <!-- edit modal -->
         @livewire('machines.edit-machine')
+        
+        <!-- manteinances -->
+        @livewire('machines.maintenance.index-maintenance')
+        @livewire('machines.maintenance.create-maintenance')
+        @livewire('machines.maintenance.show-maintenance')
+        @livewire('machines.maintenance.edit-maintenance')
+
+        <!-- spare parts -->
+        @livewire('machines.spare-part.index-spare-part')
+        @livewire('machines.spare-part.create-spare-part')
+        @livewire('machines.spare-part.show-spare-part')
+        @livewire('machines.spare-part.edit-spare-part')
 
     </div>
 
