@@ -21,55 +21,61 @@
                         + Agregar
                     </x-jet-button>
                 </div>
-                <div class="overflow-x-auto">
-                    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="overflow-hidden">
-                            <table class="min-w-full">
-                                <thead class="bg-gray-200 dark:bg-slate-600 border-b">
-                                    <tr>
-                                        <th scope="col"
-                                            class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
-                                            #
-                                        </th>
-                                        <th scope="col"
-                                            class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
-                                            Situación
-                                        </th>
-                                        <th scope="col"
-                                            class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
-                                            Costo
-                                        </th>
-                                        <th scope="col"
-                                            class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
-                                            Fecha
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($machine->maintenances as $maintenance)
-                                        <tr wire:click="openEditModal({{ $maintenance }})"
-                                            class="bg-white dark:bg-slate-300 border-b transition duration-300 ease-in-out hover:bg-slate-500 cursor-pointer">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-600">
-                                                {{ $maintenance->id }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 dark:text-gray-600 font-light px-6 py-4 whitespace-nowrap">
-                                                {{ substr($maintenance->problems, 0, 40) }}...
-                                            </td>
-                                            <td class="text-sm text-gray-900 dark:text-gray-600 font-light px-6 py-4 whitespace-nowrap">
-                                                ${{ number_format($maintenance->cost, 2) }} MXN
-                                            </td>
-                                            <td class="text-sm text-gray-900 dark:text-gray-600 font-light px-6 py-4 whitespace-nowrap">
-                                                {{ $maintenance->created_at->isoFormat('DD MMMM, YYYY') }}
-                                            </td>
+                @if ($machine->maintenances->count())
+                    <div class="overflow-x-auto">
+                        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="overflow-hidden">
+                                <table class="min-w-full">
+                                    <thead class="bg-gray-200 dark:bg-slate-600 border-b">
+                                        <tr>
+                                            <th scope="col"
+                                                class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
+                                                #
+                                            </th>
+                                            <th scope="col"
+                                                class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
+                                                Situación
+                                            </th>
+                                            <th scope="col"
+                                                class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
+                                                Costo
+                                            </th>
+                                            <th scope="col"
+                                                class="text-sm font-medium text-gray-900 dark:text-gray-400 px-6 py-4 text-left">
+                                                Fecha
+                                            </th>
                                         </tr>
-                                    @empty
-                                        <p class="text-sm text-center">No hay mantenimientos registrados</p>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($machine->maintenances as $maintenance)
+                                            <tr wire:click="openEditModal({{ $maintenance }})"
+                                                class="bg-white dark:bg-slate-300 border-b transition duration-300 ease-in-out hover:bg-slate-500 cursor-pointer">
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-600">
+                                                    {{ $maintenance->id }}
+                                                </td>
+                                                <td
+                                                    class="text-sm text-gray-900 dark:text-gray-600 font-light px-6 py-4 whitespace-nowrap">
+                                                    {{ substr($maintenance->problems, 0, 40) }}...
+                                                </td>
+                                                <td
+                                                    class="text-sm text-gray-900 dark:text-gray-600 font-light px-6 py-4 whitespace-nowrap">
+                                                    ${{ number_format($maintenance->cost, 2) }} MXN
+                                                </td>
+                                                <td
+                                                    class="text-sm text-gray-900 dark:text-gray-600 font-light px-6 py-4 whitespace-nowrap">
+                                                    {{ $maintenance->created_at->isoFormat('DD MMMM, YYYY') }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <p class="text-sm text-center">No hay mantenimientos registrados</p>
+                @endif
             @endif
 
         </x-slot>

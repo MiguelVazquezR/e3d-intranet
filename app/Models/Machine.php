@@ -28,8 +28,13 @@ class Machine extends Model implements HasMedia
     ];
 
     //relationships
-        public function maintenances()
+    public function maintenances()
     {
         return $this->hasMany(Maintenance::class);
+    }
+
+    public function spareParts()
+    {
+        return $this->hasMany(SparePart::class);
     }
 }

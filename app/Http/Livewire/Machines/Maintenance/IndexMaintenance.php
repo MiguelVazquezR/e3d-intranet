@@ -13,6 +13,7 @@ class IndexMaintenance extends Component
 
     protected $listeners = [
         'openModal',
+        'updateModel',
     ];
 
     // public $image_extensions = [
@@ -31,6 +32,12 @@ class IndexMaintenance extends Component
     {
         $this->machine = $machine;
         $this->open = true;
+    }
+
+    public function updateModel()
+    {
+        $this->machine = Machine::find($this->machine->id);
+        $this->render();
     }
 
     public function openCreateMaintenanceModal()

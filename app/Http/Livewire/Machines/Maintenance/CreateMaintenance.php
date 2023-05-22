@@ -62,7 +62,7 @@ class CreateMaintenance extends Component
 
         $this->reset();
 
-        $this->emitTo('machines.maintenance.index-maintenance', 'render');
+        $this->emitTo('machines.maintenance.index-maintenance', 'updateModel');
         $this->emit('success', 'Nuevo mantenimiento registrado');
     }
 

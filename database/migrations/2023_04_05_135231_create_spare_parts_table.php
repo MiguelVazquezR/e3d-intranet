@@ -17,6 +17,7 @@ class CreateSparePartsTable extends Migration
             $table->id();
 
             $table->string('name');
+            $table->unsignedInteger('quantity');
             $table->string('supplier');
             $table->unsignedFloat('cost');
             $table->text('description')->nullable();

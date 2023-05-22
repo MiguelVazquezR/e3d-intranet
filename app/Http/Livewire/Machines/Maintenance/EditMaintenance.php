@@ -73,7 +73,7 @@ class EditMaintenance extends Component
 
         $this->resetExcept(['maintenance']);
 
-        $this->emitTo('machines.maintenance.index-maintenance', 'render');
+        $this->emitTo('machines.maintenance.index-maintenance', 'updateModel');
         $this->emit('success', 'mantenimiento actualizado');
     }
 
