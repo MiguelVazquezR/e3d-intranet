@@ -49,7 +49,7 @@ class SearchForMaintenances extends Command
                 now()->diffInDays($machine->created_at) :
                 now()->diffInDays($lastMaintenanceDate);
 
-            if ($daysSinceLastMaintenance >= $machine->dias_mantenimiento) {
+            if ($daysSinceLastMaintenance >= $machine->days_next_maintenance) {
                 $this->sendMaintanenceNotification($machine);
             }
         }
@@ -59,11 +59,11 @@ class SearchForMaintenances extends Command
 
     private function sendMaintanenceNotification(Machine $machine)
     {
-        $users = User::where('active', 1)->get();
-        foreach ($users as $user) {
-            // notify to all active users
-            $user->notify(new MaintenanceRequiredNotificaton($machine));
-        }
+        // $users = User::where('active', 1)->get();
+        // foreach ($users as $user) {
+        //     // notify to all active users
+        //     $user->notify(new MaintenanceRequiredNotificaton($machine));
+        // }
 
         $this->info('Notified for machine: ' . $machine->name);
     }

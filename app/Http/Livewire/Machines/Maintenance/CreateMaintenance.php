@@ -17,7 +17,7 @@ class CreateMaintenance extends Component
         $actions,
         $responsible,
         $cost,
-        $maintenance_type;
+        $maintenance_type = 0;
 
     protected $listeners = [
         'render',
@@ -50,6 +50,8 @@ class CreateMaintenance extends Component
     public function store()
     {
         $validated = $this->validate();
+
+        // $validated['maintenance_type'] = intval($validated['maintenance_type']) - 1;
 
         $maintenance = Maintenance::create($validated + ['machine_id' => $this->machine_id]);
 

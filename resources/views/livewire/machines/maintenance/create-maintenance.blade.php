@@ -42,6 +42,7 @@
                     <option value="0">Preventivo</option>
                     <option value="1">Correctivo</option>
                 </select>
+                <x-jet-input-error for="maintenance_type" class="mt-3" />
             </div>
 
         </x-slot>
