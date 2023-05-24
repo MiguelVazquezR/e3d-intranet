@@ -30,16 +30,6 @@ class EditSparePart extends Component
         'spare_part.description' => 'required',
     ];
 
-    public function updatingOpen()
-    {
-        if ($this->open == true) {
-            $this->resetExcept([
-                'open',
-                'spare_part',
-            ]);
-        }
-    }
-
     public function mount()
     {
         $this->spare_part = new SparePart();

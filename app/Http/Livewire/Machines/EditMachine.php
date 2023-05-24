@@ -24,12 +24,14 @@ class EditMachine extends Component
 
     protected $rules = [
         'machine.name' => 'required',
+        'machine.serial_number' => 'nullable',
         'machine.weight' => 'nullable',
         'machine.width' => 'nullable',
         'machine.large' => 'nullable',
         'machine.height' => 'nullable',
         'machine.cost' => 'nullable',
-        'aquisition_date' => 'nullable',
+        'machine.days_next_maintenance' => 'required|numeric|min:15',
+        'aquisition_date' => 'required',
         'files.*' => 'mimes:jpg,png,jpeg,gif,svg,pdf,docx,doc,txt,xlsx,xlsm,xlsb,xls'
     ];
 

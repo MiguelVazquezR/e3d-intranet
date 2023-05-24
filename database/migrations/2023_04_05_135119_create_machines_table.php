@@ -25,6 +25,7 @@ class CreateMachinesTable extends Migration
             $table->unsignedFloat('cost')->nullable();
             $table->string('supplier')->nullable();
             $table->date('aquisition_date')->nullable();
+            $table->unsignedSmallInteger('days_next_maintenance');
 
             $table->timestamps();
         });

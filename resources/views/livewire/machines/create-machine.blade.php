@@ -4,9 +4,9 @@
     </div>
 
     @can('crear_maquinas')
-    <x-jet-button wire:click="openModal">
-       + agregar
-    </x-jet-button>
+        <x-jet-button wire:click="openModal">
+            + agregar
+        </x-jet-button>
     @endcan
 
     <x-jet-dialog-modal wire:model="open">
@@ -58,12 +58,16 @@
                 <x-jet-input wire:model.defer="aquisition_date" type="date" class="w-full mt-2 input" />
                 <x-jet-input-error for="aquisition_date" class="mt-3" />
             </div>
+            <div>
+                <x-jet-label value="Mantenimiento cada (días)" class="mt-3 dark:text-gray-400" />
+                <x-jet-input wire:model.defer="days_next_maintenance" type="number" class="w-full mt-2 input" />
+                <x-jet-input-error for="days_next_maintenance" class="mt-3" />
+            </div>
             <div class="mt-3">
                 <x-jet-label value="Archivos (manuales, imagenes, planos, etc)" class="dark:text-gray-400" />
-                <input type="file" id="files" wire:model="files"
-                    placeholder="Seleccionar" multiple>
+                <input type="file" id="files" wire:model="files" placeholder="Seleccionar" multiple>
             </div>
-           
+
         </x-slot>
 
         <x-slot name="footer">
@@ -71,7 +75,8 @@
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-button wire:click="store" wire:loading.attr="disabled" wire:target="store" class="disabled:opacity-25">
+            <x-jet-button wire:click="store" wire:loading.attr="disabled" wire:target="store"
+                class="disabled:opacity-25">
                 Crear
             </x-jet-button>
         </x-slot>

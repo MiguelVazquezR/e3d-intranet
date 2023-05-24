@@ -63,7 +63,8 @@
                             <div>
                                 <a href="{{ $media->getUrl() }}" target="_blank"
                                     class="text-blue-400">{{ $media->name }}</a>
-                                <i wire:click="deleteFile('{{ $media->uuid }}')" class="far fa-trash-alt text-red-500 cursor-pointer ml-3"></i>
+                                <i wire:click="deleteFile('{{ $media->uuid }}')"
+                                    class="far fa-trash-alt text-red-500 cursor-pointer ml-3"></i>
                             </div>
                         @empty
                             <p class="text-sm text-center">No hay archivos adjuntos a esta máquina</p>
@@ -71,6 +72,11 @@
                     </div>
                 </div>
                 <hr class="my-2">
+                <div>
+                    <x-jet-label value="Mantenimiento cada (días)" class="mt-3 dark:text-gray-400" />
+                    <x-jet-input wire:model.defer="machine.days_next_maintenance" type="number" class="w-full mt-2 input" />
+                    <x-jet-input-error for="machine.days_next_maintenance" class="mt-3" />
+                </div>
                 <div class="mt-3">
                     <x-jet-label value="Archivos (manuales, imagenes, planos, etc)" class="dark:text-gray-400" />
                     <input type="file" id="files" wire:model="files" placeholder="Seleccionar" multiple>

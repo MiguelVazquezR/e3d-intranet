@@ -20,6 +20,7 @@ class CreateMachine extends Component
         $height,
         $cost,
         $aquisition_date,
+        $days_next_maintenance,
         $files = [];
 
     protected $listeners = [

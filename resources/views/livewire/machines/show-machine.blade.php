@@ -47,6 +47,10 @@
                             <p>--</p>
                         @endif
                     </div>
+                    <div>
+                        <x-jet-label value="Mantenimiento cada" class="mt-3" />
+                        <p>{{ $machine->days_next_maintenance }} días</p>
+                    </div>
                     <div class="col-span-full">
                         <h2 class="my-2 dark:text-gray-300 text-gray-700 text-lg">
                             <i class="fas fa-paperclip"></i>
