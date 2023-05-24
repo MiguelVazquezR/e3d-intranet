@@ -59,11 +59,11 @@ class SearchForMaintenances extends Command
 
     private function sendMaintanenceNotification(Machine $machine)
     {
-        // $users = User::where('active', 1)->get();
-        // foreach ($users as $user) {
-        //     // notify to all active users
-        //     $user->notify(new MaintenanceRequiredNotificaton($machine));
-        // }
+        $users = User::where('active', 1)->get();
+        foreach ($users as $user) {
+            // notify to all active users
+            $user->notify(new MaintenanceRequiredNotificaton($machine));
+        }
 
         $this->info('Notified for machine: ' . $machine->name);
     }
