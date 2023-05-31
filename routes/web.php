@@ -171,6 +171,11 @@ Route::get('/clear-cache', function () {
     return "app cache clear!";
 });
 
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return "app storage!";
+});
+
 Route::get('event-cache', function () {
     Artisan::call('event:clear');
     return "events cache clear!";

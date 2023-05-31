@@ -36,6 +36,7 @@ class CreateMachine extends Component
         'height' => 'nullable',
         'cost' => 'nullable',
         'aquisition_date' => 'nullable',
+        'days_next_maintenance' => 'required|numeric|min:1',
         'files.*' => 'mimes:jpg,png,jpeg,gif,svg,pdf,docx,doc,txt,xlsx,xlsm,xlsb,xls'
     ];
 

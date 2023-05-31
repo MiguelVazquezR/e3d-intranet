@@ -21,6 +21,7 @@ class Machine extends Model implements HasMedia
         'cost',
         'supplier',
         'aquisition_date',
+        'days_next_maintenance'
     ];
 
     protected $dates = [

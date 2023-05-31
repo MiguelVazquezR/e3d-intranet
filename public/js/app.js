@@ -5620,6 +5620,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./alerts */ "./resources/js/alerts.js");
 
+__webpack_require__(/*! ./utils */ "./resources/js/utils.js");
+
 __webpack_require__(/*! ./geolocation */ "./resources/js/geolocation.js");
 
 __webpack_require__(/*! ./reminder */ "./resources/js/reminder.js");
@@ -5716,6 +5718,19 @@ function emitEvent() {
   Livewire.emitTo('reminder.drop-down', 'showNotification');
   Livewire.emitTo('reminder.drop-down-mobile', 'showNotification');
 }
+
+/***/ }),
+
+/***/ "./resources/js/utils.js":
+/*!*******************************!*\
+  !*** ./resources/js/utils.js ***!
+  \*******************************/
+/***/ (() => {
+
+Livewire.on('setCookie', function (tokenId) {
+  // Establecer la cookie en el navegador
+  document.cookie = 'authorized_device_token=' + tokenId + '; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+});
 
 /***/ }),
 

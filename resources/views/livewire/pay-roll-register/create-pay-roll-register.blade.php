@@ -16,6 +16,13 @@
         </x-slot>
 
         <x-slot name="content">
+            @can('registrar_dispositivos_para_asistencia')
+                @unless (isset($_COOKIE['authorized_device_token']))
+                    <x-jet-button wire:click="authorizeDevice">
+                        Autorizar este dispositivo para asistencias
+                    </x-jet-button>
+                @endunless
+            @endcan
             <div class="lg:grid lg:grid-cols-2 lg:gap-2">
                 @can('ver_todas_las_nóminas')
                     <div>
@@ -33,8 +40,8 @@
                                 <span class="relative text-sm">Día terminado</span>
                             </span>
                         @else
-                            <button id="geolocation" wire:loading.attr="disabled" wire:target="verifyLocation"
-                                wire:click="verifyLocation"
+                            <button id="geolocation" wire:loading.attr="disabled" wire:target="verifyAuthorizedDevice"
+                                wire:click="verifyAuthorizedDevice"
                                 class="mt-3 lg:mt-11 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-1 text-center disabled:opacity-25 disabled:cursor-not-allowed">
                                 Registrar {{ $user->nextPayRollRegister() }}
                             </button>
@@ -52,7 +59,7 @@
                     </div>
                     <div class="flex flex-col justify-center h-full col-span-full">
                         <!-- banner -->
-                        <div x-data="{ open: true }" x-show="open"
+                        {{-- <div x-data="{ open: true }" x-show="open"
                             class="w-11/12 flex justify-between mx-auto dark:bg-pink-300 bg-pink-100 rounded-lg p-4 my-6 text-sm font-medium text-pink-700"
                             role="alert">
                             <div class="w-11/12 flex">
@@ -66,7 +73,7 @@
                             </div>
 
                             <i @click="open = false" class="fal fa-times text-right hover:cursor-pointer"></i>
-                        </div>
+                        </div> --}}
                         {{-- @if ($user->hasRole('Auxiliar_producción')) --}}
                         @if ($user->additionalTimeRequest())
                             <div
@@ -188,8 +195,7 @@
                                                         @else
                                                             <td colspan="4"
                                                                 class="p-2 whitespace-nowrap text-left text-lg font-bold">
-                                                                <div
-                                                                    class="bg-green-100 rounded-lg text-green-600 p-2">
+                                                                <div class="bg-green-100 rounded-lg text-green-600 p-2">
                                                                     {{ $register }}</div>
                                                             </td>
                                                         @endif
@@ -323,5 +329,4 @@
             </x-jet-danger-button>
         </x-slot>
     </x-jet-confirmation-modal>
-
 </div>

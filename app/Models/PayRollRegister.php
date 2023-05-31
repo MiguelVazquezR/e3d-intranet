@@ -58,7 +58,7 @@ class PayRollRegister extends Model
         
         $minutes_late = $checkin_time->diffInMinutes($attendence_time, false);
 
-        if ($minutes_late > 0) {
+        if ($minutes_late > 1) {
             $this->late = $minutes_late;
         } else {
             $this->late = 0;

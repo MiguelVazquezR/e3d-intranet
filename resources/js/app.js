@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('./alerts');
+require('./utils');
 require('./geolocation');
 require('./reminder');
 

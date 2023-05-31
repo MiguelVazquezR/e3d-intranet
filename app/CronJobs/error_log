@@ -1,0 +1,52 @@
+[23-May-2023 19:27:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:27:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:27:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:28:01 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:28:01 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:28:01 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:29:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:29:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:29:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:30:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:30:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[23-May-2023 19:30:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 00:00:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 00:00:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 00:00:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:06:01 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:06:01 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:06:01 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:07:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:07:02 America/Mexico_City] PHP Warning:  require(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:07:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:3
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 3
+[24-May-2023 16:08:02 America/Mexico_City] PHP Warning:  require_once(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/bootstrap/app.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 4
+[24-May-2023 16:08:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/bootstrap/app.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:4
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 4
+[24-May-2023 16:09:01 America/Mexico_City] PHP Warning:  require_once(/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/bootstrap/app.php): Failed to open stream: No such file or directory in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 4
+[24-May-2023 16:09:01 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required '/home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/bootstrap/app.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php:4
+Stack trace:
+#0 {main}
+  thrown in /home1/dtwcommx/intranetemblems3d.dtw.com.mx/app/CronJobs/SearchForMaintenances.php on line 4

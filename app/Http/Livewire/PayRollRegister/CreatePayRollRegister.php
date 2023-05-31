@@ -9,7 +9,10 @@ use App\Models\PayRoll;
 use App\Models\PayRollMoreTime;
 use App\Models\PayRollRegister;
 use App\Models\User;
+use App\Models\AuthorizedComputer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class CreatePayRollRegister extends Component
@@ -184,6 +187,42 @@ class CreatePayRollRegister extends Component
         $this->current_week_registers = $this->user->currentWeekRegisters();
     }
 
+    public function verifyAuthorizedDevice()
+    {
+        if (Auth::user()->can('home_office')) {
+            $this->registerTime();
+        } else {
+            $userAgent = request()->header('User-Agent');
+            $token = $_COOKIE['authorized_device_token'] ?? 'noToken';
+            $authorizedComputer = AuthorizedComputer::where('user_agent', $userAgent)
+                ->where('token', $token)
+                ->first();
+
+            if (is_null($authorizedComputer)) {
+                $this->emit('error', "Dispositivo no autorizado para registro de asistencias");
+            } else {
+                $this->registerTime();
+                $this->current_week_registers = $this->user->currentWeekRegisters();
+            }
+        }
+    }
+
+    public function authorizeDevice()
+    {
+        $token = Str::random(40);
+        $authorized_device = AuthorizedComputer::create([
+            'ip' => request()->ip() ?? 'null',
+            'token' => $token,
+            'user_agent' => request()->header('User-Agent')
+        ]);
+
+        if ($authorized_device) {
+            // $cookie = Cookie::make('authorized_device_token', $token, 432000, null, null, true, true);
+            $this->emit('setCookie', $token);
+            $this->emit('success', "Este dispositivo ha sido autorizado para registrar asistencias");
+        }
+    }
+
     public function registerTime()
     {
         $now = date('H:i');
@@ -196,7 +235,7 @@ class CreatePayRollRegister extends Component
 
     public function verifyUser()
     {
-        if($this->password === "admin123") {
+        if ($this->password === "e3d123") {
             $this->update();
             $this->reset(['verification_failed', 'open_confirm']);
         } else {
@@ -259,7 +298,7 @@ class CreatePayRollRegister extends Component
         $this->emitTo('pay-roll-more-time.create', 'openModal');
         $this->current_week_registers = $this->user->currentWeekRegisters();
     }
-    
+
     public function editRequest(PayRollMoreTime $time_request)
     {
         $this->emitTo('pay-roll-more-time.edit', 'openModal', $time_request);
