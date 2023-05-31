@@ -188,7 +188,7 @@ class CreatePayRollRegister extends Component
     }
 
     public function verifyAuthorizedDevice()
-    {
+    { 
         if (Auth::user()->can('home_office')) {
             $this->registerTime();
         } else {
