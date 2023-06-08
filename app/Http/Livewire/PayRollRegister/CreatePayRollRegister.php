@@ -194,8 +194,7 @@ class CreatePayRollRegister extends Component
         } else {
             $userAgent = request()->header('User-Agent');
             $token = $_COOKIE['authorized_device_token'] ?? 'noToken';
-            $authorizedComputer = AuthorizedComputer::where('user_agent', $userAgent)
-                ->where('token', $token)
+            $authorizedComputer = AuthorizedComputer::where('token', $token)
                 ->first();
 
             if (is_null($authorizedComputer)) {
